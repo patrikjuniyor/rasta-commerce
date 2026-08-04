@@ -6,12 +6,12 @@ import path from 'node:path';
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, '..');
 const pluginSlug = 'rasta-zarinpal-gateway';
-const pluginVersion = '1.0.0';
+const pluginVersion = '1.0.1';
 const releaseDirectory = path.join(root, 'release');
 const sourceDirectory = path.join(root, 'plugins', pluginSlug);
 const pluginDirectory = path.join(releaseDirectory, pluginSlug);
 const zipFile = path.join(releaseDirectory, `${pluginSlug}-${pluginVersion}.zip`);
-const includes = ['rasta-zarinpal-gateway.php', 'includes', 'README.md', 'LICENSE'];
+const includes = ['rasta-zarinpal-gateway.php', 'includes', 'languages', 'README.md', 'LICENSE'];
 
 await mkdir(releaseDirectory, { recursive: true });
 await rm(pluginDirectory, { recursive: true, force: true });

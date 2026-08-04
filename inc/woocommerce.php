@@ -355,7 +355,14 @@ function rasta_render_sticky_add_to_cart() {
 				</div>
 			</div>
 			<?php if ( $can_ajax_add ) : ?>
-				<a class="button rasta-sticky-cart__button add_to_cart_button ajax_add_to_cart" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-quantity="1" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به سبد خرید', 'rasta-commerce' ), $product->get_name() ) ); ?>">
+				<?php
+				$sticky_cart_label = sprintf(
+					/* translators: %s: product name. */
+					__( 'افزودن %s به سبد خرید', 'rasta-commerce' ),
+					$product->get_name()
+				);
+				?>
+				<a class="button rasta-sticky-cart__button add_to_cart_button ajax_add_to_cart" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-quantity="1" aria-label="<?php echo esc_attr( $sticky_cart_label ); ?>">
 					<?php rasta_icon( 'cart' ); ?>
 					<?php esc_html_e( 'افزودن به سبد', 'rasta-commerce' ); ?>
 				</a>

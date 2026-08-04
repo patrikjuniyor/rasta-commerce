@@ -17,10 +17,18 @@ const requiredThemeFiles = [
   'theme.json',
   'screenshot.png',
   'inc/ajax.php',
+  'inc/jalali.php',
   'inc/woocommerce.php',
   'woocommerce/content-product.php',
   'assets/js/theme.js',
   'assets/images/hero-showcase.svg',
+  'assets/fonts/Vazirmatn-Regular.woff2',
+  'assets/fonts/OFL-Vazirmatn.txt',
+  'languages/rasta-commerce.pot',
+  'plugins/rasta-zarinpal-gateway/languages/rasta-zarinpal-gateway.pot',
+  'marketplace/theme-child/rasta-commerce-child/style.css',
+  'marketplace/help.pdf',
+  'marketplace/import-files/rasta-commerce-starter.xml',
   'plugins/rasta-zarinpal-gateway/rasta-zarinpal-gateway.php',
   'plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php',
   'tests/php/zarinpal-gateway-test.php',
@@ -36,10 +44,11 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 1.2.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 1.3.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
+  assert.match(style, /Vazirmatn-Regular\.woff2/);
 });
 
 test('uses WordPress lifecycle hooks and declares WooCommerce support', () => {
@@ -90,6 +99,14 @@ test('protects quick view, collection, and comparison requests with a separate n
   assert.match(setup, /toolsNonce/);
 });
 
+test('ships a native Jalali frontend date layer', () => {
+  const jalali = read('inc/jalali.php');
+  const templateTags = read('inc/template-tags.php');
+  assert.match(jalali, /function rasta_gregorian_to_jalali/);
+  assert.match(jalali, /فروردین/);
+  assert.match(templateTags, /rasta_get_the_jalali_date/);
+});
+
 test('ships product-discovery enhancements with opt-out controls', () => {
   const customizer = read('inc/customizer.php');
   const header = read('header.php');
@@ -115,6 +132,17 @@ test('renders client-side search results without raw HTML injection', () => {
   assert.match(script, /textContent\s*=/);
   assert.match(script, /new URL\(value, window\.location\.origin\)/);
   assert.match(script, /AbortController/);
+});
+
+test('ships marketplace preparation assets without claiming a missing demo is complete', () => {
+  const childTheme = read('marketplace/theme-child/rasta-commerce-child/style.css');
+  const marketplaceScript = read('scripts/package-marketplace.mjs');
+  const marketplaceReadme = read('marketplace/README.md');
+  assert.match(childTheme, /Template: rasta-commerce/);
+  assert.match(marketplaceScript, /MISSING-BEFORE-SUBMISSION/);
+  assert.match(marketplaceScript, /installer\.php/);
+  assert.match(marketplaceReadme, /marketplace:validate/);
+  assert.match(read('marketplace/import-files/rasta-commerce-starter.xml'), /<wp:wxr_version>1\.2<\/wp:wxr_version>/);
 });
 
 test('ships a standalone ZarinPal v4 gateway with server-side verification safeguards', () => {

@@ -15,3 +15,12 @@ release/
 # Local WordPress/runtime files
 wp-config.php
 wp-content/uploads/
+
+# Seller-provided marketplace submission files and generated packages
+marketplace/build/
+marketplace/release/
+marketplace/input/demo/installer.php
+marketplace/input/demo/*.zip
+marketplace/input/demo/*.dup
+marketplace/input/assets/*
+!marketplace/input/assets/README.md

@@ -14,13 +14,14 @@ if ( post_password_required() ) {
 		<h2 class="comments-title">
 			<?php
 			printf(
-				esc_html( _nx( 'یک دیدگاه', '%1$s دیدگاه', get_comments_number(), 'comments title', 'rasta-commerce' ) ),
+				/* translators: %s: number of comments. */
+				esc_html( _nx( '%1$s دیدگاه', '%1$s دیدگاه', get_comments_number(), 'comments title', 'rasta-commerce' ) ),
 				esc_html( number_format_i18n( get_comments_number() ) )
 			);
 			?>
 		</h2>
 		<ol class="comment-list">
-			<?php wp_list_comments( array( 'style' => 'ol', 'short_ping' => true ) ); ?>
+			<?php wp_list_comments( array( 'style' => 'ol', 'short_ping' => true, 'callback' => 'rasta_comment' ) ); ?>
 		</ol>
 		<?php the_comments_navigation(); ?>
 	<?php endif; ?>

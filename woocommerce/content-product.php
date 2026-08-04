@@ -16,7 +16,22 @@ if ( ! $product instanceof WC_Product || ! $product->is_visible() ) {
 	return;
 }
 
-$categories = wc_get_product_category_list( $product->get_id(), ', ' );
+$categories     = wc_get_product_category_list( $product->get_id(), ', ' );
+$quick_view_label = sprintf(
+	/* translators: %s: product name. */
+	__( 'نمایش سریع %s', 'rasta-commerce' ),
+	$product->get_name()
+);
+$wishlist_label = sprintf(
+	/* translators: %s: product name. */
+	__( 'افزودن %s به علاقه‌مندی‌ها', 'rasta-commerce' ),
+	$product->get_name()
+);
+$compare_label = sprintf(
+	/* translators: %s: product name. */
+	__( 'افزودن %s به مقایسه', 'rasta-commerce' ),
+	$product->get_name()
+);
 ?>
 <li <?php wc_product_class( 'rasta-product-card', $product ); ?>>
 	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
@@ -27,15 +42,15 @@ $categories = wc_get_product_category_list( $product->get_id(), ', ' );
 			</a>
 			<div class="rasta-product-card__utility">
 				<?php if ( rasta_feature_enabled( 'quick_view' ) ) : ?>
-					<button class="rasta-product-card__utility-button" type="button" data-quick-view-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'نمایش سریع %s', 'rasta-commerce' ), $product->get_name() ) ); ?>">
+						<button class="rasta-product-card__utility-button" type="button" data-quick-view-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-label="<?php echo esc_attr( $quick_view_label ); ?>">
 						<?php rasta_icon( 'eye' ); ?>
 					</button>
 				<?php endif; ?>
-				<button class="rasta-product-card__utility-button rasta-wishlist-button" type="button" data-wishlist-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به علاقه‌مندی‌ها', 'rasta-commerce' ), $product->get_name() ) ); ?>">
+					<button class="rasta-product-card__utility-button rasta-wishlist-button" type="button" data-wishlist-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( $wishlist_label ); ?>">
 					<?php rasta_icon( 'heart' ); ?>
 				</button>
 				<?php if ( rasta_feature_enabled( 'compare' ) ) : ?>
-					<button class="rasta-product-card__utility-button rasta-compare-button" type="button" data-compare-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به مقایسه', 'rasta-commerce' ), $product->get_name() ) ); ?>">
+						<button class="rasta-product-card__utility-button rasta-compare-button" type="button" data-compare-product="<?php echo esc_attr( $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( $compare_label ); ?>">
 						<?php rasta_icon( 'compare' ); ?>
 					</button>
 				<?php endif; ?>

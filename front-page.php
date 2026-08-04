@@ -161,7 +161,7 @@ if ( ! $hero_image ) {
 								<?php endif; ?>
 							</a>
 							<div class="rasta-journal-card__body">
-								<span class="rasta-journal-card__date"><?php echo esc_html( get_the_date() ); ?></span>
+								<span class="rasta-journal-card__date"><?php echo esc_html( rasta_get_the_jalali_date() ); ?></span>
 								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 								<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
 								<a class="rasta-text-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'ادامه مطلب', 'rasta-commerce' ); ?><?php rasta_icon( 'arrow-left' ); ?></a>

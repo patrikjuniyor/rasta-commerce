@@ -45,12 +45,20 @@ jobs:
       - name: Run ZarinPal gateway contract tests
         run: npm run test:gateway
 
-      - name: Build installable theme and gateway archives
+      - name: Run Jalali date contract tests
+        run: npm run test:jalali
+
+      - name: Build installable theme, child, and gateway archives
         run: npm run package
+
+      - name: Build marketplace preparation package
+        run: npm run marketplace:prepare
 
       - name: Upload installable archives
         uses: actions/upload-artifact@v7
         with:
           name: rasta-commerce-deliverables
-          path: release/*.zip
+          path: |
+            release/*.zip
+            marketplace/release/*.zip
           if-no-files-found: error

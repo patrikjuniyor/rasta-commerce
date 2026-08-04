@@ -154,7 +154,7 @@ function rasta_posted_on() {
 	$time_string = sprintf(
 		'<time class="entry-date published" datetime="%1$s">%2$s</time>',
 		esc_attr( get_the_date( DATE_W3C ) ),
-		esc_html( get_the_date() )
+		esc_html( rasta_get_the_jalali_date() )
 	);
 	?>
 	<div class="entry-meta">
@@ -162,6 +162,50 @@ function rasta_posted_on() {
 		<span aria-hidden="true">•</span>
 		<span><?php the_author(); ?></span>
 	</div>
+	<?php
+}
+
+/**
+ * Render a Jalali-aware comment item.
+ *
+ * @param WP_Comment $comment Comment object.
+ * @param array      $args    Comment list arguments.
+ * @param int        $depth   Depth in the thread.
+ * @return void
+ */
+function rasta_comment( $comment, $args, $depth ) {
+	$GLOBALS['comment'] = $comment; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	?>
+	<li id="comment-<?php comment_ID(); ?>" <?php comment_class(); ?>>
+		<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<?php echo get_avatar( $comment, 46 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core avatar markup. ?>
+					<b class="fn"><?php comment_author_link(); ?></b>
+				</div>
+				<div class="comment-metadata">
+					<time datetime="<?php echo esc_attr( get_comment_date( DATE_W3C ) ); ?>"><?php echo esc_html( rasta_jalali_date( 'j F Y', (int) get_comment_time( 'U', true ) ) ); ?></time>
+				</div>
+			</footer>
+			<?php if ( '0' === $comment->comment_approved ) : ?>
+				<p class="comment-awaiting-moderation"><?php esc_html_e( 'دیدگاه شما پس از تأیید نمایش داده می‌شود.', 'rasta-commerce' ); ?></p>
+			<?php endif; ?>
+			<div class="comment-content"><?php comment_text(); ?></div>
+			<div class="reply">
+				<?php
+				comment_reply_link(
+					array_merge(
+						$args,
+						array(
+							'add_below' => 'div-comment',
+							'depth'     => $depth,
+							'max_depth' => $args['max_depth'],
+						)
+					)
+				);
+				?>
+			</div>
+		</article>
 	<?php
 }
 
@@ -271,9 +315,14 @@ function rasta_render_product_categories() {
 			if ( is_wp_error( $link ) ) {
 				continue;
 			}
-			$image_id  = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
-			$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : false;
-			$icon_name = $icons[ $index % count( $icons ) ];
+			$image_id   = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
+			$image_url  = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : false;
+			$icon_name  = $icons[ $index % count( $icons ) ];
+			$count_text = sprintf(
+				/* translators: %s: number of products in the category. */
+				_n( '%s محصول', '%s محصول', (int) $term->count, 'rasta-commerce' ),
+				number_format_i18n( (int) $term->count )
+			);
 			?>
 			<a class="rasta-category-card" href="<?php echo esc_url( $link ); ?>">
 				<span class="rasta-category-card__visual">
@@ -284,7 +333,7 @@ function rasta_render_product_categories() {
 					<?php endif; ?>
 				</span>
 				<span class="rasta-category-card__title"><?php echo esc_html( $term->name ); ?></span>
-				<span class="rasta-category-card__count"><?php echo esc_html( sprintf( _n( '%s محصول', '%s محصول', (int) $term->count, 'rasta-commerce' ), number_format_i18n( (int) $term->count ) ) ); ?></span>
+					<span class="rasta-category-card__count"><?php echo esc_html( $count_text ); ?></span>
 			</a>
 		<?php endforeach; ?>
 	</div>

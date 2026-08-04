@@ -3,7 +3,7 @@
  * Plugin Name: Rasta ZarinPal Gateway for WooCommerce
  * Plugin URI: https://github.com/patrikjuniyor/rasta-commerce
  * Description: A secure, lightweight ZarinPal v4 payment gateway for WooCommerce, designed to complement Rasta Commerce.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.4
  * Requires PHP: 8.0
  * Requires Plugins: woocommerce
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RASTA_ZARINPAL_VERSION', '1.0.0' );
+define( 'RASTA_ZARINPAL_VERSION', '1.0.1' );
 define( 'RASTA_ZARINPAL_FILE', __FILE__ );
 define( 'RASTA_ZARINPAL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RASTA_ZARINPAL_URL', plugin_dir_url( __FILE__ ) );
@@ -31,6 +31,8 @@ define( 'RASTA_ZARINPAL_URL', plugin_dir_url( __FILE__ ) );
  * @return void
  */
 function rasta_zarinpal_gateway_init() {
+	load_plugin_textdomain( 'rasta-zarinpal-gateway', false, dirname( plugin_basename( RASTA_ZARINPAL_FILE ) ) . '/languages' );
+
 	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 		add_action( 'admin_notices', 'rasta_zarinpal_missing_woocommerce_notice' );
 		return;

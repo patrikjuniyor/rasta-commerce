@@ -1,3 +1,19 @@
+@font-face {
+  font-family: vazirmatn;
+  src: url('../fonts/Vazirmatn-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: vazirmatn;
+  src: url('../fonts/Vazirmatn-Bold.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
 :root {
   --rasta-editor-ink: #182033;
   --rasta-editor-accent: #f25c54;

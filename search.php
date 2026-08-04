@@ -11,7 +11,15 @@ get_header();
 	<div class="rasta-container rasta-reading-width">
 		<header class="rasta-page-header">
 			<p class="rasta-kicker"><?php esc_html_e( 'نتایج جست‌وجو', 'rasta-commerce' ); ?></p>
-			<h1><?php printf( esc_html__( 'نتایج برای «%s»', 'rasta-commerce' ), esc_html( get_search_query() ) ); ?></h1>
+				<h1>
+					<?php
+					printf(
+						/* translators: %s: search query. */
+						esc_html__( 'نتایج برای «%s»', 'rasta-commerce' ),
+						esc_html( get_search_query() )
+					);
+					?>
+				</h1>
 		</header>
 		<?php if ( have_posts() ) : ?>
 			<div class="rasta-search-page-results">

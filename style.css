@@ -2,7 +2,7 @@
  * Theme Name: Rasta Commerce
  * Author: Rasta Commerce Contributors
  * Description: A fast, accessible, Persian-first RTL WooCommerce theme with a polished storefront experience.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 6.4
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -11,6 +11,30 @@
  * Text Domain: rasta-commerce
  * Tags: e-commerce, woocommerce, rtl-language-support, right-to-left, custom-logo, custom-menu, featured-images, full-width-template, blog, translation-ready
  */
+
+@font-face {
+  font-family: vazirmatn;
+  src: url('assets/fonts/Vazirmatn-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: vazirmatn;
+  src: url('assets/fonts/Vazirmatn-Medium.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: vazirmatn;
+  src: url('assets/fonts/Vazirmatn-Bold.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
 
 :root {
   --rasta-ink: #182033;

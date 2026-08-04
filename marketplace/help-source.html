@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <title>راهنمای راه‌اندازی راستا کامرس</title>
+  <style>
+    @font-face { font-family: vazirmatn; src: url('../assets/fonts/Vazirmatn-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: vazirmatn; src: url('../assets/fonts/Vazirmatn-Bold.woff2') format('woff2'); font-weight: 700; }
+    @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+    * { box-sizing: border-box; }
+    body { color: #182033; font-family: vazirmatn, sans-serif; font-size: 11pt; line-height: 2; }
+    h1, h2, h3 { color: #182033; font-weight: 700; line-height: 1.5; }
+    h1 { margin: 0 0 8mm; font-size: 25pt; }
+    h2 { margin: 10mm 0 4mm; padding-bottom: 2mm; border-bottom: 1px solid #dce2ec; font-size: 16pt; }
+    h3 { margin: 6mm 0 2mm; font-size: 12.5pt; }
+    p, li { margin: 0 0 2mm; }
+    ul, ol { margin: 0 0 4mm; padding-right: 6mm; }
+    .hero { margin-bottom: 9mm; padding: 12mm; border-radius: 6mm; background: linear-gradient(135deg, #182033, #315bd8); color: #fff; }
+    .hero h1 { color: #fff; margin: 0 0 3mm; }
+    .hero p { margin: 0; color: #e5ecff; }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; padding: 5mm; border: 1px solid #dce2ec; border-radius: 4mm; background: #f7f8fb; }
+    .notice { margin: 5mm 0; padding: 4mm 5mm; border-right: 4px solid #f25c54; border-radius: 2mm; background: #fff0ed; }
+    code { direction: ltr; display: inline-block; padding: 0 1.5mm; border-radius: 1mm; background: #edf1f8; font-family: monospace; font-size: 9.5pt; }
+    table { width: 100%; margin: 4mm 0; border-collapse: collapse; font-size: 9.5pt; }
+    th, td { padding: 3mm; border: 1px solid #dce2ec; text-align: right; vertical-align: top; }
+    th { background: #f1f5ff; }
+    a { color: #315bd8; text-decoration: none; }
+    .page-break { break-before: page; }
+    .footer { margin-top: 12mm; color: #6d778b; font-size: 8.5pt; text-align: center; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>راهنمای راه‌اندازی راستا کامرس</h1>
+    <p>قالب فروشگاهی RTL-first برای WordPress و WooCommerce</p>
+  </section>
+
+  <div class="meta">
+    <div><strong>نسخه قالب:</strong> 1.3.0 یا جدیدتر</div>
+    <div><strong>نسخه افزونه زرین‌پال:</strong> 1.0.1 یا جدیدتر</div>
+    <div><strong>WordPress:</strong> 6.4 یا جدیدتر</div>
+    <div><strong>PHP:</strong> 8.0 یا جدیدتر</div>
+  </div>
+
+  <div class="notice"><strong>پیش از شروع:</strong> از سایت فعلی نسخه پشتیبان کامل بگیرید. نصب آسان فقط برای راه‌اندازی سایت تازه توصیه می‌شود.</div>
+
+  <h2>1. محتویات پکیج</h2>
+  <ul>
+    <li><strong>Theme:</strong> فایل <code>rasta-commerce-1.3.0.zip</code> برای نصب قالب اصلی و در صورت ارائه فایل child theme.</li>
+    <li><strong>Plugins:</strong> افزونه‌های ضروری قالب؛ از جمله افزونه مستقل درگاه زرین‌پال در صورت نیاز.</li>
+    <li><strong>Import Files:</strong> فایل‌های درون‌ریزی یا بسته نصب آسان دمو.</li>
+    <li><strong>help.pdf:</strong> همین راهنمای فارسی.</li>
+  </ul>
+
+  <h2>2. نصب قالب</h2>
+  <ol>
+    <li>وارد پیشخوان WordPress شوید.</li>
+    <li>به <strong>نمایش ← پوسته‌ها ← افزودن پوسته ← بارگذاری پوسته</strong> بروید.</li>
+    <li>فایل <code>rasta-commerce-1.3.0.zip</code> را انتخاب، نصب و فعال کنید.</li>
+    <li>افزونه WooCommerce را نصب و فعال کنید.</li>
+    <li>از <strong>نمایش ← فهرست‌ها</strong> یک فهرست بسازید و آن را به جایگاه «منوی اصلی» اختصاص دهید.</li>
+  </ol>
+
+  <h3>استفاده از child theme</h3>
+  <p>اگر می‌خواهید CSS یا hookهای PHP را تغییر دهید، ابتدا قالب اصلی و سپس child theme را نصب کنید و child theme را فعال نمایید. این کار باعث می‌شود تغییرات شما هنگام آپدیت قالب اصلی حذف نشوند.</p>
+
+  <h2>3. نصب آسان و درون‌ریزی دمو</h2>
+  <p>در صورت دریافت بسته Duplicator، فایل <code>installer.php</code> و archive دمو را در ریشه هاست یک دامنه یا زیردامنه خالی قرار دهید و سپس آدرس <code>https://your-domain/installer.php</code> را باز کنید.</p>
+  <ul>
+    <li>برای cPanel از راهنمای رسمی: <a href="https://www.rtl-theme.com/blog/easy-installation-package/">نصب آسان در cPanel</a></li>
+    <li>برای DirectAdmin از راهنمای رسمی: <a href="https://www.rtl-theme.com/blog/quick-install-in-directadmin/">نصب آسان در DirectAdmin</a></li>
+    <li>برای localhost از راهنمای رسمی: <a href="https://www.rtl-theme.com/blog/installation-package-on-localhost/">نصب آسان در localhost</a></li>
+  </ul>
+  <div class="notice"><strong>هشدار:</strong> بسته نصب آسان اطلاعات پایگاه‌داده مقصد را جایگزین می‌کند. روی سایت فعال یا فروشگاه دارای سفارش از آن استفاده نکنید.</div>
+
+  <h2>4. شخصی‌سازی ویترین</h2>
+  <p>به <strong>نمایش ← سفارشی‌سازی</strong> بروید.</p>
+  <table>
+    <thead><tr><th>بخش</th><th>کاربرد</th></tr></thead>
+    <tbody>
+      <tr><td>ویترین راستا</td><td>رنگ اصلی و ثانویه، نوار اطلاع‌رسانی، متن و تصویر هیرو، شبکه‌های اجتماعی</td></tr>
+      <tr><td>ابزارهای خرید راستا</td><td>نمایش سریع، مقایسه، علاقه‌مندی، محصولات اخیراً دیده‌شده، sticky cart، شمارش‌گر تخفیف و آستانه ارسال رایگان</td></tr>
+      <tr><td>WooCommerce</td><td>واحد پول، مالیات، حمل‌ونقل، پرداخت و تصاویر محصول</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="page-break">5. تنظیم WooCommerce</h2>
+  <ol>
+    <li>از <strong>WooCommerce ← تنظیمات ← عمومی</strong> واحد پول و نشانی فروشگاه را تنظیم کنید.</li>
+    <li>از بخش <strong>محصولات</strong> دسته‌بندی، ویژگی، موجودی و تصویر محصولات را وارد کنید.</li>
+    <li>برای نمایش صحیح هشدار موجودی پایین، گزینه مدیریت موجودی را برای محصول فعال کنید.</li>
+    <li>برای شمارش‌گر تخفیف، در اطلاعات محصول تاریخ پایان فروش ویژه تعیین کنید.</li>
+    <li>برای نوار ارسال رایگان، مبلغ حداقل را از بخش «ابزارهای خرید راستا» وارد کنید.</li>
+  </ol>
+
+  <h2>6. راه‌اندازی درگاه زرین‌پال</h2>
+  <ol>
+    <li>فایل <code>rasta-zarinpal-gateway-1.0.1.zip</code> را از <strong>افزونه‌ها ← افزودن ← بارگذاری افزونه</strong> نصب و فعال کنید.</li>
+    <li>به <strong>WooCommerce ← تنظیمات ← پرداخت‌ها ← زرین‌پال</strong> بروید.</li>
+    <li>Merchant ID را وارد کنید، عنوان درگاه را بررسی و درگاه را فعال کنید.</li>
+    <li>ابتدا گزینه Sandbox را فعال کنید و با UUID آزمایشی تست کنید.</li>
+    <li>پس از تأیید، Sandbox را خاموش و Merchant ID واقعی زرین‌پال را وارد کنید.</li>
+  </ol>
+  <p>درگاه پیش از کامل کردن سفارش، Authority بازگشتی را با سفارش تطبیق می‌دهد و verify سمت سرور انجام می‌دهد. شماره پیگیری زرین‌پال در صفحه تشکر و یادداشت سفارش نمایش داده می‌شود.</p>
+
+  <h2>7. به‌روزرسانی امن</h2>
+  <ol>
+    <li>از فایل‌ها و پایگاه‌داده نسخه پشتیبان بگیرید.</li>
+    <li>تغییرات اختصاصی را در child theme نگه‌داری کنید.</li>
+    <li>نسخه جدید قالب یا افزونه را از بخش دانلودهای راست چین دریافت کنید.</li>
+    <li>پس از آپدیت، cache را پاک و صفحات فروشگاه، سبد، پرداخت و حساب کاربری را تست کنید.</li>
+    <li>درگاه زرین‌پال را ابتدا با یک سفارش Sandbox یا کم‌مبلغ بررسی کنید.</li>
+  </ol>
+
+  <h2>8. رفع خطاهای متداول</h2>
+  <table>
+    <thead><tr><th>مشکل</th><th>راه‌حل</th></tr></thead>
+    <tbody>
+      <tr><td>دمو کامل نمایش داده نمی‌شود</td><td>نسخه PHP، محدودیت حافظه، permalinks و فعال بودن WooCommerce را بررسی کنید؛ سپس درون‌ریزی را روی سایت تازه تکرار کنید.</td></tr>
+      <tr><td>زرین‌پال در پرداخت نمایش داده نمی‌شود</td><td>Merchant ID، فعال بودن درگاه، واحد پول IRR/IRT و فعال بودن WooCommerce را بررسی کنید.</td></tr>
+      <tr><td>بازگشت از پرداخت ناموفق است</td><td>HTTPS، permalinkها، دامنه مورد تأیید زرین‌پال و لاگ WooCommerce را بررسی کنید.</td></tr>
+      <tr><td>استایل تغییر کرده است</td><td>cache مرورگر و افزونه cache را پاک کنید؛ در صورت وجود minify، فایل‌های CSS/JS قالب را از ترکیب نادرست مستثنا کنید.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">راستا کامرس — راهنمای فارسی راه‌اندازی و نگه‌داری محصول</div>
+</body>
+</html>
