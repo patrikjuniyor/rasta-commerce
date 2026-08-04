@@ -49,16 +49,20 @@
 
 ### نصب از ZIP
 
-1. از بخش **Releases** فایل `rasta-commerce-1.3.0.zip` را دریافت کنید، یا محلی بسازید:
+1. از بخش **Releases** فایل `rasta-commerce-1.4.0.zip` را دریافت کنید، یا محلی بسازید:
    ```bash
    npm ci
    npm run package
    ```
 2. در پیشخوان وردپرس به **نمایش ← پوسته‌ها ← افزودن پوسته ← بارگذاری پوسته** بروید.
-3. فایل `release/rasta-commerce-1.3.0.zip` را بارگذاری و فعال کنید.
+3. فایل `release/rasta-commerce-1.4.0.zip` را بارگذاری و فعال کنید.
 4. افزونه‌ی WooCommerce را نصب/فعال کنید.
 5. از **نمایش ← فهرست‌ها**، فهرست «منوی اصلی» را تنظیم کنید.
 6. از **نمایش ← سفارشی‌سازی ← ویترین راستا** رنگ‌ها و محتوای صفحه‌ی اول را شخصی‌سازی کنید؛ سپس در **ابزارهای خرید راستا** نمایش سریع، مقایسه، محصولات دیده‌شده، نوار خرید و آستانه ارسال رایگان را متناسب با فروشگاه تنظیم کنید.
+
+### صفحه‌ساز Elementor
+
+برای ساخت و بازتولید صفحه‌های فروشگاهی با Elementor، افزونه `rasta-commerce-core-1.0.0.zip` را نصب کنید. پس از فعال‌سازی Elementor، ده ویجت فارسی در دسته «راستا کامرس» شامل Hero، محصول، دسته‌بندی، بنر، اعتماد، مجله، کارت ویژگی و FAQ در دسترس هستند.
 
 ### اتصال زرین‌پال
 
@@ -90,6 +94,8 @@ npm run lint       # ESLint + Stylelint
 npm test           # تست‌های رگرسیون ساختار، RTL، امنیت و theme.json
 npm run test:php      # php -l برای تمام فایل‌های PHP
 npm run test:gateway  # تست قرارداد تبدیل مبلغ، URL و شماره موبایل زرین‌پال
+npm run test:jalali   # تست تبدیل و فرمت تاریخ جلالی
+npm run test:elementor # تست ثبت 10 ویجت افزونه Core
 npm run check         # همه‌ی موارد بالا
 npm run package    # ZIP نصب‌پذیر در release/
 ```
@@ -98,7 +104,7 @@ CI در `.github/workflows/ci.yml` همین مراحل را روی هر push و 
 
 ### دامنه‌ی تست فعلی
 
-تست‌های موجود شامل syntax PHP برای قالب و افزونه زرین‌پال، lint CSS/JS، metadata قابل نصب، hookهای ضروری، ساختار RTL، تاریخ جلالی، endpointهای nonceدارِ جست‌وجو/نمایش سریع/مقایسه، قراردادهای امنیتی API v4 زرین‌پال، جلوگیری از raw HTML injection در JS و تست‌های JSDOM برای drawer، علاقه‌مندی، مقایسه و نمایش سریع هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
+تست‌های موجود شامل syntax PHP برای قالب و افزونه‌ها، lint CSS/JS، metadata قابل نصب، hookهای ضروری، ساختار RTL، تاریخ جلالی، endpointهای nonceدارِ جست‌وجو/نمایش سریع/مقایسه، قراردادهای امنیتی API v4 زرین‌پال، ثبت هر ۱۰ ویجت Elementor، جلوگیری از raw HTML injection در JS و تست‌های JSDOM برای drawer، علاقه‌مندی، مقایسه و نمایش سریع هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
 
 ## آماده‌سازی عرضه در راست چین
 
@@ -134,6 +140,7 @@ rasta-commerce/
 ├── docs/extension-audit.md    # ارزیابی قابلیت‌های افزونه‌ای
 ├── marketplace/               # راهنمای PDF، WXR، child theme و preflight راست چین
 ├── plugins/
+│   ├── rasta-commerce-core/   # 10 ویجت اختصاصی Elementor
 │   └── rasta-zarinpal-gateway/ # افزونه مستقل درگاه پرداخت API v4
 ├── template-parts/content/
 ├── woocommerce/content-product.php
@@ -163,7 +170,7 @@ rasta-commerce/
 ```bash
 npm run check
 npm run package
-git tag v1.3.0
+git tag v1.4.0
 git push origin main --tags
 ```
 

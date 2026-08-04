@@ -1,0 +1,497 @@
+# Copyright (C) 2026 Rasta Commerce Contributors
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Rasta Commerce Core for Elementor 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rasta-commerce-core\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-04T15:14:01+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: rasta-commerce-core\n"
+
+#. Plugin Name of the plugin
+#: rasta-commerce-core.php
+msgid "Rasta Commerce Core for Elementor"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: rasta-commerce-core.php
+msgid "https://github.com/patrikjuniyor/rasta-commerce"
+msgstr ""
+
+#. Description of the plugin
+#: rasta-commerce-core.php
+msgid "Ten RTL-native Elementor widgets for building Rasta Commerce storefront pages."
+msgstr ""
+
+#. Author of the plugin
+#: rasta-commerce-core.php
+msgid "Rasta Commerce Contributors"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:74
+msgid "برچسب کوچک"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:82
+#: includes/class-rasta-commerce-elementor-widgets.php:470
+#: includes/class-rasta-commerce-elementor-widgets.php:512
+#: includes/class-rasta-commerce-elementor-widgets.php:623
+msgid "عنوان"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:90
+#: includes/class-rasta-commerce-elementor-widgets.php:60
+#: includes/class-rasta-commerce-elementor-widgets.php:471
+#: includes/class-rasta-commerce-elementor-widgets.php:513
+#: includes/class-rasta-commerce-elementor-widgets.php:624
+msgid "توضیح"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:99
+msgid "متن لینک بیشتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:107
+msgid "لینک بیشتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:159
+msgid "استایل عمومی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:166
+#: includes/class-rasta-commerce-elementor-widgets.php:477
+msgid "رنگ پس‌زمینه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:176
+msgid "فاصله داخلی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:187
+msgid "تراز محتوا"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:190
+msgid "راست"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:191
+msgid "وسط"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:192
+msgid "چپ"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:227
+msgid "افزودن به سبد"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-base.php:230
+msgid "مشاهده محصول"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:22
+msgid "راستا: هیرو فروشگاه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:37
+#: includes/class-rasta-commerce-elementor-widgets.php:172
+#: includes/class-rasta-commerce-elementor-widgets.php:279
+#: includes/class-rasta-commerce-elementor-widgets.php:331
+#: includes/class-rasta-commerce-elementor-widgets.php:373
+#: includes/class-rasta-commerce-elementor-widgets.php:468
+#: includes/class-rasta-commerce-elementor-widgets.php:558
+#: includes/class-rasta-commerce-elementor-widgets.php:621
+#: includes/class-rasta-commerce-elementor-widgets.php:655
+msgid "محتوا"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:43
+#: includes/class-rasta-commerce-elementor-widgets.php:469
+msgid "برچسب"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:45
+msgid "انتخاب هوشمند، خرید آسوده"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:51
+msgid "تیتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:53
+msgid "چیزهای خوب، برای زندگیِ خوب"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:62
+msgid "یک ویترین خوش‌ساخت برای پیدا کردن محصولاتی که هر روزتان را ساده‌تر و زیباتر می‌کنند."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:69
+msgid "متن دکمه اصلی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:71
+msgid "مشاهده فروشگاه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:77
+msgid "لینک دکمه اصلی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:85
+msgid "متن لینک ثانویه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:92
+msgid "لینک ثانویه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:101
+msgid "تصویر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:110
+msgid "استایل هیرو"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:117
+msgid "پس‌زمینه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:126
+#: includes/class-rasta-commerce-elementor-widgets.php:478
+msgid "رنگ متن"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:167
+msgid "راستا: تیتر بخش"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:175
+#: includes/class-rasta-commerce-elementor-widgets.php:282
+msgid "منتخب فروشگاه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:176
+msgid "عنوان بخش فروشگاه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:177
+msgid "توضیح کوتاه برای معرفی این بخش."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:178
+msgid "مشاهده بیشتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:210
+msgid "تعداد محصول"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:220
+msgid "مرتب‌سازی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:224
+msgid "جدیدترین"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:225
+msgid "پرفروش‌ترین"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:226
+msgid "بالاترین امتیاز"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:227
+msgid "قیمت"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:228
+msgid "تصادفی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:235
+msgid "جهت"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:239
+msgid "نزولی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:240
+msgid "صعودی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:274
+msgid "راستا: شبکه محصولات"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:283
+msgid "محصولات پیشنهادی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:284
+msgid "انتخاب‌هایی برای شروع خرید."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:285
+msgid "همه محصولات"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:292
+#: includes/class-rasta-commerce-elementor-widgets.php:394
+#: includes/class-rasta-commerce-elementor-widgets.php:568
+msgid "تعداد ستون"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:309
+msgid "برای نمایش این ویجت، WooCommerce و حداقل یک محصول منتشرشده لازم است."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:326
+msgid "راستا: ریل محصولات"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:334
+msgid "محبوب این هفته"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:335
+msgid "محصولاتی برای کشف بیشتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:336
+msgid "ریل قابل اسکرول و لمسی برای محصولات."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:351
+msgid "محصولی برای این ریل پیدا نشد."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:368
+msgid "راستا: دسته‌بندی محصولات"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:376
+msgid "شروع کنید"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:377
+msgid "دسته‌بندی‌های فروشگاه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:378
+msgid "سریع‌تر به چیزی برسید که دنبالش هستید."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:384
+msgid "تعداد دسته"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:408
+msgid "WooCommerce برای نمایش دسته‌بندی‌ها فعال نیست."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:425
+msgid "دسته‌بندی محصولی برای نمایش وجود ندارد."
+msgstr ""
+
+#. translators: %s: number of products in the category.
+#: includes/class-rasta-commerce-elementor-widgets.php:438
+#, php-format
+msgid "%s محصول"
+msgid_plural "%s محصول"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:463
+msgid "راستا: بنر تبلیغاتی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:469
+msgid "با انتخاب بهتر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:470
+msgid "جزئیات کوچک، حس خوب بزرگ"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:471
+msgid "پیشنهادهایی برای بهتر کردن خانه و زندگی روزمره."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:472
+msgid "متن دکمه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:472
+msgid "پیشنهادهای ویژه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:473
+msgid "لینک دکمه"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:474
+msgid "تصویر کنار بنر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:476
+msgid "استایل"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:504
+msgid "راستا: نوار اعتماد"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:509
+msgid "آیتم‌ها"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:511
+#: includes/class-rasta-commerce-elementor-widgets.php:622
+msgid "آیکون"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:512
+#: includes/class-rasta-commerce-elementor-widgets.php:521
+msgid "ارسال سریع"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:513
+#: includes/class-rasta-commerce-elementor-widgets.php:521
+msgid "تحویل امن و قابل پیگیری"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:517
+msgid "مزیت‌ها"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:522
+msgid "تضمین اصالت"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:522
+msgid "خرید با خیال راحت"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:523
+msgid "پشتیبانی انسانی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:523
+msgid "کنار شما تا پایان خرید"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:553
+msgid "راستا: شبکه مجله"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:561
+msgid "مجله راستا"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:562
+msgid "برای انتخاب آگاهانه‌تر"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:563
+msgid "راهنماها و ایده‌هایی برای بهتر خریدن."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:564
+msgid "همه نوشته‌ها"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:567
+msgid "تعداد نوشته"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:586
+msgid "نوشته‌ای برای نمایش وجود ندارد."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:616
+msgid "راستا: کارت ویژگی"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:623
+msgid "تجربه‌ای بهتر از خرید"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:624
+msgid "یک ویژگی کوتاه و روشن برای جلب اعتماد مشتری."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:625
+msgid "متن لینک"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:626
+msgid "لینک"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:650
+msgid "راستا: پرسش‌های متداول"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:658
+msgid "پیش از خرید"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:659
+msgid "پرسش‌های پرتکرار"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:663
+msgid "پرسش"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:663
+#: includes/class-rasta-commerce-elementor-widgets.php:672
+msgid "زمان ارسال سفارش چقدر است؟"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:664
+msgid "پاسخ"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:664
+#: includes/class-rasta-commerce-elementor-widgets.php:672
+msgid "زمان ارسال را بر اساس روش حمل و مقصد در صفحه محصول و پرداخت نمایش دهید."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:668
+msgid "پرسش‌ها"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:673
+msgid "آیا امکان بازگشت کالا وجود دارد؟"
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:673
+msgid "شرایط بازگشت کالا را به‌صورت شفاف در یک برگه اختصاصی منتشر کنید."
+msgstr ""
+
+#: includes/class-rasta-commerce-elementor-widgets.php:678
+msgid "باز بودن اولین پاسخ"
+msgstr ""
+
+#: rasta-commerce-core.php:62
+msgid "افزونه Rasta Commerce Core برای فعال شدن به Elementor نیاز دارد."
+msgstr ""
+
+#: rasta-commerce-core.php:77
+msgid "راستا کامرس"
+msgstr ""

@@ -48,7 +48,10 @@ jobs:
       - name: Run Jalali date contract tests
         run: npm run test:jalali
 
-      - name: Build installable theme, child, and gateway archives
+      - name: Run Elementor Core widget contract tests
+        run: npm run test:elementor
+
+      - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 
       - name: Build marketplace preparation package

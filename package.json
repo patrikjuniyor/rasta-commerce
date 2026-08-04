@@ -1,17 +1,17 @@
 {
   "name": "rasta-commerce",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Quality tooling for the Rasta Commerce WordPress theme.",
   "type": "module",
   "scripts": {
     "lint:js": "eslint assets/js tests scripts --max-warnings=0",
-    "lint:css": "stylelint \"{style,rtl}.css\" \"assets/css/**/*.css\"",
+    "lint:css": "stylelint \"{style,rtl}.css\" \"assets/css/**/*.css\" \"plugins/**/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "test": "node --test tests/*.test.mjs",
     "test:php": "bash scripts/php-lint.sh",
-    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali",
-    "package": "npm run package:theme && npm run package:child && npm run package:zarinpal",
+    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali && npm run test:elementor",
+    "package": "npm run package:theme && npm run package:child && npm run package:core && npm run package:zarinpal",
     "package:theme": "node scripts/package-theme.mjs",
     "package:zarinpal": "node scripts/package-zarinpal-plugin.mjs",
     "test:gateway": "php tests/php/zarinpal-gateway-test.php",
@@ -19,7 +19,9 @@
     "package:child": "node scripts/package-child-theme.mjs",
     "marketplace:prepare": "npm run package && node scripts/package-marketplace.mjs prepare",
     "marketplace:validate": "node scripts/package-marketplace.mjs validate",
-    "marketplace:build": "npm run marketplace:prepare && node scripts/package-marketplace.mjs build"
+    "marketplace:build": "npm run marketplace:prepare && node scripts/package-marketplace.mjs build",
+    "package:core": "node scripts/package-rasta-core-plugin.mjs",
+    "test:elementor": "php tests/php/elementor-core-test.php"
   },
   "devDependencies": {
     "eslint": "^9.39.1",

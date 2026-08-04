@@ -29,9 +29,14 @@ const requiredThemeFiles = [
   'marketplace/theme-child/rasta-commerce-child/style.css',
   'marketplace/help.pdf',
   'marketplace/import-files/rasta-commerce-starter.xml',
+  'plugins/rasta-commerce-core/rasta-commerce-core.php',
+  'plugins/rasta-commerce-core/includes/class-rasta-commerce-elementor-base.php',
+  'plugins/rasta-commerce-core/includes/class-rasta-commerce-elementor-widgets.php',
+  'plugins/rasta-commerce-core/languages/rasta-commerce-core.pot',
   'plugins/rasta-zarinpal-gateway/rasta-zarinpal-gateway.php',
   'plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php',
   'tests/php/zarinpal-gateway-test.php',
+  'tests/php/elementor-core-test.php',
 ];
 
 test('includes the required WordPress theme files and visual assets', () => {
@@ -44,7 +49,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 1.3.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 1.4.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -143,6 +148,20 @@ test('ships marketplace preparation assets without claiming a missing demo is co
   assert.match(marketplaceScript, /installer\.php/);
   assert.match(marketplaceReadme, /marketplace:validate/);
   assert.match(read('marketplace/import-files/rasta-commerce-starter.xml'), /<wp:wxr_version>1\.2<\/wp:wxr_version>/);
+});
+
+test('ships ten dedicated Elementor storefront widgets in a separate core plugin', () => {
+  const core = read('plugins/rasta-commerce-core/rasta-commerce-core.php');
+  const widgets = read('plugins/rasta-commerce-core/includes/class-rasta-commerce-elementor-widgets.php');
+  const packageScript = read('scripts/package-rasta-core-plugin.mjs');
+  assert.match(core, /Plugin Name: Rasta Commerce Core for Elementor/);
+  assert.match(core, /Requires Plugins: elementor/);
+  assert.match(core, /elementor\/widgets\/register/);
+  assert.equal((core.match(/widgets_manager->register/g) || []).length, 10);
+  ['Hero_Widget', 'Product_Grid_Widget', 'Product_Rail_Widget', 'Category_Grid_Widget', 'Promo_Banner_Widget', 'Trust_Strip_Widget', 'Blog_Grid_Widget', 'Feature_Card_Widget', 'FAQ_Widget'].forEach((widget) => {
+    assert.match(widgets, new RegExp(widget));
+  });
+  assert.match(packageScript, /rasta-commerce-core/);
 });
 
 test('ships a standalone ZarinPal v4 gateway with server-side verification safeguards', () => {
