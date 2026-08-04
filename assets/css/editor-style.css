@@ -1,0 +1,31 @@
+:root {
+  --rasta-editor-ink: #182033;
+  --rasta-editor-accent: #f25c54;
+}
+
+.editor-styles-wrapper {
+  color: var(--rasta-editor-ink);
+  font-family: vazirmatn, iransansx, tahoma, arial, system-ui, sans-serif;
+  line-height: 2;
+}
+
+.editor-styles-wrapper .wp-block {
+  max-width: 860px;
+}
+
+.editor-styles-wrapper .wp-block[data-align='wide'] {
+  max-width: 1240px;
+}
+
+.editor-styles-wrapper a {
+  color: var(--rasta-editor-accent);
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4 {
+  color: var(--rasta-editor-ink);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}

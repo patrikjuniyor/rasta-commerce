@@ -1,0 +1,140 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "860px",
+      "wideSize": "1240px"
+    },
+    "color": {
+      "custom": true,
+      "customDuotone": true,
+      "customGradient": true,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "ink",
+          "color": "#182033",
+          "name": "جوهر"
+        },
+        {
+          "slug": "coral",
+          "color": "#f25c54",
+          "name": "مرجانی"
+        },
+        {
+          "slug": "blue",
+          "color": "#315bd8",
+          "name": "آبی راستا"
+        },
+        {
+          "slug": "mist",
+          "color": "#f7f8fb",
+          "name": "مه"
+        },
+        {
+          "slug": "white",
+          "color": "#ffffff",
+          "name": "سفید"
+        }
+      ],
+      "gradients": [
+        {
+          "slug": "rasta-hero",
+          "gradient": "linear-gradient(122deg, #1d2951 0%, #273b7a 53%, #315bd8 100%)",
+          "name": "گرادیان راستا"
+        }
+      ]
+    },
+    "spacing": {
+      "blockGap": true,
+      "padding": true,
+      "margin": true,
+      "spacingSizes": [
+        {
+          "size": "0.5rem",
+          "slug": "20",
+          "name": "خیلی کوچک"
+        },
+        {
+          "size": "1rem",
+          "slug": "30",
+          "name": "کوچک"
+        },
+        {
+          "size": "1.5rem",
+          "slug": "40",
+          "name": "میانه"
+        },
+        {
+          "size": "2.5rem",
+          "slug": "50",
+          "name": "بزرگ"
+        },
+        {
+          "size": "4rem",
+          "slug": "60",
+          "name": "خیلی بزرگ"
+        }
+      ],
+      "units": ["%", "px", "rem", "vh", "vw"]
+    },
+    "typography": {
+      "customFontSize": true,
+      "dropCap": false,
+      "fluid": true,
+      "lineHeight": true,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "کوچک"
+        },
+        {
+          "slug": "medium",
+          "size": "1rem",
+          "name": "میانه"
+        },
+        {
+          "slug": "large",
+          "size": "1.5rem",
+          "name": "بزرگ"
+        },
+        {
+          "slug": "x-large",
+          "size": "2.4rem",
+          "name": "خیلی بزرگ"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|white",
+      "text": "var:preset|color|ink"
+    },
+    "typography": {
+      "fontFamily": "Vazirmatn, IRANSansX, Tahoma, Arial, system-ui, sans-serif",
+      "lineHeight": "1.9"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var:preset|color|blue"
+        }
+      },
+      "button": {
+        "border": {
+          "radius": "999px"
+        },
+        "color": {
+          "background": "var:preset|color|coral",
+          "text": "var:preset|color|white"
+        }
+      }
+    }
+  }
+}

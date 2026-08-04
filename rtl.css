@@ -1,0 +1,29 @@
+/*
+ * Native RTL refinements for Rasta Commerce.
+ * Most layout rules use CSS logical properties in style.css so LTR locales remain usable.
+ */
+html[dir='rtl'] body {
+  direction: rtl;
+}
+
+html[dir='rtl'] input,
+html[dir='rtl'] textarea,
+html[dir='rtl'] select {
+  text-align: start;
+}
+
+html[dir='rtl'] .rasta-drawer {
+  transform: translateX(100%);
+}
+
+html[dir='rtl'] .rasta-drawer.is-open {
+  transform: translateX(0);
+}
+
+html[dir='rtl'] .rasta-scroll-top svg {
+  transform: rotate(-90deg);
+}
+
+html[dir='rtl'] .woocommerce .woocommerce-error {
+  padding-inline-start: 35px;
+}

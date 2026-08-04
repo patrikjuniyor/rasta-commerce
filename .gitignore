@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+vendor/
+
+# Build/release artifacts
+release/
+*.zip
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local WordPress/runtime files
+wp-config.php
+wp-content/uploads/

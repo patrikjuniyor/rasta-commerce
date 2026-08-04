@@ -1,0 +1,23 @@
+{
+  "name": "rasta-commerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quality tooling for the Rasta Commerce WordPress theme.",
+  "type": "module",
+  "scripts": {
+    "lint:js": "eslint assets/js tests scripts --max-warnings=0",
+    "lint:css": "stylelint \"{style,rtl}.css\" \"assets/css/**/*.css\"",
+    "lint": "npm run lint:js && npm run lint:css",
+    "test": "node --test tests/*.test.mjs",
+    "test:php": "bash scripts/php-lint.sh",
+    "check": "npm run lint && npm run test && npm run test:php",
+    "package": "node scripts/package-theme.mjs"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "jsdom": "^26.1.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.0"
+  }
+}

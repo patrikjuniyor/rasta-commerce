@@ -1,0 +1,64 @@
+<svg width="664" height="566" viewBox="0 0 664 566" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="panel" x1="98" y1="38" x2="556" y2="528" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECF1FF"/>
+      <stop offset="1" stop-color="#BFCFFF"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="267" y1="109" x2="421" y2="431" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#273B7A"/>
+      <stop offset="1" stop-color="#101A38"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="283" y1="139" x2="402" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9B7A"/>
+      <stop offset=".48" stop-color="#F25C54"/>
+      <stop offset="1" stop-color="#B63A68"/>
+    </linearGradient>
+    <linearGradient id="case" x1="429" y1="285" x2="560" y2="427" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8EF"/>
+      <stop offset="1" stop-color="#F6C898"/>
+    </linearGradient>
+    <filter id="shadow" x="40" y="45" width="593" height="501" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="22"/>
+      <feGaussianBlur stdDeviation="18"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.063 0 0 0 0 0.105 0 0 0 0 0.23 0 0 0 0.24 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    <filter id="soft" x="68" y="211" width="194" height="178" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+  <circle cx="440" cy="98" r="76" fill="#FFBA71" fill-opacity=".9"/>
+  <circle cx="125" cy="424" r="70" fill="#92E3D0" fill-opacity=".75"/>
+  <path d="M88 306C88 213.216 163.216 138 256 138H467C559.784 138 635 213.216 635 306V367C635 459.784 559.784 535 467 535H256C163.216 535 88 459.784 88 367V306Z" fill="url(#panel)" fill-opacity=".42"/>
+  <g filter="url(#shadow)">
+    <path d="M150 437C150 401.654 178.654 373 214 373H466C501.346 373 530 401.654 530 437V445H150V437Z" fill="#DDE6FF"/>
+    <path d="M169 436H511L489 470C485.319 475.688 479.008 479.125 472.233 479.125H207.767C200.992 479.125 194.681 475.688 191 470L169 436Z" fill="#BBCBFC"/>
+    <rect x="252" y="102" width="171" height="329" rx="29" fill="url(#phone)"/>
+    <rect x="264" y="116" width="147" height="296" rx="20" fill="url(#screen)"/>
+    <rect x="309" y="126" width="57" height="7" rx="3.5" fill="#1C2851"/>
+    <circle cx="337.5" cy="388" r="11.5" fill="#F6A891" fill-opacity=".68"/>
+    <path d="M284 269C284 223.713 320.713 187 366 187H389V314H329C304.147 314 284 293.853 284 269Z" fill="#FFC3A9" fill-opacity=".28"/>
+    <circle cx="342" cy="248" r="47" fill="#FFF0E9" fill-opacity=".22"/>
+    <path d="M320 257L338 275L371 226" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="137" y="251" width="112" height="142" rx="31" fill="#304A9E"/>
+    <path d="M165 330V305C165 282.909 182.909 265 205 265C227.091 265 245 282.909 245 305V330" stroke="#B8D0FF" stroke-width="19" stroke-linecap="round"/>
+    <rect x="147" y="321" width="38" height="55" rx="16" fill="#182657"/>
+    <rect x="225" y="321" width="38" height="55" rx="16" fill="#182657"/>
+    <rect x="420" y="302" width="128" height="128" rx="35" fill="url(#case)"/>
+    <path d="M443 354C443 329.147 463.147 309 488 309C512.853 309 533 329.147 533 354" stroke="#F3F6FF" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="463" cy="365" r="17" fill="#F7FAFF"/>
+    <circle cx="512" cy="365" r="17" fill="#F7FAFF"/>
+    <rect x="449" y="363" width="28" height="8" rx="4" fill="#D1A972"/>
+    <rect x="498" y="363" width="28" height="8" rx="4" fill="#D1A972"/>
+  </g>
+  <g filter="url(#soft)" opacity=".62">
+    <circle cx="161" cy="286" r="21" fill="#A3C6FF"/>
+    <circle cx="217" cy="354" r="13" fill="#FFB393"/>
+  </g>
+  <path d="M505 194L511 211L528 217L511 223L505 240L499 223L482 217L499 211L505 194Z" fill="white"/>
+  <path d="M169 152L173 163L184 167L173 171L169 182L165 171L154 167L165 163L169 152Z" fill="#FFDC9A"/>
+  <circle cx="560" cy="422" r="10" fill="#8BE4CE"/>
+</svg>
