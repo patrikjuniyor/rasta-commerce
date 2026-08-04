@@ -49,16 +49,27 @@
 
 ### نصب از ZIP
 
-1. از بخش **Releases** فایل `rasta-commerce-1.1.0.zip` را دریافت کنید، یا محلی بسازید:
+1. از بخش **Releases** فایل `rasta-commerce-1.2.0.zip` را دریافت کنید، یا محلی بسازید:
    ```bash
    npm ci
    npm run package
    ```
 2. در پیشخوان وردپرس به **نمایش ← پوسته‌ها ← افزودن پوسته ← بارگذاری پوسته** بروید.
-3. فایل `release/rasta-commerce-1.1.0.zip` را بارگذاری و فعال کنید.
+3. فایل `release/rasta-commerce-1.2.0.zip` را بارگذاری و فعال کنید.
 4. افزونه‌ی WooCommerce را نصب/فعال کنید.
 5. از **نمایش ← فهرست‌ها**، فهرست «منوی اصلی» را تنظیم کنید.
 6. از **نمایش ← سفارشی‌سازی ← ویترین راستا** رنگ‌ها و محتوای صفحه‌ی اول را شخصی‌سازی کنید؛ سپس در **ابزارهای خرید راستا** نمایش سریع، مقایسه، محصولات دیده‌شده، نوار خرید و آستانه ارسال رایگان را متناسب با فروشگاه تنظیم کنید.
+
+### اتصال زرین‌پال
+
+منطق پرداخت عمداً در ZIP قالب قرار نمی‌گیرد تا با تغییر قالب، تنظیمات درگاه و سفارش‌ها پایدار بمانند. برای فعال‌سازی:
+
+1. از همان Release، فایل `rasta-zarinpal-gateway-1.0.0.zip` را دانلود و از مسیر **افزونه‌ها ← افزودن ← بارگذاری افزونه** نصب کنید.
+2. به **WooCommerce ← تنظیمات ← پرداخت‌ها ← زرین‌پال** بروید.
+3. Merchant ID خود را وارد، درگاه را فعال و واحد مبلغ را بررسی کنید.
+4. ابتدا Sandbox را با UUID آزمایشی تست کنید؛ سپس Sandbox را غیرفعال و Merchant ID واقعی را وارد کنید.
+
+افزونه از API v4 زرین‌پال، callback امن با order key و Authority ذخیره‌شده، و verify سمت سرور پشتیبانی می‌کند. هیچ شماره کارت یا `card_hash` در سفارش و log ذخیره نمی‌شود. راهنمای افزونه در [plugins/rasta-zarinpal-gateway/README.md](plugins/rasta-zarinpal-gateway/README.md) است.
 
 ### نصب برای توسعه
 
@@ -77,8 +88,9 @@ npm run check
 npm ci
 npm run lint       # ESLint + Stylelint
 npm test           # تست‌های رگرسیون ساختار، RTL، امنیت و theme.json
-npm run test:php   # php -l برای تمام فایل‌های PHP
-npm run check      # همه‌ی موارد بالا
+npm run test:php      # php -l برای تمام فایل‌های PHP
+npm run test:gateway  # تست قرارداد تبدیل مبلغ، URL و شماره موبایل زرین‌پال
+npm run check         # همه‌ی موارد بالا
 npm run package    # ZIP نصب‌پذیر در release/
 ```
 
@@ -86,7 +98,7 @@ CI در `.github/workflows/ci.yml` همین مراحل را روی هر push و 
 
 ### دامنه‌ی تست فعلی
 
-تست‌های موجود شامل syntax PHP، lint CSS/JS، metadata قابل نصب قالب، hookهای ضروری، ساختار RTL، endpointهای nonceدارِ جست‌وجو/نمایش سریع/مقایسه، جلوگیری از raw HTML injection در JS و تست‌های JSDOM برای drawer، علاقه‌مندی، مقایسه و نمایش سریع هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
+تست‌های موجود شامل syntax PHP برای قالب و افزونه زرین‌پال، lint CSS/JS، metadata قابل نصب، hookهای ضروری، ساختار RTL، endpointهای nonceدارِ جست‌وجو/نمایش سریع/مقایسه، قراردادهای امنیتی API v4 زرین‌پال، جلوگیری از raw HTML injection در JS و تست‌های JSDOM برای drawer، علاقه‌مندی، مقایسه و نمایش سریع هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
 
 ## ساختار پروژه
 
@@ -103,6 +115,8 @@ rasta-commerce/
 │   ├── template-tags.php      # اجزای تکرارپذیر
 │   └── woocommerce.php        # hookهای ووکامرس
 ├── docs/extension-audit.md    # ارزیابی قابلیت‌های افزونه‌ای
+├── plugins/
+│   └── rasta-zarinpal-gateway/ # افزونه مستقل درگاه پرداخت API v4
 ├── template-parts/content/
 ├── woocommerce/content-product.php
 ├── tests/static-theme.test.mjs
@@ -131,7 +145,7 @@ rasta-commerce/
 ```bash
 npm run check
 npm run package
-git tag v1.1.0
+git tag v1.2.0
 git push origin main --tags
 ```
 

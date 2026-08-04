@@ -21,6 +21,9 @@ const requiredThemeFiles = [
   'woocommerce/content-product.php',
   'assets/js/theme.js',
   'assets/images/hero-showcase.svg',
+  'plugins/rasta-zarinpal-gateway/rasta-zarinpal-gateway.php',
+  'plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php',
+  'tests/php/zarinpal-gateway-test.php',
 ];
 
 test('includes the required WordPress theme files and visual assets', () => {
@@ -33,7 +36,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 1.1.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 1.2.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -112,6 +115,25 @@ test('renders client-side search results without raw HTML injection', () => {
   assert.match(script, /textContent\s*=/);
   assert.match(script, /new URL\(value, window\.location\.origin\)/);
   assert.match(script, /AbortController/);
+});
+
+test('ships a standalone ZarinPal v4 gateway with server-side verification safeguards', () => {
+  const plugin = read('plugins/rasta-zarinpal-gateway/rasta-zarinpal-gateway.php');
+  const gateway = read('plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php');
+  const packageScript = read('scripts/package-zarinpal-plugin.mjs');
+  assert.match(plugin, /Plugin Name: Rasta ZarinPal Gateway for WooCommerce/);
+  assert.match(plugin, /Requires Plugins: woocommerce/);
+  assert.match(plugin, /woocommerce_api_wc_gateway_rasta_zarinpal/);
+  assert.match(plugin, /rasta_zarinpal_gateway_callback_router/);
+  assert.match(gateway, /\/pg\/v4\/payment\/request\.json/);
+  assert.match(gateway, /\/pg\/v4\/payment\/verify\.json/);
+  assert.match(gateway, /wp_remote_post/);
+  assert.match(gateway, /hash_equals\( \$order->get_order_key\(\), \$order_key \)/);
+  assert.match(gateway, /in_array\( \$code, array\( 100, 101 \), true \)/);
+  assert.match(gateway, /payment_complete/);
+  assert.doesNotMatch(gateway, /\bcurl_exec\s*\(/);
+  assert.doesNotMatch(gateway, /\beval\s*\(/);
+  assert.match(packageScript, /rasta-zarinpal-gateway/);
 });
 
 test('ships a parseable theme.json design system', () => {
