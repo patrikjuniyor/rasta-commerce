@@ -67,6 +67,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </footer>
+<?php if ( class_exists( 'WooCommerce' ) && rasta_feature_enabled( 'compare' ) ) : ?>
+	<section class="rasta-compare-tray" data-compare-tray aria-live="polite" hidden>
+		<div class="rasta-container rasta-compare-tray__inner">
+			<div class="rasta-compare-tray__summary">
+				<span class="rasta-compare-tray__icon"><?php rasta_icon( 'compare' ); ?></span>
+				<span data-compare-summary><?php esc_html_e( 'محصولی برای مقایسه انتخاب نشده است.', 'rasta-commerce' ); ?></span>
+			</div>
+			<div class="rasta-compare-tray__items" data-compare-tray-items></div>
+			<div class="rasta-compare-tray__actions">
+				<button class="rasta-button" type="button" data-compare-open><?php esc_html_e( 'مقایسه کن', 'rasta-commerce' ); ?><?php rasta_icon( 'arrow-left' ); ?></button>
+				<button class="rasta-compare-tray__clear" type="button" data-compare-clear><?php esc_html_e( 'پاک‌کردن', 'rasta-commerce' ); ?></button>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
+<?php rasta_render_sticky_add_to_cart(); ?>
 <div class="rasta-toast" role="status" aria-live="polite" data-rasta-toast></div>
 <?php wp_footer(); ?>
 </body>

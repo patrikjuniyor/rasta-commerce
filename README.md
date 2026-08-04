@@ -10,6 +10,8 @@
 
 - **ویترین فروشگاهی حرفه‌ای:** هیرو، دسته‌بندی‌های پویا، محصولات پرفروش/تازه، نوار مزیت‌ها و بخش مجله.
 - **تجربه خرید سریع:** سبد خرید کشویی با WooCommerce fragments، افزودن AJAX به سبد و جست‌وجوی لحظه‌ای محصول.
+- **ابزارهای کشف محصول:** نمایش سریع بدون ترک فهرست، علاقه‌مندی خصوصی، مقایسه حداکثر چهار محصول، ریل محصولات اخیراً دیده‌شده و نوار خرید چسبان صفحه محصول.
+- **فروش هوشمند بدون داده‌سازی:** شمارش‌گر فقط برای تخفیف زمان‌دار واقعی WooCommerce، هشدار موجودی پایین و نوار اختیاری پیشرفت ارسال رایگان در mini-cart.
 - **RTL واقعی:** فایل `rtl.css`، فاصله‌گذاری logical، متون و تعاملات مناسب صفحه‌های راست‌چین.
 - **واکنش‌گرا و دسترس‌پذیر:** منوی موبایل، focus trap برای drawerها، `Escape`، skip link، حالت focus واضح و `prefers-reduced-motion`.
 - **WooCommerce-native:** اعلام رسمی پشتیبانی، gallery zoom/lightbox/slider، wrapperهای مبتنی بر hook و کارت محصول اختصاصی.
@@ -28,6 +30,10 @@
 - [WooCommerce Template Structure](https://developer.woocommerce.com/docs/theming/theme-development/template-structure)
 - [راهنمای RTL وردپرس](https://developer.wordpress.org/)
 
+### بررسی افزونه‌ها و مرز قابلیت‌ها
+
+قابلیت‌های مفیدی که معمولاً در افزونه‌های Quick View، Wishlist، Compare، Product Recommendations، Variation Swatches و Product Filter دیده می‌شوند بررسی و فقط موارد سبک، فروشگاهی و غیرحساس به قالب افزوده شده‌اند. پرداخت، مالیات، حمل‌ونقل، اشتراک، قیمت‌گذاری پویا و داده‌ی دائمی کاربر عمداً به افزونه‌های تخصصی سپرده می‌شوند. جزئیات و سازگاری‌های اختیاری در [docs/extension-audit.md](docs/extension-audit.md) آمده است.
+
 ## نیازمندی‌ها
 
 | مورد | حداقل نسخه |
@@ -43,16 +49,16 @@
 
 ### نصب از ZIP
 
-1. از بخش **Releases** فایل `rasta-commerce-1.0.1.zip` را دریافت کنید، یا محلی بسازید:
+1. از بخش **Releases** فایل `rasta-commerce-1.1.0.zip` را دریافت کنید، یا محلی بسازید:
    ```bash
    npm ci
    npm run package
    ```
 2. در پیشخوان وردپرس به **نمایش ← پوسته‌ها ← افزودن پوسته ← بارگذاری پوسته** بروید.
-3. فایل `release/rasta-commerce-1.0.1.zip` را بارگذاری و فعال کنید.
+3. فایل `release/rasta-commerce-1.1.0.zip` را بارگذاری و فعال کنید.
 4. افزونه‌ی WooCommerce را نصب/فعال کنید.
 5. از **نمایش ← فهرست‌ها**، فهرست «منوی اصلی» را تنظیم کنید.
-6. از **نمایش ← سفارشی‌سازی ← ویترین راستا** رنگ‌ها و محتوای صفحه‌ی اول را شخصی‌سازی کنید.
+6. از **نمایش ← سفارشی‌سازی ← ویترین راستا** رنگ‌ها و محتوای صفحه‌ی اول را شخصی‌سازی کنید؛ سپس در **ابزارهای خرید راستا** نمایش سریع، مقایسه، محصولات دیده‌شده، نوار خرید و آستانه ارسال رایگان را متناسب با فروشگاه تنظیم کنید.
 
 ### نصب برای توسعه
 
@@ -80,7 +86,7 @@ CI در `.github/workflows/ci.yml` همین مراحل را روی هر push و 
 
 ### دامنه‌ی تست فعلی
 
-تست‌های موجود شامل syntax PHP، lint CSS/JS، metadata قابل نصب قالب، hookهای ضروری، ساختار RTL، endpoint جست‌وجو و جلوگیری از raw HTML injection در JS هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
+تست‌های موجود شامل syntax PHP، lint CSS/JS، metadata قابل نصب قالب، hookهای ضروری، ساختار RTL، endpointهای nonceدارِ جست‌وجو/نمایش سریع/مقایسه، جلوگیری از raw HTML injection در JS و تست‌های JSDOM برای drawer، علاقه‌مندی، مقایسه و نمایش سریع هستند. تست end-to-end در یک نصب واقعی WordPress + WooCommerce (پرداخت، درگاه، مالیات، افزونه‌های فیلتر و داده‌ی واقعی محصول) باید پیش از انتشار production روی محیط staging انجام شود.
 
 ## ساختار پروژه
 
@@ -96,6 +102,7 @@ rasta-commerce/
 │   ├── setup.php              # قابلیت‌ها و assetها
 │   ├── template-tags.php      # اجزای تکرارپذیر
 │   └── woocommerce.php        # hookهای ووکامرس
+├── docs/extension-audit.md    # ارزیابی قابلیت‌های افزونه‌ای
 ├── template-parts/content/
 ├── woocommerce/content-product.php
 ├── tests/static-theme.test.mjs
@@ -119,14 +126,16 @@ rasta-commerce/
 
 ## انتشار در GitHub
 
-پس از اتصال حساب GitHub، این دستورات remote را وصل و push می‌کنند:
+مخزن عمومی پروژه در [patrikjuniyor/rasta-commerce](https://github.com/patrikjuniyor/rasta-commerce) قرار دارد. هر push و pull request، workflow کیفیت را اجرا می‌کند و ZIP قالب را به‌عنوان artifact نگه می‌دارد. برای انتشار نسخه جدید:
 
 ```bash
-git remote add origin https://github.com/<YOUR-ACCOUNT>/rasta-commerce.git
-git push -u origin main
+npm run check
+npm run package
+git tag v1.1.0
+git push origin main --tags
 ```
 
-برای ساخت release، در GitHub یک tag مانند `v1.0.0` بسازید؛ workflow کیفیت را اجرا کنید و ZIP artifact را به Release متصل کنید.
+سپس ZIP ساخته‌شده را به GitHub Release متصل کنید.
 
 ## مجوز
 

@@ -135,14 +135,30 @@ function rasta_enqueue_assets() {
 		'rasta-commerce',
 		'rastaTheme',
 		array(
-			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'rasta_product_search' ),
-			'strings' => array(
-				'close'      => esc_html__( 'بستن', 'rasta-commerce' ),
-				'searching'  => esc_html__( 'در حال جست‌وجو…', 'rasta-commerce' ),
-				'noResults'  => esc_html__( 'محصولی پیدا نشد.', 'rasta-commerce' ),
-				'addedToCart' => esc_html__( 'محصول به سبد خرید اضافه شد.', 'rasta-commerce' ),
-				'networkError'=> esc_html__( 'اتصال برقرار نشد؛ دوباره تلاش کنید.', 'rasta-commerce' ),
+			'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
+			'nonce'      => wp_create_nonce( 'rasta_product_search' ),
+			'toolsNonce' => wp_create_nonce( 'rasta_product_tools' ),
+			'features'   => array(
+				'quickView'      => rasta_feature_enabled( 'quick_view' ),
+				'compare'         => rasta_feature_enabled( 'compare' ),
+				'recentlyViewed' => rasta_feature_enabled( 'recently_viewed' ),
+				'stickyCart'     => rasta_feature_enabled( 'sticky_cart' ),
+				'saleCountdown'  => rasta_feature_enabled( 'sale_countdown' ),
+			),
+			'strings'    => array(
+				'close'                => esc_html__( 'بستن', 'rasta-commerce' ),
+				'searching'            => esc_html__( 'در حال جست‌وجو…', 'rasta-commerce' ),
+				'loadingProduct'        => esc_html__( 'در حال آماده‌سازی محصول…', 'rasta-commerce' ),
+				'noResults'             => esc_html__( 'محصولی پیدا نشد.', 'rasta-commerce' ),
+				'addedToCart'           => esc_html__( 'محصول به سبد خرید اضافه شد.', 'rasta-commerce' ),
+				'networkError'          => esc_html__( 'اتصال برقرار نشد؛ دوباره تلاش کنید.', 'rasta-commerce' ),
+				'wishlistEmpty'         => esc_html__( 'هنوز محصولی را ذخیره نکرده‌اید.', 'rasta-commerce' ),
+				'compareEmpty'          => esc_html__( 'برای مقایسه، حداقل دو محصول انتخاب کنید.', 'rasta-commerce' ),
+				'compareMax'            => esc_html__( 'برای مقایسه حداکثر چهار محصول انتخاب کنید.', 'rasta-commerce' ),
+				'compareUpdated'        => esc_html__( 'فهرست مقایسه به‌روزرسانی شد.', 'rasta-commerce' ),
+				'remove'                => esc_html__( 'حذف', 'rasta-commerce' ),
+				'viewProduct'           => esc_html__( 'مشاهده محصول', 'rasta-commerce' ),
+				'productsInComparison' => esc_html__( 'محصول برای مقایسه', 'rasta-commerce' ),
 			),
 		)
 	);

@@ -41,6 +41,10 @@ function rasta_configure_woocommerce() {
 	add_action( 'woocommerce_after_shop_loop_item_title', 'rasta_loop_product_rating', 5 );
 	add_action( 'woocommerce_after_shop_loop_item_title', 'rasta_loop_product_price', 10 );
 	add_action( 'woocommerce_after_shop_loop_item', 'rasta_loop_product_add_to_cart', 10 );
+
+	if ( rasta_feature_enabled( 'recently_viewed' ) ) {
+		add_action( 'woocommerce_after_single_product_summary', 'rasta_recently_viewed_placeholder', 25 );
+	}
 }
 add_action( 'wp', 'rasta_configure_woocommerce', 20 );
 
@@ -74,6 +78,48 @@ function rasta_woocommerce_wrapper_end() {
 }
 
 /**
+ * Determine whether a product should receive the "new" badge.
+ *
+ * @param WC_Product $product Product instance.
+ * @return bool
+ */
+function rasta_product_is_new( $product ) {
+	$days    = (int) get_theme_mod( 'rasta_newness_days', 30 );
+	$created = $product->get_date_created();
+
+	return $days > 0 && $created && $created->getTimestamp() >= ( time() - ( DAY_IN_SECONDS * $days ) );
+}
+
+/**
+ * Return a scheduled sale end timestamp or zero when there is no active deadline.
+ *
+ * @param WC_Product $product Product instance.
+ * @return int
+ */
+function rasta_product_sale_end_timestamp( $product ) {
+	$sale_end = $product->get_date_on_sale_to();
+
+	return $sale_end ? (int) $sale_end->getTimestamp() : 0;
+}
+
+/**
+ * Return a remaining stock quantity that warrants a warning, or false.
+ *
+ * @param WC_Product $product Product instance.
+ * @return int|false
+ */
+function rasta_product_low_stock_quantity( $product ) {
+	$threshold = (int) get_theme_mod( 'rasta_low_stock_threshold', 3 );
+	$quantity  = $product->get_stock_quantity();
+
+	if ( $threshold <= 0 || ! $product->managing_stock() || ! $product->is_in_stock() || null === $quantity ) {
+		return false;
+	}
+
+	return $quantity <= $threshold ? (int) $quantity : false;
+}
+
+/**
  * Output the product image and sale state in a card.
  *
  * @return void
@@ -85,20 +131,43 @@ function rasta_loop_product_visual() {
 		return;
 	}
 
-	$image = $product->get_image(
+	$image              = $product->get_image(
 		'woocommerce_thumbnail',
 		array(
 			'loading'  => 'lazy',
 			'decoding' => 'async',
 		)
 	);
+	$sale_end_timestamp = rasta_product_sale_end_timestamp( $product );
+	$low_stock_quantity = rasta_product_low_stock_quantity( $product );
 	?>
-	<?php if ( $product->is_on_sale() ) : ?>
-		<span class="rasta-product-card__badge"><?php esc_html_e( 'پیشنهاد ویژه', 'rasta-commerce' ); ?></span>
-	<?php endif; ?>
+	<div class="rasta-product-card__badges">
+		<?php if ( $product->is_on_sale() ) : ?>
+			<span class="rasta-product-card__badge"><?php esc_html_e( 'پیشنهاد ویژه', 'rasta-commerce' ); ?></span>
+		<?php endif; ?>
+		<?php if ( rasta_product_is_new( $product ) ) : ?>
+			<span class="rasta-product-card__badge rasta-product-card__badge--new"><?php esc_html_e( 'تازه', 'rasta-commerce' ); ?></span>
+		<?php endif; ?>
+	</div>
 	<?php echo wp_kses_post( $image ); ?>
+	<?php if ( rasta_feature_enabled( 'sale_countdown' ) && $product->is_on_sale() && $sale_end_timestamp > time() ) : ?>
+		<span class="rasta-sale-countdown" data-sale-countdown data-sale-ends="<?php echo esc_attr( $sale_end_timestamp ); ?>">
+			<?php rasta_icon( 'clock' ); ?>
+			<span data-sale-countdown-value><?php esc_html_e( 'در حال محاسبه…', 'rasta-commerce' ); ?></span>
+		</span>
+	<?php endif; ?>
 	<?php if ( ! $product->is_in_stock() ) : ?>
 		<span class="rasta-product-card__stock rasta-product-card__stock--out"><?php esc_html_e( 'ناموجود', 'rasta-commerce' ); ?></span>
+	<?php elseif ( false !== $low_stock_quantity ) : ?>
+		<span class="rasta-product-card__stock rasta-product-card__stock--low">
+			<?php
+			printf(
+				/* translators: %s: quantity remaining. */
+				esc_html__( 'فقط %s عدد باقی مانده', 'rasta-commerce' ),
+				esc_html( number_format_i18n( $low_stock_quantity ) )
+			);
+			?>
+		</span>
 	<?php endif; ?>
 	<?php
 }
@@ -225,3 +294,146 @@ function rasta_cart_count_fragment( $fragments ) {
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'rasta_cart_count_fragment' );
+
+/**
+ * Output an initially empty recently-viewed product rail on product pages.
+ * Product IDs remain in the shopper's browser, keeping this lightweight and private.
+ *
+ * @return void
+ */
+function rasta_recently_viewed_placeholder() {
+	global $product;
+
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+	?>
+	<section class="rasta-recently-viewed" data-recently-viewed-section data-rasta-product-view="<?php echo esc_attr( $product->get_id() ); ?>" hidden>
+		<div class="rasta-section-heading rasta-section-heading--compact">
+			<div>
+				<p class="rasta-kicker"><?php esc_html_e( 'برای ادامه‌ی انتخاب', 'rasta-commerce' ); ?></p>
+				<h2><?php esc_html_e( 'اخیراً دیده‌اید', 'rasta-commerce' ); ?></h2>
+			</div>
+		</div>
+		<div class="rasta-recently-viewed__grid" data-recently-viewed-products></div>
+	</section>
+	<?php
+}
+
+/**
+ * Output a mobile-friendly sticky purchase bar on supported single-product pages.
+ *
+ * @return void
+ */
+function rasta_render_sticky_add_to_cart() {
+	if ( ! function_exists( 'is_product' ) || ! is_product() || ! rasta_feature_enabled( 'sticky_cart' ) ) {
+		return;
+	}
+
+	$product = isset( $GLOBALS['product'] ) && $GLOBALS['product'] instanceof WC_Product ? $GLOBALS['product'] : wc_get_product( get_queried_object_id() );
+
+	if ( ! $product instanceof WC_Product || ! $product->is_purchasable() ) {
+		return;
+	}
+
+	$can_ajax_add = $product->is_type( 'simple' ) && $product->is_in_stock();
+	$image        = $product->get_image(
+		'woocommerce_thumbnail',
+		array(
+			'loading'  => 'lazy',
+			'decoding' => 'async',
+		)
+	);
+	?>
+	<section class="rasta-sticky-cart" data-sticky-cart aria-hidden="true" aria-label="<?php esc_attr_e( 'افزودن سریع به سبد خرید', 'rasta-commerce' ); ?>">
+		<div class="rasta-container rasta-sticky-cart__inner">
+			<div class="rasta-sticky-cart__product">
+				<div class="rasta-sticky-cart__image"><?php echo wp_kses_post( $image ); ?></div>
+				<div>
+					<strong><?php echo esc_html( $product->get_name() ); ?></strong>
+					<span><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
+				</div>
+			</div>
+			<?php if ( $can_ajax_add ) : ?>
+				<a class="button rasta-sticky-cart__button add_to_cart_button ajax_add_to_cart" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-quantity="1" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به سبد خرید', 'rasta-commerce' ), $product->get_name() ) ); ?>">
+					<?php rasta_icon( 'cart' ); ?>
+					<?php esc_html_e( 'افزودن به سبد', 'rasta-commerce' ); ?>
+				</a>
+			<?php else : ?>
+				<button class="rasta-button rasta-sticky-cart__button" type="button" data-scroll-product-form>
+					<?php esc_html_e( 'انتخاب گزینه‌ها', 'rasta-commerce' ); ?>
+					<?php rasta_icon( 'arrow-left' ); ?>
+				</button>
+			<?php endif; ?>
+		</div>
+	</section>
+	<?php
+}
+
+/**
+ * Output an optional free-shipping progress message beneath the mini cart.
+ *
+ * @return void
+ */
+function rasta_render_free_shipping_progress() {
+	$threshold = (float) get_theme_mod( 'rasta_free_shipping_threshold', 0 );
+
+	if ( $threshold <= 0 || ! function_exists( 'WC' ) || ! WC()->cart ) {
+		return;
+	}
+
+	$current    = (float) WC()->cart->get_cart_contents_total();
+	$remaining  = max( 0, $threshold - $current );
+	$percentage = min( 100, max( 0, (int) round( ( $current / $threshold ) * 100 ) ) );
+	?>
+	<div class="rasta-shipping-progress" role="status">
+		<?php if ( $remaining > 0 ) : ?>
+			<p>
+				<?php
+				printf(
+					/* translators: %s: remaining cart value. */
+					esc_html__( 'فقط %s تا ارسال رایگان مانده است.', 'rasta-commerce' ),
+					wp_kses_post( wc_price( $remaining ) )
+				);
+				?>
+			</p>
+		<?php else : ?>
+			<p><?php esc_html_e( 'ارسال رایگان برای این سفارش فعال شد.', 'rasta-commerce' ); ?></p>
+		<?php endif; ?>
+		<span class="rasta-shipping-progress__track" aria-hidden="true"><span style="inline-size: <?php echo esc_attr( $percentage ); ?>%"></span></span>
+	</div>
+	<?php
+}
+
+/**
+ * Output mini-cart content that remains stable when WooCommerce refreshes fragments.
+ *
+ * @return void
+ */
+function rasta_render_mini_cart_markup() {
+	?>
+	<div class="rasta-mini-cart widget_shopping_cart_content">
+		<?php woocommerce_mini_cart(); ?>
+		<?php rasta_render_free_shipping_progress(); ?>
+	</div>
+	<?php
+}
+
+/**
+ * Keep the themed mini cart and optional shipping progress in sync after AJAX cart events.
+ *
+ * @param array<string, string> $fragments Existing fragments.
+ * @return array<string, string>
+ */
+function rasta_mini_cart_fragment( $fragments ) {
+	if ( ! function_exists( 'woocommerce_mini_cart' ) ) {
+		return $fragments;
+	}
+
+	ob_start();
+	rasta_render_mini_cart_markup();
+	$fragments['div.widget_shopping_cart_content'] = ob_get_clean();
+
+	return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'rasta_mini_cart_fragment' );

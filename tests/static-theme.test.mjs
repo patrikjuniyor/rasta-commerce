@@ -33,7 +33,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 1.0.1', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 1.1.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -74,6 +74,36 @@ test('protects the public product-search endpoint with a nonce and sanitation', 
   assert.match(ajax, /sanitize_text_field\(\s*wp_unslash\(/);
   assert.match(ajax, /wp_send_json_success/);
   assert.doesNotMatch(ajax, /\beval\s*\(/);
+});
+
+test('protects quick view, collection, and comparison requests with a separate nonce', () => {
+  const ajax = read('inc/ajax.php');
+  const setup = read('inc/setup.php');
+  assert.match(ajax, /rasta_ajax_quick_view/);
+  assert.match(ajax, /rasta_ajax_product_collection/);
+  assert.match(ajax, /rasta_ajax_product_compare/);
+  assert.match(ajax, /check_ajax_referer\(\s*'rasta_product_tools'/);
+  assert.match(ajax, /rasta_ajax_product_ids/);
+  assert.match(setup, /toolsNonce/);
+});
+
+test('ships product-discovery enhancements with opt-out controls', () => {
+  const customizer = read('inc/customizer.php');
+  const header = read('header.php');
+  const footer = read('footer.php');
+  const productCard = read('woocommerce/content-product.php');
+  const woocommerce = read('inc/woocommerce.php');
+  ['quick_view', 'compare', 'recently_viewed', 'sticky_cart', 'sale_countdown'].forEach((feature) => {
+    assert.match(customizer, new RegExp(`rasta_enable_${feature}`));
+  });
+  assert.match(header, /data-rasta-drawer="wishlist"/);
+  assert.match(header, /data-rasta-drawer="quick-view"/);
+  assert.match(header, /data-rasta-drawer="compare"/);
+  assert.match(footer, /data-compare-tray/);
+  assert.match(productCard, /data-quick-view-product/);
+  assert.match(productCard, /data-compare-product/);
+  assert.match(woocommerce, /rasta_recently_viewed_placeholder/);
+  assert.match(woocommerce, /rasta_render_sticky_add_to_cart/);
 });
 
 test('renders client-side search results without raw HTML injection', () => {
