@@ -32,6 +32,7 @@ const requiredThemeFiles = [
   'plugins/rasta-commerce-core/rasta-commerce-core.php',
   'plugins/rasta-commerce-core/includes/class-rasta-commerce-elementor-base.php',
   'plugins/rasta-commerce-core/includes/class-rasta-commerce-elementor-widgets.php',
+  'plugins/rasta-commerce-core/includes/class-rasta-commerce-core-settings.php',
   'plugins/rasta-commerce-core/languages/rasta-commerce-core.pot',
   'plugins/rasta-zarinpal-gateway/rasta-zarinpal-gateway.php',
   'plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php',
@@ -157,7 +158,8 @@ test('ships ten dedicated Elementor storefront widgets in a separate core plugin
   assert.match(core, /Plugin Name: Rasta Commerce Core for Elementor/);
   assert.match(core, /Requires Plugins: elementor/);
   assert.match(core, /elementor\/widgets\/register/);
-  assert.equal((core.match(/widgets_manager->register/g) || []).length, 10);
+  assert.equal((core.match(/'class'\s*=>/g) || []).length, 10);
+  assert.match(core, /Rasta_Commerce_Core_Settings::get_enabled_widgets/);
   ['Hero_Widget', 'Product_Grid_Widget', 'Product_Rail_Widget', 'Category_Grid_Widget', 'Promo_Banner_Widget', 'Trust_Strip_Widget', 'Blog_Grid_Widget', 'Feature_Card_Widget', 'FAQ_Widget'].forEach((widget) => {
     assert.match(widgets, new RegExp(widget));
   });

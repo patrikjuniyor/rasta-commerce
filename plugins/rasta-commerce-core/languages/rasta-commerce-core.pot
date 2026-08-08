@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-04T15:14:01+00:00\n"
+"POT-Creation-Date: 2026-08-08T19:07:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce-core\n"
@@ -32,6 +32,34 @@ msgstr ""
 #. Author of the plugin
 #: rasta-commerce-core.php
 msgid "Rasta Commerce Contributors"
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:53
+msgid "هسته المنتور راستا"
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:54
+msgid "هسته راستا"
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:109
+msgid "هسته Elementor راستا کامرس"
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:110
+msgid "ویجت‌های مورد نیاز دموی فروشگاهی را فعال یا غیرفعال کنید. این صفحه Elementor را تغییر نمی‌دهد و فقط ماژول‌های راستا را مدیریت می‌کند."
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:112
+msgid "راهنما:"
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:113
+msgid "پس از ذخیره، ویرایشگر Elementor را یک‌بار بازخوانی کنید تا فهرست ویجت‌ها به‌روزرسانی شود."
+msgstr ""
+
+#: includes/class-rasta-commerce-core-settings.php:128
+msgid "ذخیره ماژول‌ها"
 msgstr ""
 
 #: includes/class-rasta-commerce-elementor-base.php:74
@@ -488,10 +516,90 @@ msgstr ""
 msgid "باز بودن اولین پاسخ"
 msgstr ""
 
-#: rasta-commerce-core.php:62
+#: rasta-commerce-core.php:67
 msgid "افزونه Rasta Commerce Core برای فعال شدن به Elementor نیاز دارد."
 msgstr ""
 
-#: rasta-commerce-core.php:77
+#: rasta-commerce-core.php:82
 msgid "راستا کامرس"
+msgstr ""
+
+#: rasta-commerce-core.php:97
+msgid "هیرو فروشگاه"
+msgstr ""
+
+#: rasta-commerce-core.php:98
+msgid "تیتر، CTA و تصویر اصلی صفحه نخست."
+msgstr ""
+
+#: rasta-commerce-core.php:102
+msgid "تیتر بخش"
+msgstr ""
+
+#: rasta-commerce-core.php:103
+msgid "برچسب، عنوان، توضیح و لینک بیشتر."
+msgstr ""
+
+#: rasta-commerce-core.php:107
+msgid "شبکه محصولات"
+msgstr ""
+
+#: rasta-commerce-core.php:108
+msgid "نمایش محصولات WooCommerce در شبکه قابل تنظیم."
+msgstr ""
+
+#: rasta-commerce-core.php:112
+msgid "ریل محصولات"
+msgstr ""
+
+#: rasta-commerce-core.php:113
+msgid "ریل افقی و لمسی محصولات."
+msgstr ""
+
+#: rasta-commerce-core.php:117
+msgid "دسته‌بندی محصولات"
+msgstr ""
+
+#: rasta-commerce-core.php:118
+msgid "دسته‌بندی‌های WooCommerce همراه تعداد محصول."
+msgstr ""
+
+#: rasta-commerce-core.php:122
+msgid "بنر تبلیغاتی"
+msgstr ""
+
+#: rasta-commerce-core.php:123
+msgid "بنر بصری با متن، CTA و تصویر."
+msgstr ""
+
+#: rasta-commerce-core.php:127
+msgid "نوار اعتماد"
+msgstr ""
+
+#: rasta-commerce-core.php:128
+msgid "مزیت‌های ارسال، اصالت و پشتیبانی."
+msgstr ""
+
+#: rasta-commerce-core.php:132
+msgid "شبکه مجله"
+msgstr ""
+
+#: rasta-commerce-core.php:133
+msgid "آخرین نوشته‌ها با تاریخ جلالی قالب."
+msgstr ""
+
+#: rasta-commerce-core.php:137
+msgid "کارت ویژگی"
+msgstr ""
+
+#: rasta-commerce-core.php:138
+msgid "کارت معرفی مزیت، آیکون و لینک."
+msgstr ""
+
+#: rasta-commerce-core.php:142
+msgid "پرسش‌های متداول"
+msgstr ""
+
+#: rasta-commerce-core.php:143
+msgid "آکاردئون پرسش و پاسخ با HTML semantic."
 msgstr ""

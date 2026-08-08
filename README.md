@@ -24,7 +24,7 @@
 
 برای جهت‌گیری محصول، الگوهای عمومی فروشگاه‌های موفق (کارت محصول کم‌اصطکاک، mini-cart، دسته‌بندی روشن، سلسله‌مراتب صفحه‌ی محصول و تمرکز بر سرعت) بررسی شده‌اند؛ از جمله تجربه‌های رایج در **Flatsome**، **WoodMart** و **Blocksy**. هیچ کد، فایل PSD، تصویر، متن یا template آن‌ها وارد این پروژه نشده است.
 
-پیاده‌سازی WooCommerce عمداً از **hooks** استفاده می‌کند و از override کردن templateهای بزرگ پرهیز دارد؛ این رویکرد با راهنمای رسمی توسعه‌ی قالب WooCommerce سازگارتر و کم‌هزینه‌تر در به‌روزرسانی‌هاست.
+پیاده‌سازی WooCommerce عمداً از **hooks** استفاده می‌کند و از override کردن templateهای بزرگ پرهیز دارد؛ این رویکرد با راهنمای رسمی توسعه‌ی قالب WooCommerce سازگارتر و کم‌هزینه‌تر در به‌روزرسانی‌هاست. سیاست الهام‌گیری از منابع مرجع و مرزبندی مالکیت فکری در [docs/reference-inspiration-policy.fa.md](docs/reference-inspiration-policy.fa.md) ثبت شده است.
 
 - [WooCommerce Classic Theme Developer Handbook](https://developer.woocommerce.com/docs/theming/theme-development/classic-theme-developer-handbook/)
 - [WooCommerce Template Structure](https://developer.woocommerce.com/docs/theming/theme-development/template-structure)

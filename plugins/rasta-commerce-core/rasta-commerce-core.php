@@ -41,6 +41,9 @@ function rasta_commerce_core_bootstrap() {
 
 	require_once RASTA_CORE_DIR . 'includes/class-rasta-commerce-elementor-base.php';
 	require_once RASTA_CORE_DIR . 'includes/class-rasta-commerce-elementor-widgets.php';
+	require_once RASTA_CORE_DIR . 'includes/class-rasta-commerce-core-settings.php';
+
+	Rasta_Commerce_Core_Settings::init();
 
 	add_action( 'elementor/elements/categories_registered', 'rasta_commerce_core_register_category' );
 	add_action( 'elementor/widgets/register', 'rasta_commerce_core_register_widgets' );
@@ -83,22 +86,81 @@ function rasta_commerce_core_register_category( $elements_manager ) {
 }
 
 /**
- * Register the ten storefront widgets.
+ * Return the Rasta Elementor widgets and their Persian control-panel labels.
+ *
+ * @return array<string, array{class: string, label: string, description: string}>
+ */
+function rasta_commerce_core_widget_definitions() {
+	return array(
+		'hero' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Hero_Widget',
+			'label'       => esc_html__( 'هیرو فروشگاه', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'تیتر، CTA و تصویر اصلی صفحه نخست.', 'rasta-commerce-core' ),
+		),
+		'section-heading' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Section_Heading_Widget',
+			'label'       => esc_html__( 'تیتر بخش', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'برچسب، عنوان، توضیح و لینک بیشتر.', 'rasta-commerce-core' ),
+		),
+		'product-grid' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Product_Grid_Widget',
+			'label'       => esc_html__( 'شبکه محصولات', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'نمایش محصولات WooCommerce در شبکه قابل تنظیم.', 'rasta-commerce-core' ),
+		),
+		'product-rail' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Product_Rail_Widget',
+			'label'       => esc_html__( 'ریل محصولات', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'ریل افقی و لمسی محصولات.', 'rasta-commerce-core' ),
+		),
+		'category-grid' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Category_Grid_Widget',
+			'label'       => esc_html__( 'دسته‌بندی محصولات', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'دسته‌بندی‌های WooCommerce همراه تعداد محصول.', 'rasta-commerce-core' ),
+		),
+		'promo-banner' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Promo_Banner_Widget',
+			'label'       => esc_html__( 'بنر تبلیغاتی', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'بنر بصری با متن، CTA و تصویر.', 'rasta-commerce-core' ),
+		),
+		'trust-strip' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Trust_Strip_Widget',
+			'label'       => esc_html__( 'نوار اعتماد', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'مزیت‌های ارسال، اصالت و پشتیبانی.', 'rasta-commerce-core' ),
+		),
+		'blog-grid' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Blog_Grid_Widget',
+			'label'       => esc_html__( 'شبکه مجله', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'آخرین نوشته‌ها با تاریخ جلالی قالب.', 'rasta-commerce-core' ),
+		),
+		'feature-card' => array(
+			'class'       => 'Rasta_Commerce_Elementor_Feature_Card_Widget',
+			'label'       => esc_html__( 'کارت ویژگی', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'کارت معرفی مزیت، آیکون و لینک.', 'rasta-commerce-core' ),
+		),
+		'faq' => array(
+			'class'       => 'Rasta_Commerce_Elementor_FAQ_Widget',
+			'label'       => esc_html__( 'پرسش‌های متداول', 'rasta-commerce-core' ),
+			'description' => esc_html__( 'آکاردئون پرسش و پاسخ با HTML semantic.', 'rasta-commerce-core' ),
+		),
+	);
+}
+
+/**
+ * Register the enabled storefront widgets.
  *
  * @param Elementor\Widgets_Manager $widgets_manager Elementor widgets manager.
  * @return void
  */
 function rasta_commerce_core_register_widgets( $widgets_manager ) {
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Hero_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Section_Heading_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Product_Grid_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Product_Rail_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Category_Grid_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Promo_Banner_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Trust_Strip_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Blog_Grid_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_Feature_Card_Widget() );
-	$widgets_manager->register( new Rasta_Commerce_Elementor_FAQ_Widget() );
+	$enabled = Rasta_Commerce_Core_Settings::get_enabled_widgets();
+
+	foreach ( rasta_commerce_core_widget_definitions() as $slug => $definition ) {
+		if ( ! in_array( $slug, $enabled, true ) || ! class_exists( $definition['class'] ) ) {
+			continue;
+		}
+		$class_name = $definition['class'];
+		$widgets_manager->register( new $class_name() );
+	}
 }
 
 /**

@@ -62,6 +62,8 @@ namespace {
 	function add_action() { return true; }
 	function did_action( $hook ) { return 'elementor/loaded' === $hook; }
 	function load_plugin_textdomain() { return true; }
+	function get_option( $name, $default = false ) { return $default; }
+	function sanitize_key( $value ) { return strtolower( preg_replace( '/[^a-z0-9_-]/', '', (string) $value ) ); }
 	function plugin_basename( $file ) { return basename( $file ); }
 	function plugin_dir_path( $file ) { return dirname( $file ) . '/'; }
 	function plugin_dir_url() { return 'https://example.test/wp-content/plugins/rasta-commerce-core/'; }
@@ -101,6 +103,11 @@ namespace {
 	rasta_elementor_assert_same( count( array_unique( $names ) ), 10, 'Each registered Elementor widget should have a unique name.' );
 	rasta_elementor_assert_same( in_array( 'rasta-product-grid', $names, true ), true, 'Product Grid widget should be included.' );
 	rasta_elementor_assert_same( in_array( 'rasta-faq', $names, true ), true, 'FAQ widget should be included.' );
+	rasta_elementor_assert_same(
+		\Rasta_Commerce_Core_Settings::sanitize_widgets( array( 'hero', 'unknown-widget', 'faq', 'hero' ) ),
+		array( 'hero', 'faq' ),
+		'The Persian module manager should only persist known, unique widget slugs.'
+	);
 
 	fwrite( STDOUT, "Elementor core widget contract tests: PASS\n" );
 }
