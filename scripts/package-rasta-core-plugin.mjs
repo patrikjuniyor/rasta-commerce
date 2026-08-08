@@ -6,7 +6,7 @@ import path from 'node:path';
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, '..');
 const pluginSlug = 'rasta-commerce-core';
-const pluginVersion = '1.0.0';
+const pluginVersion = '1.0.1';
 const releaseDirectory = path.join(root, 'release');
 const sourceDirectory = path.join(root, 'plugins', pluginSlug);
 const pluginDirectory = path.join(releaseDirectory, pluginSlug);

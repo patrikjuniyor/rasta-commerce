@@ -10,12 +10,12 @@ const buildDirectory = path.join(marketplaceDirectory, 'build');
 const releaseDirectory = path.join(marketplaceDirectory, 'release');
 const inputDirectory = path.join(marketplaceDirectory, 'input');
 const mode = process.argv[2] || 'prepare';
-const themeVersion = '1.4.0';
+const themeVersion = '1.4.1';
 const packageName = 'RastaCommerce-RTLTheme';
 const requiredProjectFiles = [
   path.join(root, 'release', `rasta-commerce-${themeVersion}.zip`),
   path.join(root, 'release', 'rasta-commerce-child-1.0.0.zip'),
-  path.join(root, 'release', 'rasta-commerce-core-1.0.0.zip'),
+  path.join(root, 'release', 'rasta-commerce-core-1.0.1.zip'),
   path.join(root, 'release', 'rasta-zarinpal-gateway-1.0.1.zip'),
   path.join(marketplaceDirectory, 'help.pdf'),
   path.join(marketplaceDirectory, 'import-files', 'rasta-commerce-starter.xml'),
@@ -78,7 +78,7 @@ const createBasePackage = async (destination, includeSubmissionAssets = false) =
 
   await cp(path.join(root, 'release', `rasta-commerce-${themeVersion}.zip`), path.join(destination, 'Theme', `rasta-commerce-${themeVersion}.zip`));
   await cp(path.join(root, 'release', 'rasta-commerce-child-1.0.0.zip'), path.join(destination, 'Theme', 'rasta-commerce-child-1.0.0.zip'));
-  await cp(path.join(root, 'release', 'rasta-commerce-core-1.0.0.zip'), path.join(destination, 'Plugins', 'rasta-commerce-core-1.0.0.zip'));
+  await cp(path.join(root, 'release', 'rasta-commerce-core-1.0.1.zip'), path.join(destination, 'Plugins', 'rasta-commerce-core-1.0.1.zip'));
   await cp(path.join(root, 'release', 'rasta-zarinpal-gateway-1.0.1.zip'), path.join(destination, 'Plugins', 'rasta-zarinpal-gateway-1.0.1.zip'));
   await cp(path.join(marketplaceDirectory, 'import-files'), path.join(destination, 'Import Files'), { recursive: true });
   await cp(path.join(marketplaceDirectory, 'help.pdf'), path.join(destination, 'help.pdf'));

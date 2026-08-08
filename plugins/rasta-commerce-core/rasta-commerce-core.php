@@ -3,7 +3,7 @@
  * Plugin Name: Rasta Commerce Core for Elementor
  * Plugin URI: https://github.com/patrikjuniyor/rasta-commerce
  * Description: Ten RTL-native Elementor widgets for building Rasta Commerce storefront pages.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.4
  * Requires PHP: 8.0
  * Requires Plugins: elementor
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RASTA_CORE_VERSION', '1.0.0' );
+define( 'RASTA_CORE_VERSION', '1.0.1' );
 define( 'RASTA_CORE_FILE', __FILE__ );
 define( 'RASTA_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RASTA_CORE_URL', plugin_dir_url( __FILE__ ) );
