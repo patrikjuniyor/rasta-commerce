@@ -860,4 +860,185 @@
       showToast(strings.addedToCart || 'محصول به سبد خرید اضافه شد.');
     });
   }
+
+  /* ─── Built-in cart: add to cart ─────────────────────────────────────── */
+
+  const updateCartCount = (count) => {
+    document.querySelectorAll('.rasta-cart-count').forEach((el) => {
+      el.textContent = String(count);
+    });
+  };
+
+  const refreshMiniCart = async () => {
+    const container = document.querySelector('[data-mini-cart]');
+    if (!container) return;
+    // The mini-cart is server-rendered; for AJAX we'd need a dedicated endpoint.
+    // For now, reload the page fragment by re-fetching via AJAX.
+    try {
+      const data = await postAjax('rasta_get_cart_count', {});
+      updateCartCount(data.cartCount || 0);
+    } catch {
+      // Silent fail; count will refresh on next page load.
+    }
+  };
+
+  document.addEventListener('click', async (event) => {
+    /* Add to cart (built-in). */
+    const addToCartBtn = closest(event.target, '[data-add-to-cart]');
+    if (addToCartBtn) {
+      event.preventDefault();
+      const productId = addToCartBtn.dataset.productId;
+      if (!productId) return;
+
+      /* Find quantity if a qty input is nearby. */
+      const qtyInput = addToCartBtn.closest('.rasta-product-single__add-to-cart')?.querySelector('[data-qty-input]');
+      const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
+
+      addToCartBtn.disabled = true;
+      const originalText = addToCartBtn.textContent;
+      addToCartBtn.textContent = '…';
+
+      try {
+        const data = await postAjax('rasta_add_to_cart', { product_id: productId, quantity });
+        updateCartCount(data.cartCount || 0);
+        showToast(data.message || strings.addedToCart || 'محصول به سبد خرید اضافه شد.');
+        refreshMiniCart();
+      } catch (err) {
+        showToast(err.message || strings.networkError);
+      } finally {
+        addToCartBtn.disabled = false;
+        addToCartBtn.textContent = originalText;
+      }
+      return;
+    }
+
+    /* Remove cart item. */
+    const removeBtn = closest(event.target, '[data-remove-cart-item]');
+    if (removeBtn) {
+      event.preventDefault();
+      const productId = removeBtn.dataset.removeCartItem;
+      if (!productId) return;
+
+      try {
+        const data = await postAjax('rasta_remove_cart_item', { product_id: productId });
+        updateCartCount(data.cartCount || 0);
+
+        /* Remove the row from cart table if present. */
+        const row = document.querySelector(`[data-cart-item="${productId}"]`);
+        if (row) {
+          row.style.opacity = '0';
+          row.style.transition = 'opacity 0.3s';
+          setTimeout(() => row.remove(), 300);
+        }
+
+        /* Update subtotal if displayed. */
+        const subtotalEl = document.querySelector('[data-cart-subtotal]');
+        if (subtotalEl && data.subtotal) {
+          subtotalEl.innerHTML = data.subtotal;
+        }
+
+        showToast(data.message || strings.removedFromCart || 'محصول از سبد خرید حذف شد.');
+
+        if (data.isEmpty) {
+          setTimeout(() => window.location.reload(), 600);
+        }
+      } catch (err) {
+        showToast(err.message || strings.networkError);
+      }
+      return;
+    }
+
+    /* Update cart quantity. */
+    const updateBtn = closest(event.target, '[data-cart-update]');
+    if (updateBtn) {
+      event.preventDefault();
+      const productId = updateBtn.dataset.cartUpdate;
+      const quantity = updateBtn.dataset.qty;
+      if (!productId || !quantity) return;
+
+      try {
+        const data = await postAjax('rasta_update_cart', { product_id: productId, quantity });
+        updateCartCount(data.cartCount || 0);
+
+        const subtotalEl = document.querySelector('[data-cart-subtotal]');
+        if (subtotalEl && data.subtotal) {
+          subtotalEl.innerHTML = data.subtotal;
+        }
+
+        showToast(data.message || strings.cartUpdated || 'سبد خرید به‌روزرسانی شد.');
+        setTimeout(() => window.location.reload(), 400);
+      } catch (err) {
+        showToast(err.message || strings.networkError);
+      }
+      return;
+    }
+  });
+
+  /* ─── Quantity selector (single product) ─────────────────────────────── */
+
+  document.addEventListener('click', (event) => {
+    const increaseBtn = closest(event.target, '[data-qty-increase]');
+    if (increaseBtn) {
+      const container = increaseBtn.closest('.rasta-quantity-selector');
+      const input = container?.querySelector('[data-qty-input]');
+      if (input) {
+        input.value = String(Math.max(1, (parseInt(input.value, 10) || 1) + 1));
+      }
+      return;
+    }
+
+    const decreaseBtn = closest(event.target, '[data-qty-decrease]');
+    if (decreaseBtn) {
+      const container = decreaseBtn.closest('.rasta-quantity-selector');
+      const input = container?.querySelector('[data-qty-input]');
+      if (input) {
+        input.value = String(Math.max(1, (parseInt(input.value, 10) || 1) - 1));
+      }
+      return;
+    }
+  });
+
+  /* ─── Checkout form ──────────────────────────────────────────────────── */
+
+  document.addEventListener('submit', async (event) => {
+    const form = closest(event.target, '[data-checkout-form]');
+    if (!form) return;
+
+    event.preventDefault();
+    const submitBtn = form.querySelector('[data-submit-order]');
+    if (!submitBtn) return;
+
+    /* Validate required fields. */
+    const required = form.querySelectorAll('[required]');
+    for (const field of required) {
+      if (!field.value.trim()) {
+        field.focus();
+        field.style.borderColor = '#dc2626';
+        showToast('لطفاً تمام فیلدهای ضروری را پر کنید.');
+        return;
+      }
+    }
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '…';
+
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value; });
+    data.action = 'rasta_checkout';
+    data.nonce = theme.nonce;
+
+    try {
+      const result = await postAjax('rasta_checkout', data, theme.nonce);
+      showToast(result.message || 'سفارش شما با موفقیت ثبت شد.');
+      if (result.redirect) {
+        window.location.href = result.redirect;
+      }
+    } catch (err) {
+      showToast(err.message || strings.networkError);
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
 })();

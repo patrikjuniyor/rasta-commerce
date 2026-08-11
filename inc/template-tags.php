@@ -2,6 +2,8 @@
 /**
  * Reusable presentation helpers.
  *
+ * Works with both the built-in product system and WooCommerce.
+ *
  * @package Rasta_Commerce
  */
 
@@ -32,6 +34,7 @@ function rasta_get_icon( $name, $class = '' ) {
 		'trash'      => '<path d="M4 7h16M10 11v5m4-5v5M9 7l1-3h4l1 3M6 7l1 13h10l1-13"/>',
 		'clock'      => '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>',
 		'plus'       => '<path d="M12 5v14M5 12h14"/>',
+		'minus'      => '<path d="M5 12h14"/>',
 		'truck'      => '<path d="M3 5h11v11H3zM14 9h3l3 3v4h-6z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/>',
 		'shield'     => '<path d="M12 3 20 6v5c0 5-3.2 8.5-8 10-4.8-1.5-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/>',
 		'headset'    => '<path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13h3v6H5a1 1 0 0 1-1-1v-5Zm16 0h-3v6h2a1 1 0 0 0 1-1v-5Z"/><path d="M17 19c0 1.2-1.2 2-3 2h-2"/>',
@@ -67,46 +70,20 @@ function rasta_icon( $name, $class = '' ) {
 }
 
 /**
- * Return the WooCommerce shop URL or a safe home fallback.
- *
- * @return string
- */
-function rasta_get_shop_url() {
-	if ( function_exists( 'wc_get_page_permalink' ) ) {
-		return wc_get_page_permalink( 'shop' );
-	}
-
-	return home_url( '/' );
-}
-
-/**
- * Return the My Account URL or a safe home fallback.
- *
- * @return string
- */
-function rasta_get_account_url() {
-	if ( function_exists( 'wc_get_page_permalink' ) ) {
-		return wc_get_page_permalink( 'myaccount' );
-	}
-
-	return wp_login_url();
-}
-
-/**
- * Get the current cart item count without failing when WooCommerce is inactive.
+ * Return the current cart item count (works with both built-in and WC).
+ * The canonical implementation is in cart.php; this guard prevents errors
+ * if template-tags is somehow loaded before cart.php.
  *
  * @return int
  */
-function rasta_get_cart_count() {
-	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+if ( ! function_exists( 'rasta_get_cart_count' ) ) {
+	function rasta_get_cart_count() {
 		return 0;
 	}
-
-	return (int) WC()->cart->get_cart_contents_count();
 }
 
 /**
- * Output the cart count element used by WooCommerce fragments.
+ * Output the cart count element used by fragments.
  *
  * @return void
  */
@@ -119,7 +96,7 @@ function rasta_cart_count_markup() {
 }
 
 /**
- * Output the primary navigation with a useful fallback before a menu is assigned.
+ * Output the primary navigation.
  *
  * @return void
  */
@@ -168,9 +145,9 @@ function rasta_posted_on() {
 /**
  * Render a Jalali-aware comment item.
  *
- * @param WP_Comment $comment Comment object.
- * @param array      $args    Comment list arguments.
- * @param int        $depth   Depth in the thread.
+ * @param \WP_Comment $comment Comment object.
+ * @param array       $args    Comment list arguments.
+ * @param int         $depth   Depth in the thread.
  * @return void
  */
 function rasta_comment( $comment, $args, $depth ) {
@@ -180,7 +157,7 @@ function rasta_comment( $comment, $args, $depth ) {
 		<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
-					<?php echo get_avatar( $comment, 46 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core avatar markup. ?>
+					<?php echo get_avatar( $comment, 46 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<b class="fn"><?php comment_author_link(); ?></b>
 				</div>
 				<div class="comment-metadata">
@@ -210,7 +187,7 @@ function rasta_comment( $comment, $args, $depth ) {
 }
 
 /**
- * Output footer menu or a concise set of useful links.
+ * Output footer menu or useful links.
  *
  * @return void
  */
@@ -283,26 +260,28 @@ function rasta_social_links() {
 }
 
 /**
- * Render up to six WooCommerce product categories.
+ * Render up to six product categories (works with both built-in and WC).
  *
  * @return void
  */
 function rasta_render_product_categories() {
-	if ( ! function_exists( 'wc_get_page_permalink' ) ) {
-		return;
+	$terms = array();
+
+	if ( rasta_using_woocommerce() && function_exists( 'wc_get_page_permalink' ) ) {
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false,
+				'number'     => 6,
+				'orderby'    => 'count',
+				'order'      => 'DESC',
+			)
+		);
+	} else {
+		$terms = rasta_get_product_categories( 6 );
 	}
 
-	$terms = get_terms(
-		array(
-			'taxonomy'   => 'product_cat',
-			'hide_empty' => false,
-			'number'      => 6,
-			'orderby'     => 'count',
-			'order'       => 'DESC',
-		)
-	);
-
-	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+	if ( empty( $terms ) || is_wp_error( $terms ) ) {
 		return;
 	}
 
@@ -321,7 +300,7 @@ function rasta_render_product_categories() {
 			$count_text = sprintf(
 				/* translators: %s: number of products in the category. */
 				_n( '%s محصول', '%s محصول', (int) $term->count, 'rasta-commerce' ),
-				number_format_i18n( (int) $term->count )
+				rasta_to_persian_digits( number_format_i18n( (int) $term->count ) )
 			);
 			?>
 			<a class="rasta-category-card" href="<?php echo esc_url( $link ); ?>">
@@ -333,7 +312,7 @@ function rasta_render_product_categories() {
 					<?php endif; ?>
 				</span>
 				<span class="rasta-category-card__title"><?php echo esc_html( $term->name ); ?></span>
-					<span class="rasta-category-card__count"><?php echo esc_html( $count_text ); ?></span>
+				<span class="rasta-category-card__count"><?php echo esc_html( $count_text ); ?></span>
 			</a>
 		<?php endforeach; ?>
 	</div>
@@ -341,20 +320,18 @@ function rasta_render_product_categories() {
 }
 
 /**
- * Render a WooCommerce product rail using the theme's product card template.
+ * Render a product rail (works with both built-in and WC).
  *
  * @param string               $title       Section title.
  * @param string               $description Section description.
- * @param array<string, mixed> $query_args  WC product query arguments.
+ * @param array<string, mixed> $query_args  Query arguments.
  * @return void
  */
 function rasta_render_product_rail( $title, $description, $query_args = array() ) {
-	if ( ! function_exists( 'wc_get_products' ) ) {
-		return;
-	}
+	$products = array();
 
-	$products = wc_get_products(
-		wp_parse_args(
+	if ( rasta_using_woocommerce() && function_exists( 'wc_get_products' ) ) {
+		$wc_args = wp_parse_args(
 			$query_args,
 			array(
 				'limit'   => 4,
@@ -362,8 +339,19 @@ function rasta_render_product_rail( $title, $description, $query_args = array() 
 				'orderby' => 'date',
 				'order'   => 'DESC',
 			)
-		)
-	);
+		);
+		$products = wc_get_products( $wc_args );
+	} else {
+		$builtin_args = wp_parse_args(
+			$query_args,
+			array(
+				'limit'   => 4,
+				'orderby' => 'date',
+				'order'   => 'DESC',
+			)
+		);
+		$products = rasta_get_products( $builtin_args );
+	}
 	?>
 	<section class="rasta-product-section rasta-section" aria-labelledby="rasta-products-<?php echo esc_attr( sanitize_title( $title ) ); ?>">
 		<div class="rasta-section-heading">
@@ -381,36 +369,134 @@ function rasta_render_product_rail( $title, $description, $query_args = array() 
 		</div>
 
 		<?php if ( ! empty( $products ) ) : ?>
-				<?php
-			global $post;
-			$previous_product = isset( $GLOBALS['product'] ) ? $GLOBALS['product'] : null;
-			?>
 			<ul class="products columns-4 rasta-products-grid">
-				<?php foreach ( $products as $current_product ) : ?>
-					<?php
-					$post                 = get_post( $current_product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					$GLOBALS['product']  = $current_product; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					if ( $post ) {
-						setup_postdata( $post );
-						wc_get_template_part( 'content', 'product' );
-					}
-					?>
+				<?php foreach ( $products as $item ) : ?>
+					<?php rasta_render_product_card( $item ); ?>
 				<?php endforeach; ?>
 			</ul>
-			<?php
-			wp_reset_postdata();
-			if ( null === $previous_product ) {
-				unset( $GLOBALS['product'] );
-			} else {
-				$GLOBALS['product'] = $previous_product; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			}
-			?>
-		<?php elseif ( current_user_can( 'manage_woocommerce' ) ) : ?>
+		<?php elseif ( current_user_can( 'edit_posts' ) ) : ?>
 			<div class="rasta-empty-state">
 				<?php rasta_icon( 'box' ); ?>
-				<p><?php esc_html_e( 'هنوز محصولی برای نمایش ندارید. با افزودن محصول در ووکامرس، این بخش خودکار تکمیل می‌شود.', 'rasta-commerce' ); ?></p>
+				<p><?php esc_html_e( 'هنوز محصولی برای نمایش ندارید. با افزودن محصول از بخش فروشگاه، این بخش خودکار تکمیل می‌شود.', 'rasta-commerce' ); ?></p>
 			</div>
 		<?php endif; ?>
 	</section>
 	<?php
+}
+
+/**
+ * Render a single product card for either backend.
+ *
+ * @param mixed $product WC_Product, WP_Post, or product payload array.
+ * @return void
+ */
+function rasta_render_product_card( $product ) {
+	if ( is_array( $product ) ) {
+		rasta_render_product_card_from_payload( $product );
+		return;
+	}
+
+	if ( rasta_using_woocommerce() && $product instanceof \WC_Product ) {
+		rasta_render_product_card_from_wc( $product );
+		return;
+	}
+
+	if ( $product instanceof \WP_Post ) {
+		$payload = rasta_get_product_payload( $product->ID );
+		if ( ! empty( $payload ) ) {
+			rasta_render_product_card_from_payload( $payload );
+		}
+	}
+}
+
+/**
+ * Render a product card from a structured payload array.
+ *
+ * @param array $payload Product payload.
+ * @return void
+ */
+function rasta_render_product_card_from_payload( $payload ) {
+	$id = $payload['id'];
+	$quick_view_label = sprintf(
+		/* translators: %s: product name. */
+		__( 'نمایش سریع %s', 'rasta-commerce' ),
+		$payload['name']
+	);
+	?>
+	<li class="rasta-product-card post-<?php echo esc_attr( $id ); ?> type-rasta_product">
+		<article class="rasta-product-card__inner">
+			<div class="rasta-product-card__visual">
+				<a class="rasta-product-card__image" href="<?php echo esc_url( $payload['url'] ); ?>" tabindex="-1" aria-hidden="true">
+					<?php if ( ! empty( $payload['image'] ) ) : ?>
+						<img src="<?php echo esc_url( $payload['image'] ); ?>" alt="<?php echo esc_attr( $payload['name'] ); ?>" loading="lazy" decoding="async" />
+					<?php endif; ?>
+					<div class="rasta-product-card__badges">
+						<?php if ( ! empty( $payload['isOnSale'] ) ) : ?>
+							<span class="rasta-product-card__badge"><?php esc_html_e( 'پیشنهاد ویژه', 'rasta-commerce' ); ?></span>
+						<?php endif; ?>
+						<?php if ( ! empty( $payload['isNew'] ) ) : ?>
+							<span class="rasta-product-card__badge rasta-product-card__badge--new"><?php esc_html_e( 'تازه', 'rasta-commerce' ); ?></span>
+						<?php endif; ?>
+					</div>
+					<?php if ( empty( $payload['inStock'] ) ) : ?>
+						<span class="rasta-product-card__stock rasta-product-card__stock--out"><?php esc_html_e( 'ناموجود', 'rasta-commerce' ); ?></span>
+					<?php endif; ?>
+				</a>
+				<div class="rasta-product-card__utility">
+					<?php if ( rasta_feature_enabled( 'quick_view' ) ) : ?>
+						<button class="rasta-product-card__utility-button" type="button" data-quick-view-product="<?php echo esc_attr( $id ); ?>" aria-label="<?php echo esc_attr( $quick_view_label ); ?>">
+							<?php rasta_icon( 'eye' ); ?>
+						</button>
+					<?php endif; ?>
+					<button class="rasta-product-card__utility-button rasta-wishlist-button" type="button" data-wishlist-product="<?php echo esc_attr( $id ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به علاقه‌مندی‌ها', 'rasta-commerce' ), $payload['name'] ) ); ?>">
+						<?php rasta_icon( 'heart' ); ?>
+					</button>
+					<?php if ( rasta_feature_enabled( 'compare' ) ) : ?>
+						<button class="rasta-product-card__utility-button rasta-compare-button" type="button" data-compare-product="<?php echo esc_attr( $id ); ?>" aria-pressed="false" aria-label="<?php echo esc_attr( sprintf( __( 'افزودن %s به مقایسه', 'rasta-commerce' ), $payload['name'] ) ); ?>">
+							<?php rasta_icon( 'compare' ); ?>
+						</button>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="rasta-product-card__body">
+				<?php if ( ! empty( $payload['category'] ) ) : ?>
+					<div class="rasta-product-card__category"><?php echo esc_html( $payload['category'] ); ?></div>
+				<?php endif; ?>
+				<h3 class="woocommerce-loop-product__title rasta-product-card__title">
+					<a href="<?php echo esc_url( $payload['url'] ); ?>"><?php echo esc_html( $payload['name'] ); ?></a>
+				</h3>
+				<div class="rasta-product-card__price">
+					<?php echo wp_kses_post( $payload['price'] ); ?>
+				</div>
+				<div class="rasta-product-card__actions">
+					<?php if ( ! empty( $payload['inStock'] ) ) : ?>
+						<button class="button rasta-add-to-cart" type="button" data-add-to-cart data-product-id="<?php echo esc_attr( $id ); ?>">
+							<?php esc_html_e( 'افزودن به سبد', 'rasta-commerce' ); ?>
+						</button>
+					<?php else : ?>
+						<span class="rasta-out-of-stock-label"><?php esc_html_e( 'ناموجود', 'rasta-commerce' ); ?></span>
+					<?php endif; ?>
+				</div>
+			</div>
+		</article>
+	</li>
+	<?php
+}
+
+/**
+ * Render a product card from a WooCommerce product object.
+ *
+ * @param \WC_Product $product WC product.
+ * @return void
+ */
+function rasta_render_product_card_from_wc( $product ) {
+	global $post;
+	$post = get_post( $product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	setup_postdata( $post );
+
+	if ( function_exists( 'wc_get_template_part' ) ) {
+		wc_get_template_part( 'content', 'product' );
+	}
+
+	wp_reset_postdata();
 }

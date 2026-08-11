@@ -57,13 +57,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php rasta_icon( 'search' ); ?>
 				<span class="screen-reader-text"><?php esc_html_e( 'جست‌وجوی محصول', 'rasta-commerce' ); ?></span>
 			</button>
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-				<button class="rasta-header-action rasta-header-action--wishlist" type="button" data-rasta-open="wishlist" aria-haspopup="dialog" aria-controls="rasta-wishlist-drawer">
-					<?php rasta_icon( 'heart' ); ?>
-					<span class="rasta-wishlist-count" data-wishlist-count hidden>0</span>
-					<span class="screen-reader-text"><?php esc_html_e( 'علاقه‌مندی‌ها', 'rasta-commerce' ); ?></span>
-				</button>
-			<?php endif; ?>
+			<button class="rasta-header-action rasta-header-action--wishlist" type="button" data-rasta-open="wishlist" aria-haspopup="dialog" aria-controls="rasta-wishlist-drawer">
+				<?php rasta_icon( 'heart' ); ?>
+				<span class="rasta-wishlist-count" data-wishlist-count hidden>0</span>
+				<span class="screen-reader-text"><?php esc_html_e( 'علاقه‌مندی‌ها', 'rasta-commerce' ); ?></span>
+			</button>
 			<a class="rasta-header-action rasta-header-action--account" href="<?php echo esc_url( rasta_get_account_url() ); ?>">
 				<?php rasta_icon( 'user' ); ?>
 				<span class="screen-reader-text"><?php esc_html_e( 'حساب کاربری', 'rasta-commerce' ); ?></span>
@@ -87,8 +85,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<form class="rasta-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<label class="screen-reader-text" for="rasta-product-search"><?php esc_html_e( 'نام محصول', 'rasta-commerce' ); ?></label>
-		<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+		<?php if ( rasta_using_woocommerce() ) : ?>
 			<input type="hidden" name="post_type" value="product" />
+		<?php else : ?>
+			<input type="hidden" name="post_type" value="rasta_product" />
 		<?php endif; ?>
 		<div class="rasta-search-form__field">
 			<?php rasta_icon( 'search' ); ?>
@@ -106,47 +106,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php rasta_icon( 'close' ); ?>
 		</button>
 	</div>
-	<?php if ( function_exists( 'rasta_render_mini_cart_markup' ) && function_exists( 'woocommerce_mini_cart' ) ) : ?>
-		<?php rasta_render_mini_cart_markup(); ?>
-	<?php else : ?>
-		<div class="rasta-mini-cart">
-			<p><?php esc_html_e( 'برای فعال شدن سبد خرید، افزونه ووکامرس را نصب کنید.', 'rasta-commerce' ); ?></p>
-		</div>
-	<?php endif; ?>
+	<div class="rasta-mini-cart" data-mini-cart>
+		<?php rasta_render_mini_cart_content(); ?>
+	</div>
 </aside>
 
-<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-	<aside id="rasta-wishlist-drawer" class="rasta-drawer rasta-drawer--wishlist" data-rasta-drawer="wishlist" aria-hidden="true" aria-labelledby="rasta-wishlist-title" tabindex="-1">
+<aside id="rasta-wishlist-drawer" class="rasta-drawer rasta-drawer--wishlist" data-rasta-drawer="wishlist" aria-hidden="true" aria-labelledby="rasta-wishlist-title" tabindex="-1">
+	<div class="rasta-drawer__header">
+		<h2 id="rasta-wishlist-title"><?php esc_html_e( 'علاقه‌مندی‌های شما', 'rasta-commerce' ); ?></h2>
+		<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن علاقه‌مندی‌ها', 'rasta-commerce' ); ?>">
+			<?php rasta_icon( 'close' ); ?>
+		</button>
+	</div>
+	<div class="rasta-saved-products" data-wishlist-results aria-live="polite"></div>
+</aside>
+
+<?php if ( rasta_feature_enabled( 'quick_view' ) ) : ?>
+	<aside id="rasta-quick-view-drawer" class="rasta-drawer rasta-drawer--quick-view" data-rasta-drawer="quick-view" aria-hidden="true" aria-labelledby="rasta-quick-view-title" tabindex="-1">
 		<div class="rasta-drawer__header">
-			<h2 id="rasta-wishlist-title"><?php esc_html_e( 'علاقه‌مندی‌های شما', 'rasta-commerce' ); ?></h2>
-			<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن علاقه‌مندی‌ها', 'rasta-commerce' ); ?>">
+			<h2 id="rasta-quick-view-title"><?php esc_html_e( 'نمایش سریع', 'rasta-commerce' ); ?></h2>
+			<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن نمایش سریع', 'rasta-commerce' ); ?>">
 				<?php rasta_icon( 'close' ); ?>
 			</button>
 		</div>
-		<div class="rasta-saved-products" data-wishlist-results aria-live="polite"></div>
+		<div class="rasta-quick-view" data-quick-view-content aria-live="polite"></div>
 	</aside>
+<?php endif; ?>
 
-	<?php if ( rasta_feature_enabled( 'quick_view' ) ) : ?>
-		<aside id="rasta-quick-view-drawer" class="rasta-drawer rasta-drawer--quick-view" data-rasta-drawer="quick-view" aria-hidden="true" aria-labelledby="rasta-quick-view-title" tabindex="-1">
-			<div class="rasta-drawer__header">
-				<h2 id="rasta-quick-view-title"><?php esc_html_e( 'نمایش سریع', 'rasta-commerce' ); ?></h2>
-				<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن نمایش سریع', 'rasta-commerce' ); ?>">
-					<?php rasta_icon( 'close' ); ?>
-				</button>
-			</div>
-			<div class="rasta-quick-view" data-quick-view-content aria-live="polite"></div>
-		</aside>
-	<?php endif; ?>
-
-	<?php if ( rasta_feature_enabled( 'compare' ) ) : ?>
-		<aside id="rasta-compare-drawer" class="rasta-drawer rasta-drawer--compare" data-rasta-drawer="compare" aria-hidden="true" aria-labelledby="rasta-compare-title" tabindex="-1">
-			<div class="rasta-drawer__header">
-				<h2 id="rasta-compare-title"><?php esc_html_e( 'مقایسه محصولات', 'rasta-commerce' ); ?></h2>
-				<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن مقایسه', 'rasta-commerce' ); ?>">
-					<?php rasta_icon( 'close' ); ?>
-				</button>
-			</div>
-			<div class="rasta-compare-content" data-compare-content aria-live="polite"></div>
-		</aside>
-	<?php endif; ?>
+<?php if ( rasta_feature_enabled( 'compare' ) ) : ?>
+	<aside id="rasta-compare-drawer" class="rasta-drawer rasta-drawer--compare" data-rasta-drawer="compare" aria-hidden="true" aria-labelledby="rasta-compare-title" tabindex="-1">
+		<div class="rasta-drawer__header">
+			<h2 id="rasta-compare-title"><?php esc_html_e( 'مقایسه محصولات', 'rasta-commerce' ); ?></h2>
+			<button class="rasta-icon-button" type="button" data-rasta-close aria-label="<?php esc_attr_e( 'بستن مقایسه', 'rasta-commerce' ); ?>">
+				<?php rasta_icon( 'close' ); ?>
+			</button>
+		</div>
+		<div class="rasta-compare-content" data-compare-content aria-live="polite"></div>
+	</aside>
 <?php endif; ?>

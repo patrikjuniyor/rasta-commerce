@@ -1,15 +1,15 @@
 /**
  * Theme Name: Rasta Commerce
  * Author: Rasta Commerce Contributors
- * Description: A fast, accessible, Persian-first RTL WooCommerce theme with a polished storefront experience.
- * Version: 1.4.1
+ * Description: A fast, accessible, Persian-first RTL e-commerce theme with built-in store — no WooCommerce required.
+ * Version: 2.0.0
  * Requires at least: 6.4
  * Tested up to: 7.0
  * Requires PHP: 8.0
  * License: GNU General Public License v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: rasta-commerce
- * Tags: e-commerce, woocommerce, rtl-language-support, right-to-left, custom-logo, custom-menu, featured-images, full-width-template, blog, translation-ready
+ * Tags: e-commerce, rtl-language-support, right-to-left, custom-logo, custom-menu, featured-images, full-width-template, blog, translation-ready
  */
 
 @font-face {
@@ -3998,4 +3998,591 @@ ul.products.rasta-products-grid li.product {
   .rasta-toast {
     display: none !important;
   }
+}
+
+/* ─── Built-in store: mini-cart drawer ─────────────────────────────────── */
+
+.rasta-mini-cart__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--rasta-muted, #64748b);
+}
+
+.rasta-mini-cart__empty svg {
+  inline-size: 3rem;
+  block-size: 3rem;
+  opacity: 0.5;
+}
+
+.rasta-mini-cart__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-block-size: 50vh;
+  overflow-y: auto;
+}
+
+.rasta-mini-cart__item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+  align-items: center;
+}
+
+.rasta-mini-cart__image {
+  flex-shrink: 0;
+  inline-size: 3.5rem;
+  block-size: 3.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.rasta-mini-cart__image img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.rasta-mini-cart__details {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.rasta-mini-cart__details a {
+  display: block;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--rasta-ink, #182033);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rasta-mini-cart__qty {
+  font-size: 0.8125rem;
+  color: var(--rasta-muted, #64748b);
+}
+
+.rasta-mini-cart__remove {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--rasta-muted, #64748b);
+  padding: 0.25rem;
+}
+
+.rasta-mini-cart__remove svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.rasta-mini-cart__footer {
+  padding: 1rem;
+  border-block-start: 2px solid var(--rasta-border, #e2e8f0);
+}
+
+.rasta-mini-cart__subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-block-end: 0.5rem;
+}
+
+.rasta-mini-cart__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-block-start: 0.75rem;
+}
+
+.rasta-mini-cart__actions .rasta-button {
+  flex: 1;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* ─── Built-in store: cart page ────────────────────────────────────────── */
+
+.rasta-cart-page h1 {
+  font-size: 1.75rem;
+  margin-block-end: 1.5rem;
+}
+
+.rasta-cart-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  margin-block-end: 2rem;
+}
+
+.rasta-cart-table th {
+  text-align: start;
+  padding: 0.75rem 1rem;
+  border-block-end: 2px solid var(--rasta-border, #e2e8f0);
+  font-size: 0.875rem;
+  color: var(--rasta-muted, #64748b);
+}
+
+.rasta-cart-table td {
+  padding: 1rem;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+  vertical-align: middle;
+}
+
+.rasta-cart-table__product {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rasta-cart-table__thumb {
+  inline-size: 4rem;
+  block-size: 4rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.rasta-cart-table__product a {
+  font-weight: 600;
+  color: var(--rasta-ink, #182033);
+  text-decoration: none;
+}
+
+.rasta-cart-table__product a:hover {
+  color: var(--rasta-accent, #f25c54);
+}
+
+.rasta-cart-summary {
+  background: var(--rasta-surface, #f7f8fb);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-inline-size: 28rem;
+  margin-inline-start: auto;
+}
+
+.rasta-cart-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 0.5rem;
+}
+
+.rasta-cart-summary__total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+  padding-block-end: 1rem;
+  margin-block-end: 1rem;
+}
+
+.rasta-cart-summary__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-block-start: 1rem;
+}
+
+.rasta-cart-summary__actions .rasta-button {
+  flex: 1;
+  text-align: center;
+}
+
+/* ─── Built-in store: checkout page ────────────────────────────────────── */
+
+.rasta-checkout-page h1 {
+  font-size: 1.75rem;
+  margin-block-end: 1.5rem;
+}
+
+.rasta-checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .rasta-checkout-grid {
+    grid-template-columns: 1fr 24rem;
+  }
+}
+
+.rasta-checkout-form__fields h2,
+.rasta-checkout-order h2 {
+  font-size: 1.25rem;
+  margin-block-end: 1rem;
+  padding-block-end: 0.5rem;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+}
+
+.rasta-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.rasta-form-field {
+  margin-block-end: 1rem;
+}
+
+.rasta-form-field label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-block-end: 0.375rem;
+  color: var(--rasta-ink, #182033);
+}
+
+.rasta-form-field .required {
+  color: var(--rasta-accent, #f25c54);
+}
+
+.rasta-form-field input,
+.rasta-form-field textarea,
+.rasta-form-field select {
+  inline-size: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--rasta-border, #e2e8f0);
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.rasta-form-field input:focus,
+.rasta-form-field textarea:focus {
+  outline: none;
+  border-color: var(--rasta-accent, #f25c54);
+  box-shadow: 0 0 0 3px rgba(242, 92, 84, 0.15);
+}
+
+.rasta-checkout-order {
+  background: var(--rasta-surface, #f7f8fb);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  block-size: max-content;
+  position: sticky;
+  inset-block-start: 1rem;
+}
+
+.rasta-checkout-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.rasta-checkout-items li {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.5rem;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+  font-size: 0.9375rem;
+}
+
+.rasta-checkout-items em {
+  color: var(--rasta-muted, #64748b);
+  font-style: normal;
+}
+
+.rasta-checkout-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding-block: 1rem;
+  margin-block-end: 1rem;
+  border-block-end: 2px solid var(--rasta-ink, #182033);
+}
+
+.rasta-checkout-payment {
+  margin-block-end: 1.5rem;
+}
+
+.rasta-checkout-payment h3 {
+  font-size: 1rem;
+  margin-block-end: 0.5rem;
+}
+
+.rasta-payment-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--rasta-border, #e2e8f0);
+  border-radius: 0.5rem;
+  margin-block-end: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.rasta-payment-option:hover {
+  border-color: var(--rasta-accent, #f25c54);
+}
+
+.rasta-payment-option input[type="radio"] {
+  accent-color: var(--rasta-accent, #f25c54);
+}
+
+.rasta-button--full {
+  inline-size: 100%;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ─── Built-in store: single product ───────────────────────────────────── */
+
+.rasta-single-product {
+  padding-block: 2rem;
+}
+
+.rasta-product-single__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .rasta-product-single__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.rasta-product-single__main-image {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--rasta-surface, #f7f8fb);
+}
+
+.rasta-product-single__main-image img {
+  inline-size: 100%;
+  block-size: auto;
+  display: block;
+}
+
+.rasta-product-single__thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-block-start: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.rasta-product-single__thumb {
+  inline-size: 4rem;
+  block-size: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  transition: border-color 0.2s;
+}
+
+.rasta-product-single__thumb:hover,
+.rasta-product-single__thumb.is-active {
+  border-color: var(--rasta-accent, #f25c54);
+}
+
+.rasta-product-single__thumb img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.rasta-product-single__title {
+  font-size: 1.75rem;
+  line-height: 1.3;
+  margin-block-end: 0.5rem;
+}
+
+.rasta-product-single__sku {
+  font-size: 0.875rem;
+  color: var(--rasta-muted, #64748b);
+  margin-block-end: 0.75rem;
+}
+
+.rasta-product-single__price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rasta-ink, #182033);
+  margin-block-end: 1rem;
+}
+
+.rasta-product-single__price del {
+  color: var(--rasta-muted, #64748b);
+  font-weight: 400;
+  font-size: 1rem;
+  margin-inline-end: 0.5rem;
+}
+
+.rasta-product-single__price ins {
+  color: var(--rasta-accent, #f25c54);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.rasta-product-single__stock {
+  font-size: 0.875rem;
+  margin-block-end: 1rem;
+  color: #16a34a;
+}
+
+.rasta-product-single__add-to-cart {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-block-end: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.rasta-quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rasta-border, #e2e8f0);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.rasta-qty-btn {
+  background: var(--rasta-surface, #f7f8fb);
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.rasta-qty-btn:hover {
+  background: var(--rasta-border, #e2e8f0);
+}
+
+.rasta-qty-input,
+.rasta-qty-display {
+  inline-size: 3rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background: #fff;
+  -moz-appearance: textfield;
+}
+
+.rasta-qty-input::-webkit-inner-spin-button,
+.rasta-qty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.rasta-button--large {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+.rasta-product-single__out-of-stock {
+  color: #dc2626;
+  font-weight: 600;
+  margin-block-end: 1rem;
+}
+
+.rasta-product-single__short-description {
+  margin-block-end: 1rem;
+  color: var(--rasta-muted, #64748b);
+  line-height: 1.7;
+}
+
+.rasta-product-single__meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-block-end: 1.5rem;
+  padding-block: 1rem;
+  border-block-start: 1px solid var(--rasta-border, #e2e8f0);
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+}
+
+.rasta-product-single__attributes {
+  margin-block-end: 1rem;
+}
+
+.rasta-product-single__attributes h3 {
+  font-size: 1rem;
+  margin-block-end: 0.5rem;
+}
+
+.rasta-product-single__attributes dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.rasta-product-single__attributes dt {
+  font-weight: 600;
+  color: var(--rasta-muted, #64748b);
+}
+
+.rasta-product-single__categories {
+  font-size: 0.875rem;
+  color: var(--rasta-muted, #64748b);
+}
+
+.rasta-product-single__categories a {
+  color: var(--rasta-accent-strong, #315bd8);
+  text-decoration: none;
+  margin-inline-end: 0.5rem;
+}
+
+.rasta-product-single__description {
+  margin-block-start: 3rem;
+  padding-block-start: 2rem;
+  border-block-start: 1px solid var(--rasta-border, #e2e8f0);
+}
+
+.rasta-product-single__description h2 {
+  font-size: 1.25rem;
+  margin-block-end: 1rem;
+}
+
+/* ─── Built-in store: account page ─────────────────────────────────────── */
+
+.rasta-account-page h1 {
+  font-size: 1.75rem;
+  margin-block-end: 1rem;
+}
+
+.rasta-orders-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  margin-block-start: 1rem;
+}
+
+.rasta-orders-table th,
+.rasta-orders-table td {
+  padding: 0.75rem 1rem;
+  text-align: start;
+  border-block-end: 1px solid var(--rasta-border, #e2e8f0);
+}
+
+.rasta-orders-table th {
+  font-size: 0.875rem;
+  color: var(--rasta-muted, #64748b);
+  background: var(--rasta-surface, #f7f8fb);
+}
+
+/* ─── Built-in store: quantity in product grid ─────────────────────────── */
+
+.rasta-out-of-stock-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 600;
 }

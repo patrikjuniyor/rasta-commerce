@@ -1,6 +1,10 @@
 <?php
 /**
- * WooCommerce integration built with hooks instead of fragile full-template copies.
+ * WooCommerce compatibility layer.
+ *
+ * This file is only loaded when WooCommerce is active. It provides
+ * enhanced hooks and wrappers that improve the WC experience but are
+ * not required — the theme's built-in store works without this file.
  *
  * @package Rasta_Commerce
  */
@@ -9,16 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* This file should only run when WooCommerce is loaded. */
+if ( ! class_exists( 'WooCommerce' ) ) {
+	return;
+}
+
 /**
- * Configure WooCommerce wrappers and product loop callbacks after WooCommerce loads.
+ * Configure WooCommerce wrappers and product loop callbacks.
  *
  * @return void
  */
 function rasta_configure_woocommerce() {
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		return;
-	}
-
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 	remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
@@ -78,56 +83,14 @@ function rasta_woocommerce_wrapper_end() {
 }
 
 /**
- * Determine whether a product should receive the "new" badge.
- *
- * @param WC_Product $product Product instance.
- * @return bool
- */
-function rasta_product_is_new( $product ) {
-	$days    = (int) get_theme_mod( 'rasta_newness_days', 30 );
-	$created = $product->get_date_created();
-
-	return $days > 0 && $created && $created->getTimestamp() >= ( time() - ( DAY_IN_SECONDS * $days ) );
-}
-
-/**
- * Return a scheduled sale end timestamp or zero when there is no active deadline.
- *
- * @param WC_Product $product Product instance.
- * @return int
- */
-function rasta_product_sale_end_timestamp( $product ) {
-	$sale_end = $product->get_date_on_sale_to();
-
-	return $sale_end ? (int) $sale_end->getTimestamp() : 0;
-}
-
-/**
- * Return a remaining stock quantity that warrants a warning, or false.
- *
- * @param WC_Product $product Product instance.
- * @return int|false
- */
-function rasta_product_low_stock_quantity( $product ) {
-	$threshold = (int) get_theme_mod( 'rasta_low_stock_threshold', 3 );
-	$quantity  = $product->get_stock_quantity();
-
-	if ( $threshold <= 0 || ! $product->managing_stock() || ! $product->is_in_stock() || null === $quantity ) {
-		return false;
-	}
-
-	return $quantity <= $threshold ? (int) $quantity : false;
-}
-
-/**
- * Output the product image and sale state in a card.
+ * Output the product image and sale state in a WC card.
  *
  * @return void
  */
 function rasta_loop_product_visual() {
 	global $product;
 
-	if ( ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof \WC_Product ) {
 		return;
 	}
 
@@ -173,14 +136,14 @@ function rasta_loop_product_visual() {
 }
 
 /**
- * Output a linked product title.
+ * Output a linked product title (WC loop).
  *
  * @return void
  */
 function rasta_loop_product_title() {
 	global $product;
 
-	if ( ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof \WC_Product ) {
 		return;
 	}
 	?>
@@ -215,14 +178,14 @@ function rasta_loop_product_price() {
 }
 
 /**
- * Output an AJAX-ready add-to-cart button provided by WooCommerce.
+ * Output an AJAX-ready add-to-cart button.
  *
  * @return void
  */
 function rasta_loop_product_add_to_cart() {
 	global $product;
 
-	if ( ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof \WC_Product ) {
 		return;
 	}
 
@@ -242,6 +205,47 @@ function rasta_loop_product_add_to_cart() {
 }
 
 /**
+ * Determine whether a WC product should receive the "new" badge.
+ *
+ * @param \WC_Product $product Product instance.
+ * @return bool
+ */
+function rasta_product_is_new( $product ) {
+	$days    = (int) get_theme_mod( 'rasta_newness_days', 30 );
+	$created = $product->get_date_created();
+
+	return $days > 0 && $created && $created->getTimestamp() >= ( time() - ( DAY_IN_SECONDS * $days ) );
+}
+
+/**
+ * Return a scheduled sale end timestamp for WC products.
+ *
+ * @param \WC_Product $product Product instance.
+ * @return int
+ */
+function rasta_product_sale_end_timestamp( $product ) {
+	$sale_end = $product->get_date_on_sale_to();
+	return $sale_end ? (int) $sale_end->getTimestamp() : 0;
+}
+
+/**
+ * Return remaining stock that warrants a warning (WC).
+ *
+ * @param \WC_Product $product Product instance.
+ * @return int|false
+ */
+function rasta_product_low_stock_quantity( $product ) {
+	$threshold = (int) get_theme_mod( 'rasta_low_stock_threshold', 3 );
+	$quantity  = $product->get_stock_quantity();
+
+	if ( $threshold <= 0 || ! $product->managing_stock() || ! $product->is_in_stock() || null === $quantity ) {
+		return false;
+	}
+
+	return $quantity <= $threshold ? (int) $quantity : false;
+}
+
+/**
  * Define card grid columns in WooCommerce archives.
  *
  * @return int
@@ -252,7 +256,7 @@ function rasta_loop_shop_columns() {
 add_filter( 'loop_shop_columns', 'rasta_loop_shop_columns' );
 
 /**
- * Use a compact, familiar related-products section.
+ * Use a compact related-products section.
  *
  * @param array<string, mixed> $args Existing related product query arguments.
  * @return array<string, mixed>
@@ -260,13 +264,12 @@ add_filter( 'loop_shop_columns', 'rasta_loop_shop_columns' );
 function rasta_related_products_args( $args ) {
 	$args['posts_per_page'] = 4;
 	$args['columns']        = 4;
-
 	return $args;
 }
 add_filter( 'woocommerce_output_related_products_args', 'rasta_related_products_args' );
 
 /**
- * Use a simple RTL-aware delimiter for WooCommerce breadcrumbs.
+ * Use a RTL-aware delimiter for WooCommerce breadcrumbs.
  *
  * @param array<string, mixed> $defaults Breadcrumb defaults.
  * @return array<string, mixed>
@@ -275,7 +278,6 @@ function rasta_breadcrumb_defaults( $defaults ) {
 	$defaults['delimiter']   = '<span class="rasta-breadcrumb-separator" aria-hidden="true">/</span>';
 	$defaults['wrap_before'] = '<nav class="woocommerce-breadcrumb" aria-label="' . esc_attr__( 'مسیر صفحه', 'rasta-commerce' ) . '">';
 	$defaults['wrap_after']  = '</nav>';
-
 	return $defaults;
 }
 add_filter( 'woocommerce_breadcrumb_defaults', 'rasta_breadcrumb_defaults' );
@@ -290,21 +292,19 @@ function rasta_cart_count_fragment( $fragments ) {
 	ob_start();
 	rasta_cart_count_markup();
 	$fragments['.rasta-cart-count'] = ob_get_clean();
-
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'rasta_cart_count_fragment' );
 
 /**
  * Output an initially empty recently-viewed product rail on product pages.
- * Product IDs remain in the shopper's browser, keeping this lightweight and private.
  *
  * @return void
  */
 function rasta_recently_viewed_placeholder() {
 	global $product;
 
-	if ( ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof \WC_Product ) {
 		return;
 	}
 	?>
@@ -321,7 +321,7 @@ function rasta_recently_viewed_placeholder() {
 }
 
 /**
- * Output a mobile-friendly sticky purchase bar on supported single-product pages.
+ * Output a mobile-friendly sticky purchase bar on single WC product pages.
  *
  * @return void
  */
@@ -330,9 +330,9 @@ function rasta_render_sticky_add_to_cart() {
 		return;
 	}
 
-	$product = isset( $GLOBALS['product'] ) && $GLOBALS['product'] instanceof WC_Product ? $GLOBALS['product'] : wc_get_product( get_queried_object_id() );
+	$product = isset( $GLOBALS['product'] ) && $GLOBALS['product'] instanceof \WC_Product ? $GLOBALS['product'] : wc_get_product( get_queried_object_id() );
 
-	if ( ! $product instanceof WC_Product || ! $product->is_purchasable() ) {
+	if ( ! $product instanceof \WC_Product || ! $product->is_purchasable() ) {
 		return;
 	}
 
@@ -355,14 +355,7 @@ function rasta_render_sticky_add_to_cart() {
 				</div>
 			</div>
 			<?php if ( $can_ajax_add ) : ?>
-				<?php
-				$sticky_cart_label = sprintf(
-					/* translators: %s: product name. */
-					__( 'افزودن %s به سبد خرید', 'rasta-commerce' ),
-					$product->get_name()
-				);
-				?>
-				<a class="button rasta-sticky-cart__button add_to_cart_button ajax_add_to_cart" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-quantity="1" aria-label="<?php echo esc_attr( $sticky_cart_label ); ?>">
+				<a class="button rasta-sticky-cart__button add_to_cart_button ajax_add_to_cart" href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-quantity="1">
 					<?php rasta_icon( 'cart' ); ?>
 					<?php esc_html_e( 'افزودن به سبد', 'rasta-commerce' ); ?>
 				</a>
@@ -378,55 +371,6 @@ function rasta_render_sticky_add_to_cart() {
 }
 
 /**
- * Output an optional free-shipping progress message beneath the mini cart.
- *
- * @return void
- */
-function rasta_render_free_shipping_progress() {
-	$threshold = (float) get_theme_mod( 'rasta_free_shipping_threshold', 0 );
-
-	if ( $threshold <= 0 || ! function_exists( 'WC' ) || ! WC()->cart ) {
-		return;
-	}
-
-	$current    = (float) WC()->cart->get_cart_contents_total();
-	$remaining  = max( 0, $threshold - $current );
-	$percentage = min( 100, max( 0, (int) round( ( $current / $threshold ) * 100 ) ) );
-	?>
-	<div class="rasta-shipping-progress" role="status">
-		<?php if ( $remaining > 0 ) : ?>
-			<p>
-				<?php
-				printf(
-					/* translators: %s: remaining cart value. */
-					esc_html__( 'فقط %s تا ارسال رایگان مانده است.', 'rasta-commerce' ),
-					wp_kses_post( wc_price( $remaining ) )
-				);
-				?>
-			</p>
-		<?php else : ?>
-			<p><?php esc_html_e( 'ارسال رایگان برای این سفارش فعال شد.', 'rasta-commerce' ); ?></p>
-		<?php endif; ?>
-		<span class="rasta-shipping-progress__track" aria-hidden="true"><span style="inline-size: <?php echo esc_attr( $percentage ); ?>%"></span></span>
-	</div>
-	<?php
-}
-
-/**
- * Output mini-cart content that remains stable when WooCommerce refreshes fragments.
- *
- * @return void
- */
-function rasta_render_mini_cart_markup() {
-	?>
-	<div class="rasta-mini-cart widget_shopping_cart_content">
-		<?php woocommerce_mini_cart(); ?>
-		<?php rasta_render_free_shipping_progress(); ?>
-	</div>
-	<?php
-}
-
-/**
  * Keep the themed mini cart and optional shipping progress in sync after AJAX cart events.
  *
  * @param array<string, string> $fragments Existing fragments.
@@ -438,8 +382,8 @@ function rasta_mini_cart_fragment( $fragments ) {
 	}
 
 	ob_start();
-	rasta_render_mini_cart_markup();
-	$fragments['div.widget_shopping_cart_content'] = ob_get_clean();
+	rasta_render_mini_cart_content();
+	$fragments['[data-mini-cart]'] = ob_get_clean();
 
 	return $fragments;
 }

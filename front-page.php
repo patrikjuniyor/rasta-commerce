@@ -62,37 +62,35 @@ if ( ! $hero_image ) {
 		</div>
 	</section>
 
-	<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-		<section id="rasta-categories" class="rasta-section rasta-category-section">
-			<div class="rasta-container">
-				<div class="rasta-section-heading">
-					<div>
-						<p class="rasta-kicker"><?php esc_html_e( 'شروع کنید', 'rasta-commerce' ); ?></p>
-						<h2><?php esc_html_e( 'برای امروزتان چه چیزی لازم دارید؟', 'rasta-commerce' ); ?></h2>
-						<p><?php esc_html_e( 'سریع‌تر به چیزی برسید که دنبالش هستید.', 'rasta-commerce' ); ?></p>
-					</div>
-					<a class="rasta-text-link" href="<?php echo esc_url( rasta_get_shop_url() ); ?>">
-						<?php esc_html_e( 'همه دسته‌ها', 'rasta-commerce' ); ?>
-						<?php rasta_icon( 'arrow-left' ); ?>
-					</a>
-				</div>
-				<?php rasta_render_product_categories(); ?>
-			</div>
-		</section>
-
+	<section id="rasta-categories" class="rasta-section rasta-category-section">
 		<div class="rasta-container">
-			<?php
-			rasta_render_product_rail(
-				__( 'پرفروش‌های این هفته', 'rasta-commerce' ),
-				__( 'محصولاتی که خریداران بیشتر از همه به آن‌ها اعتماد کرده‌اند.', 'rasta-commerce' ),
-				array(
-					'orderby' => 'popularity',
-					'order'   => 'DESC',
-				)
-			);
-			?>
+			<div class="rasta-section-heading">
+				<div>
+					<p class="rasta-kicker"><?php esc_html_e( 'شروع کنید', 'rasta-commerce' ); ?></p>
+					<h2><?php esc_html_e( 'برای امروزتان چه چیزی لازم دارید؟', 'rasta-commerce' ); ?></h2>
+					<p><?php esc_html_e( 'سریع‌تر به چیزی برسید که دنبالش هستید.', 'rasta-commerce' ); ?></p>
+				</div>
+				<a class="rasta-text-link" href="<?php echo esc_url( rasta_get_shop_url() ); ?>">
+					<?php esc_html_e( 'همه دسته‌ها', 'rasta-commerce' ); ?>
+					<?php rasta_icon( 'arrow-left' ); ?>
+				</a>
+			</div>
+			<?php rasta_render_product_categories(); ?>
 		</div>
-	<?php endif; ?>
+	</section>
+
+	<div class="rasta-container">
+		<?php
+		rasta_render_product_rail(
+			__( 'پرفروش‌های این هفته', 'rasta-commerce' ),
+			__( 'محصولاتی که خریداران بیشتر از همه به آن‌ها اعتماد کرده‌اند.', 'rasta-commerce' ),
+			array(
+				'orderby' => 'popularity',
+				'order'   => 'DESC',
+			)
+		);
+		?>
+	</div>
 
 	<section class="rasta-promo-band">
 		<div class="rasta-container rasta-promo-band__grid">
@@ -113,16 +111,14 @@ if ( ! $hero_image ) {
 		</div>
 	</section>
 
-	<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-		<div class="rasta-container">
-			<?php
-			rasta_render_product_rail(
-				__( 'تازه به فروشگاه رسیده', 'rasta-commerce' ),
-				__( 'تازه‌ترین انتخاب‌ها، آماده برای دیده شدن.', 'rasta-commerce' )
-			);
-			?>
-		</div>
-	<?php endif; ?>
+	<div class="rasta-container">
+		<?php
+		rasta_render_product_rail(
+			__( 'تازه به فروشگاه رسیده', 'rasta-commerce' ),
+			__( 'تازه‌ترین انتخاب‌ها، آماده برای دیده شدن.', 'rasta-commerce' )
+		);
+		?>
+	</div>
 
 	<?php
 	$blog_page_id = (int) get_option( 'page_for_posts' );

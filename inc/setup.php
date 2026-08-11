@@ -49,24 +49,27 @@ function rasta_setup() {
 		)
 	);
 
-	add_theme_support(
-		'woocommerce',
-		array(
-			'thumbnail_image_width' => 480,
-			'single_image_width'    => 920,
-			'product_grid'          => array(
-				'default_rows'    => 3,
-				'min_rows'        => 2,
-				'max_rows'        => 8,
-				'default_columns' => 4,
-				'min_columns'     => 2,
-				'max_columns'     => 5,
-			),
-		)
-	);
-	add_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
+	/* WooCommerce support (optional enhancement when the plugin is active). */
+	if ( class_exists( 'WooCommerce' ) ) {
+		add_theme_support(
+			'woocommerce',
+			array(
+				'thumbnail_image_width' => 480,
+				'single_image_width'    => 920,
+				'product_grid'          => array(
+					'default_rows'    => 3,
+					'min_rows'        => 2,
+					'max_rows'        => 8,
+					'default_columns' => 4,
+					'min_columns'     => 2,
+					'max_columns'     => 5,
+				),
+			)
+		);
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+		add_theme_support( 'wc-product-gallery-slider' );
+	}
 
 	register_nav_menus(
 		array(
@@ -138,6 +141,9 @@ function rasta_enqueue_assets() {
 			'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
 			'nonce'      => wp_create_nonce( 'rasta_product_search' ),
 			'toolsNonce' => wp_create_nonce( 'rasta_product_tools' ),
+			'cartUrl'    => rasta_get_cart_url(),
+			'checkoutUrl'=> rasta_get_checkout_url(),
+			'shopUrl'    => rasta_get_shop_url(),
 			'features'   => array(
 				'quickView'      => rasta_feature_enabled( 'quick_view' ),
 				'compare'         => rasta_feature_enabled( 'compare' ),
@@ -151,6 +157,8 @@ function rasta_enqueue_assets() {
 				'loadingProduct'        => esc_html__( 'در حال آماده‌سازی محصول…', 'rasta-commerce' ),
 				'noResults'             => esc_html__( 'محصولی پیدا نشد.', 'rasta-commerce' ),
 				'addedToCart'           => esc_html__( 'محصول به سبد خرید اضافه شد.', 'rasta-commerce' ),
+				'removedFromCart'       => esc_html__( 'محصول از سبد خرید حذف شد.', 'rasta-commerce' ),
+				'cartUpdated'           => esc_html__( 'سبد خرید به‌روزرسانی شد.', 'rasta-commerce' ),
 				'networkError'          => esc_html__( 'اتصال برقرار نشد؛ دوباره تلاش کنید.', 'rasta-commerce' ),
 				'wishlistEmpty'         => esc_html__( 'هنوز محصولی را ذخیره نکرده‌اید.', 'rasta-commerce' ),
 				'compareEmpty'          => esc_html__( 'برای مقایسه، حداقل دو محصول انتخاب کنید.', 'rasta-commerce' ),
@@ -159,6 +167,7 @@ function rasta_enqueue_assets() {
 				'remove'                => esc_html__( 'حذف', 'rasta-commerce' ),
 				'viewProduct'           => esc_html__( 'مشاهده محصول', 'rasta-commerce' ),
 				'productsInComparison' => esc_html__( 'محصول برای مقایسه', 'rasta-commerce' ),
+				'goToCart'             => esc_html__( 'مشاهده سبد خرید', 'rasta-commerce' ),
 			),
 		)
 	);
@@ -180,6 +189,8 @@ function rasta_body_classes( $classes ) {
 
 	if ( class_exists( 'WooCommerce' ) ) {
 		$classes[] = 'rasta-has-woocommerce';
+	} else {
+		$classes[] = 'rasta-has-built-in-store';
 	}
 
 	return $classes;
