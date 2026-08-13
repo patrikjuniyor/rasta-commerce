@@ -7,7 +7,7 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, '..');
 const releaseDirectory = path.join(root, 'release');
 const themeDirectory = path.join(releaseDirectory, 'rasta-commerce');
-const themeVersion = '2.2.0';
+const themeVersion = '2.3.0';
 const zipFile = path.join(releaseDirectory, `rasta-commerce-${themeVersion}.zip`);
 const includes = [
   'assets',

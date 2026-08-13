@@ -41,6 +41,8 @@ const requiredThemeFiles = [
   'tests/php/admin-dashboard-test.php',
   'tests/php/customizer-test.php',
   'tests/php/maintenance-test.php',
+  'tests/php/store-settings-test.php',
+  'tests/php/notifications-test.php',
   'maintenance.php',
 ];
 
@@ -54,7 +56,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.2.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.3.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -146,6 +148,32 @@ test('ships a maintenance mode with customizer control and template redirect', (
   assert.match(maintenance, /template_redirect/);
   assert.match(maintenance, /rasta_maybe_show_maintenance/);
   assert.match(functions, /inc\/maintenance\.php/);
+});
+
+test('ships a WhatsApp support button with customizer controls', () => {
+  const customizer = read('inc/customizer.php');
+  const templateTags = read('inc/template-tags.php');
+  const footer = read('footer.php');
+  assert.match(customizer, /rasta_enable_whatsapp/);
+  assert.match(customizer, /rasta_whatsapp_number/);
+  assert.match(customizer, /rasta_whatsapp_message/);
+  assert.match(customizer, /function rasta_sanitize_phone/);
+  assert.match(templateTags, /function rasta_render_whatsapp_button/);
+  assert.match(footer, /rasta_render_whatsapp_button\(\)/);
+});
+
+test('ships store settings and order notification emails', () => {
+  const settings = read('inc/store-settings.php');
+  const notifications = read('inc/notifications.php');
+  const functions = read('functions.php');
+  assert.match(settings, /RASTA_STORE_SETTINGS_OPTION/);
+  assert.match(settings, /register_setting/);
+  assert.match(settings, /rasta_sanitize_store_settings/);
+  assert.match(notifications, /rasta_order_created/);
+  assert.match(notifications, /wp_mail/);
+  assert.match(notifications, /Content-Type: text\/html/);
+  assert.match(functions, /inc\/store-settings\.php/);
+  assert.match(functions, /inc\/notifications\.php/);
 });
 
 test('renders client-side search results without raw HTML injection', () => {

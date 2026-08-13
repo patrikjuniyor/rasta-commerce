@@ -10,7 +10,7 @@ const buildDirectory = path.join(marketplaceDirectory, 'build');
 const releaseDirectory = path.join(marketplaceDirectory, 'release');
 const inputDirectory = path.join(marketplaceDirectory, 'input');
 const mode = process.argv[2] || 'prepare';
-const themeVersion = '2.2.0';
+const themeVersion = '2.3.0';
 const packageName = 'RastaCommerce-RTLTheme';
 const requiredProjectFiles = [
   path.join(root, 'release', `rasta-commerce-${themeVersion}.zip`),

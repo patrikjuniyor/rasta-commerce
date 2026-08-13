@@ -277,6 +277,34 @@ function rasta_social_links() {
 }
 
 /**
+ * Render the floating WhatsApp support button (when enabled and configured).
+ *
+ * @return void
+ */
+function rasta_render_whatsapp_button() {
+	if ( ! rasta_feature_enabled( 'whatsapp', false ) ) {
+		return;
+	}
+
+	$number  = rasta_sanitize_phone( get_theme_mod( 'rasta_whatsapp_number', '' ) );
+	$message = rasta_get_mod( 'rasta_whatsapp_message', __( 'سلام، درباره محصولات فروشگاه سوال داشتم.', 'rasta-commerce' ) );
+
+	if ( '' === $number ) {
+		return;
+	}
+
+	$url = 'https://wa.me/' . $number;
+	if ( $message ) {
+		$url .= '?text=' . rawurlencode( $message );
+	}
+	?>
+	<a class="rasta-whatsapp-button" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'گفت‌وگو با ما در واتساپ', 'rasta-commerce' ); ?>">
+		<?php rasta_icon( 'whatsapp' ); ?>
+	</a>
+	<?php
+}
+
+/**
  * Render up to six product categories (works with both built-in and WC).
  *
  * @return void

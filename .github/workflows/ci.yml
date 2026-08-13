@@ -60,6 +60,12 @@ jobs:
       - name: Run maintenance mode contract tests
         run: npm run test:maintenance
 
+      - name: Run store settings contract tests
+        run: npm run test:store
+
+      - name: Run order notification contract tests
+        run: npm run test:notifications
+
       - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 

@@ -71,6 +71,8 @@ namespace {
 	rasta_customizer_assert( rasta_sanitize_non_negative_integer( 0 ), 0, 'Zero should pass through unchanged.' );
 	rasta_customizer_assert( rasta_sanitize_brand_color( '#f25c54' ), '#f25c54', 'Valid hex color should pass through.' );
 	rasta_customizer_assert( rasta_sanitize_brand_color( 'not-a-color' ), null, 'Invalid color should sanitize to null.' );
+	rasta_customizer_assert( rasta_sanitize_phone( '+98 912 123 4567' ), '989121234567', 'Phone should be stripped to digits only.' );
+	rasta_customizer_assert( rasta_sanitize_phone( '0912-123-45-67' ), '09121234567', 'Phone should drop dashes and spaces.' );
 
 	/* Registration contract for the new sections and controls. */
 	$manager = new WP_Customize_Manager();
@@ -93,6 +95,11 @@ namespace {
 	rasta_customizer_assert( isset( $manager->settings['rasta_enable_maintenance'] ), true, 'Maintenance toggle should be registered.' );
 	rasta_customizer_assert( isset( $manager->settings['rasta_maintenance_headline'] ), true, 'Maintenance headline setting should be registered.' );
 	rasta_customizer_assert( isset( $manager->settings['rasta_maintenance_message'] ), true, 'Maintenance message setting should be registered.' );
+
+	rasta_customizer_assert( isset( $manager->sections['rasta_whatsapp'] ), true, 'WhatsApp section should be registered.' );
+	rasta_customizer_assert( isset( $manager->settings['rasta_enable_whatsapp'] ), true, 'WhatsApp toggle should be registered.' );
+	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_number'] ), true, 'WhatsApp number setting should be registered.' );
+	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_message'] ), true, 'WhatsApp message setting should be registered.' );
 
 	fwrite( STDOUT, "Customizer contract tests: PASS\n" );
 }

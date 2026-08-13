@@ -97,6 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</section>
 <?php endif; ?>
 <?php rasta_render_sticky_add_to_cart(); ?>
+<?php rasta_render_whatsapp_button(); ?>
 <div class="rasta-toast" role="status" aria-live="polite" data-rasta-toast></div>
 <?php wp_footer(); ?>
 </body>

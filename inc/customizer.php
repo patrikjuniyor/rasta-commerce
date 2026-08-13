@@ -532,6 +532,68 @@ function rasta_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	/* ─── WhatsApp support button ──────────────────────────────────────── */
+
+	$wp_customize->add_section(
+		'rasta_whatsapp',
+		array(
+			'title'       => esc_html__( 'پشتیبانی واتساپ', 'rasta-commerce' ),
+			'description' => esc_html__( 'یک دکمه شناور چت واتساپ برای ارتباط سریع مشتریان با شما.', 'rasta-commerce' ),
+			'priority'    => 35,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_enable_whatsapp',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'rasta_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_enable_whatsapp',
+		array(
+			'label'       => esc_html__( 'نمایش دکمه واتساپ', 'rasta-commerce' ),
+			'description' => esc_html__( 'دکمه شناور واتساپ را در تمام صفحات سایت نمایش دهد.', 'rasta-commerce' ),
+			'section'     => 'rasta_whatsapp',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_whatsapp_number',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'rasta_sanitize_phone',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_whatsapp_number',
+		array(
+			'label'       => esc_html__( 'شماره واتساپ', 'rasta-commerce' ),
+			'description' => esc_html__( 'به‌صورت بین‌المللی و بدون + (مثلاً 989121234567).', 'rasta-commerce' ),
+			'section'     => 'rasta_whatsapp',
+			'type'        => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_whatsapp_message',
+		array(
+			'default'           => esc_html__( 'سلام، درباره محصولات فروشگاه سوال داشتم.', 'rasta-commerce' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_whatsapp_message',
+		array(
+			'label'       => esc_html__( 'پیام پیش‌فرض', 'rasta-commerce' ),
+			'description' => esc_html__( 'متنی که به‌صورت خودکار در چت واتساپ برای مشتری نوشته می‌شود.', 'rasta-commerce' ),
+			'section'     => 'rasta_whatsapp',
+			'type'        => 'text',
+		)
+	);
 }
 add_action( 'customize_register', 'rasta_customize_register' );
 
@@ -543,4 +605,14 @@ add_action( 'customize_register', 'rasta_customize_register' );
  */
 function rasta_sanitize_shop_columns( $value ) {
 	return min( 5, max( 2, (int) $value ) );
+}
+
+/**
+ * Sanitize a WhatsApp phone number to digits only (country code included).
+ *
+ * @param mixed $value Candidate value.
+ * @return string
+ */
+function rasta_sanitize_phone( $value ) {
+	return preg_replace( '/[^0-9]/', '', (string) $value );
 }

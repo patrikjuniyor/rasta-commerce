@@ -2,7 +2,7 @@
  * Theme Name: Rasta Commerce
  * Author: Rasta Commerce Contributors
  * Description: A fast, accessible, Persian-first RTL e-commerce theme with built-in store — no WooCommerce required.
- * Version: 2.2.0
+ * Version: 2.3.0
  * Requires at least: 6.4
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -2341,6 +2341,33 @@ ul.products.rasta-products-grid li.product {
 .rasta-scroll-top svg {
   inline-size: 16px;
   transform: rotate(90deg);
+}
+
+.rasta-whatsapp-button {
+  position: fixed;
+  z-index: 130;
+  inset-inline-end: 22px;
+  inset-block-end: 22px;
+  display: grid;
+  place-items: center;
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 26px rgb(37 211 102 / 40%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.rasta-whatsapp-button:hover {
+  color: #fff;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 14px 32px rgb(37 211 102 / 55%);
+}
+
+.rasta-whatsapp-button svg {
+  inline-size: 28px;
+  block-size: 28px;
 }
 
 .rasta-toast {
