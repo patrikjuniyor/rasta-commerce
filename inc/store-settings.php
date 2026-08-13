@@ -111,16 +111,19 @@ function rasta_render_store_settings() {
 	<div class="wrap rasta-settings">
 		<h1><?php esc_html_e( 'تنظیمات فروشگاه', 'rasta-commerce' ); ?></h1>
 		<?php settings_errors( 'rasta_store_settings' ); ?>
-		<p class="description"><?php esc_html_e( 'تنظیمات عمومی فروشگاه داخلی راستا، از جمله اطلاع‌رسانی ایمیلی سفارش‌های جدید.', 'rasta-commerce' ); ?></p>
+		<p class="description" style="max-width:640px;"><?php esc_html_e( 'تنظیمات عمومی فروشگاه داخلی راستا، از جمله اطلاع‌رسانی ایمیلی سفارش‌های جدید.', 'rasta-commerce' ); ?></p>
 
 		<form method="post" action="options.php">
 			<?php settings_fields( 'rasta_store_settings_group' ); ?>
-			<table class="form-table" role="presentation">
-				<tr>
-					<th scope="row">
-						<label for="rasta-admin-email"><?php esc_html_e( 'ایمیل مدیریت فروشگاه', 'rasta-commerce' ); ?></label>
-					</th>
-					<td>
+
+			<div class="rasta-settings-card">
+				<div class="rasta-settings-card__head">
+					<span class="dashicons dashicons-email-alt"></span>
+					<h2><?php esc_html_e( 'اطلاع‌رسانی ایمیلی', 'rasta-commerce' ); ?></h2>
+				</div>
+				<div class="rasta-settings-card__body">
+					<div class="rasta-field">
+						<label class="rasta-field__label" for="rasta-admin-email"><?php esc_html_e( 'ایمیل مدیریت فروشگاه', 'rasta-commerce' ); ?></label>
 						<input
 							type="email"
 							class="regular-text"
@@ -129,27 +132,10 @@ function rasta_render_store_settings() {
 							value="<?php echo esc_attr( $settings['admin_email'] ); ?>"
 						/>
 						<p class="description"><?php esc_html_e( 'ایمیل اطلاع‌رسانی سفارش‌های جدید به این نشانی ارسال می‌شود.', 'rasta-commerce' ); ?></p>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><?php esc_html_e( 'اطلاع‌رسانی سفارش', 'rasta-commerce' ); ?></th>
-					<td>
-						<label>
-							<input
-								type="checkbox"
-								name="<?php echo esc_attr( RASTA_STORE_SETTINGS_OPTION ); ?>[order_emails]"
-								value="1"
-								<?php checked( $settings['order_emails'] ); ?>
-							/>
-							<?php esc_html_e( 'هنگام ثبت هر سفارش جدید، ایمیلی به مدیر فروشگاه ارسال شود.', 'rasta-commerce' ); ?>
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">
-						<label for="rasta-email-subject"><?php esc_html_e( 'موضوع ایمیل سفارش', 'rasta-commerce' ); ?></label>
-					</th>
-					<td>
+					</div>
+
+					<div class="rasta-field">
+						<label class="rasta-field__label" for="rasta-email-subject"><?php esc_html_e( 'موضوع ایمیل سفارش', 'rasta-commerce' ); ?></label>
 						<input
 							type="text"
 							class="regular-text"
@@ -157,11 +143,43 @@ function rasta_render_store_settings() {
 							name="<?php echo esc_attr( RASTA_STORE_SETTINGS_OPTION ); ?>[email_subject]"
 							value="<?php echo esc_attr( $settings['email_subject'] ); ?>"
 						/>
-					</td>
-				</tr>
-			</table>
+					</div>
+
+					<div class="rasta-field">
+						<label class="rasta-field__toggle">
+							<input
+								type="checkbox"
+								name="<?php echo esc_attr( RASTA_STORE_SETTINGS_OPTION ); ?>[order_emails]"
+								value="1"
+								<?php checked( $settings['order_emails'] ); ?>
+							/>
+							<span>
+								<strong><?php esc_html_e( 'اطلاع‌رسانی سفارش‌های جدید', 'rasta-commerce' ); ?></strong>
+								<small><?php esc_html_e( 'هنگام ثبت هر سفارش جدید، ایمیلی به مدیر فروشگاه ارسال شود.', 'rasta-commerce' ); ?></small>
+							</span>
+						</label>
+					</div>
+				</div>
+			</div>
+
 			<?php submit_button( esc_html__( 'ذخیره تنظیمات', 'rasta-commerce' ) ); ?>
 		</form>
 	</div>
+
+	<style>
+		.rasta-settings { max-width: 760px; }
+		.rasta-settings-card { margin-block: 18px; background: #fff; border: 1px solid #dcdcde; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgb(0 0 0 / 4%); }
+		.rasta-settings-card__head { display: flex; align-items: center; gap: 9px; padding: 14px 18px; border-bottom: 1px solid #f0f0f1; background: #fbfbfc; }
+		.rasta-settings-card__head .dashicons { color: #315bd8; }
+		.rasta-settings-card__head h2 { margin: 0; font-size: 14px; }
+		.rasta-settings-card__body { padding: 8px 20px 18px; }
+		.rasta-field { margin-block: 16px; }
+		.rasta-field__label { display: block; margin-bottom: 6px; font-weight: 600; }
+		.rasta-field .description { margin-top: 5px; }
+		.rasta-field__toggle { display: flex; align-items: flex-start; gap: 10px; padding: 13px 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fafbfc; cursor: pointer; }
+		.rasta-field__toggle input { margin-top: 3px; }
+		.rasta-field__toggle span { display: grid; gap: 2px; }
+		.rasta-field__toggle small { color: #646970; }
+	</style>
 	<?php
 }

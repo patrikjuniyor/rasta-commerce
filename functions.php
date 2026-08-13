@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RASTA_VERSION', '2.3.0' );
+define( 'RASTA_VERSION', '2.4.0' );
 define( 'RASTA_DIR', get_template_directory() );
 define( 'RASTA_URI', get_template_directory_uri() );
 

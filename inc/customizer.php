@@ -322,10 +322,13 @@ function rasta_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		'rasta_enable_dark_mode_default',
 		array(
-			'label'       => esc_html__( 'حالت تاریک پیش‌فرض', 'rasta-commerce' ),
-			'description' => esc_html__( 'اگر فعال باشد، بازدیدکنندگان تازه به‌صورت پیش‌فرض حالت تاریک را می‌بینند.', 'rasta-commerce' ),
-			'section'     => 'rasta_appearance',
-			'type'        => 'checkbox',
+			'label'           => esc_html__( 'حالت تاریک پیش‌فرض', 'rasta-commerce' ),
+			'description'     => esc_html__( 'اگر فعال باشد، بازدیدکنندگان تازه به‌صورت پیش‌فرض حالت تاریک را می‌بینند.', 'rasta-commerce' ),
+			'section'         => 'rasta_appearance',
+			'type'            => 'checkbox',
+			'active_callback' => static function () {
+				return rasta_feature_enabled( 'dark_mode', false );
+			},
 		)
 	);
 
@@ -339,14 +342,15 @@ function rasta_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		'rasta_shop_columns',
 		array(
-			'label'       => esc_html__( 'تعداد ستون محصولات', 'rasta-commerce' ),
-			'description' => esc_html__( 'تعداد ستون شبکه محصولات در صفحات فروشگاه (۲ تا ۵).', 'rasta-commerce' ),
+			'label'       => esc_html__( 'چیدمان شبکه محصولات', 'rasta-commerce' ),
+			'description' => esc_html__( 'تعداد ستون‌های شبکه محصولات در صفحات فروشگاه.', 'rasta-commerce' ),
 			'section'     => 'rasta_appearance',
-			'type'        => 'number',
-			'input_attrs' => array(
-				'min'  => 2,
-				'max'  => 5,
-				'step' => 1,
+			'type'        => 'select',
+			'choices'     => array(
+				2 => esc_html__( '۲ ستون — کارت‌های بزرگ', 'rasta-commerce' ),
+				3 => esc_html__( '۳ ستون — متعادل', 'rasta-commerce' ),
+				4 => esc_html__( '۴ ستون — پیش‌فرض', 'rasta-commerce' ),
+				5 => esc_html__( '۵ ستون — فشرده', 'rasta-commerce' ),
 			),
 		)
 	);
@@ -526,9 +530,12 @@ function rasta_customize_register( $wp_customize ) {
 		$wp_customize->add_control(
 			$setting_id,
 			array(
-				'label'   => $field['label'],
-				'section' => 'rasta_store_state',
-				'type'    => 'rasta_maintenance_message' === $setting_id ? 'textarea' : 'text',
+				'label'           => $field['label'],
+				'section'         => 'rasta_store_state',
+				'type'            => 'rasta_maintenance_message' === $setting_id ? 'textarea' : 'text',
+				'active_callback' => static function () {
+					return rasta_feature_enabled( 'maintenance', false );
+				},
 			)
 		);
 	}
@@ -571,10 +578,17 @@ function rasta_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		'rasta_whatsapp_number',
 		array(
-			'label'       => esc_html__( 'شماره واتساپ', 'rasta-commerce' ),
-			'description' => esc_html__( 'به‌صورت بین‌المللی و بدون + (مثلاً 989121234567).', 'rasta-commerce' ),
-			'section'     => 'rasta_whatsapp',
-			'type'        => 'text',
+			'label'           => esc_html__( 'شماره واتساپ', 'rasta-commerce' ),
+			'description'     => esc_html__( 'به‌صورت بین‌المللی و بدون + (مثلاً 989121234567).', 'rasta-commerce' ),
+			'section'         => 'rasta_whatsapp',
+			'type'            => 'text',
+			'input_attrs'     => array(
+				'inputmode' => 'tel',
+				'pattern'   => '[0-9]*',
+			),
+			'active_callback' => static function () {
+				return rasta_feature_enabled( 'whatsapp', false );
+			},
 		)
 	);
 
@@ -588,12 +602,61 @@ function rasta_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		'rasta_whatsapp_message',
 		array(
-			'label'       => esc_html__( 'پیام پیش‌فرض', 'rasta-commerce' ),
-			'description' => esc_html__( 'متنی که به‌صورت خودکار در چت واتساپ برای مشتری نوشته می‌شود.', 'rasta-commerce' ),
-			'section'     => 'rasta_whatsapp',
-			'type'        => 'text',
+			'label'           => esc_html__( 'پیام پیش‌فرض', 'rasta-commerce' ),
+			'description'     => esc_html__( 'متنی که به‌صورت خودکار در چت واتساپ برای مشتری نوشته می‌شود.', 'rasta-commerce' ),
+			'section'         => 'rasta_whatsapp',
+			'type'            => 'text',
+			'active_callback' => static function () {
+				return rasta_feature_enabled( 'whatsapp', false );
+			},
 		)
 	);
+
+	/* ─── Live preview (selective refresh) ─────────────────────────────── */
+
+	if ( isset( $wp_customize->selective_refresh ) ) {
+		$wp_customize->selective_refresh->add_partial(
+			'rasta_promo_text',
+			array(
+				'selector'        => '.rasta-announcement__message',
+				'render_callback' => static function () {
+					rasta_icon( 'truck' );
+					echo esc_html( rasta_get_mod( 'rasta_promo_text', __( 'ارسال رایگان برای سفارش‌های بالای ۲ میلیون تومان', 'rasta-commerce' ) ) );
+				},
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'rasta_hero_eyebrow',
+			array(
+				'selector'        => '.rasta-hero__copy .rasta-kicker',
+				'render_callback' => static function () {
+					rasta_icon( 'sparkles' );
+					echo esc_html( rasta_get_mod( 'rasta_hero_eyebrow', __( 'انتخاب هوشمند، خرید آسوده', 'rasta-commerce' ) ) );
+				},
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'rasta_hero_title',
+			array(
+				'selector'        => '.rasta-hero__copy h1',
+				'render_callback' => static function () {
+					echo esc_html( rasta_get_mod( 'rasta_hero_title', __( 'چیزهای خوب، برای زندگیِ خوب', 'rasta-commerce' ) ) );
+				},
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'rasta_hero_text',
+			array(
+				'selector'        => '.rasta-hero__description',
+				'render_callback' => static function () {
+					echo esc_html( rasta_get_mod( 'rasta_hero_text', __( 'یک ویترین خوش‌ساخت برای پیدا کردن محصولاتی که هر روزتان را ساده‌تر و زیباتر می‌کنند.', 'rasta-commerce' ) ) );
+				},
+			)
+		);
+	}
 }
 add_action( 'customize_register', 'rasta_customize_register' );
 

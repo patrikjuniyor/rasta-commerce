@@ -101,5 +101,14 @@ namespace {
 	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_number'] ), true, 'WhatsApp number setting should be registered.' );
 	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_message'] ), true, 'WhatsApp message setting should be registered.' );
 
+	/* UX: shop columns uses a labeled select control. */
+	rasta_customizer_assert( $manager->controls['rasta_shop_columns']['type'], 'select', 'Shop columns should be a select control.' );
+	rasta_customizer_assert( count( $manager->controls['rasta_shop_columns']['choices'] ), 4, 'Shop columns select should offer four choices.' );
+
+	/* UX: conditional controls are hidden behind their parent toggles. */
+	rasta_customizer_assert( is_callable( $manager->controls['rasta_enable_dark_mode_default']['active_callback'] ), true, 'Dark mode default should be conditionally shown.' );
+	rasta_customizer_assert( is_callable( $manager->controls['rasta_whatsapp_number']['active_callback'] ), true, 'WhatsApp number should be conditionally shown.' );
+	rasta_customizer_assert( is_callable( $manager->controls['rasta_maintenance_headline']['active_callback'] ), true, 'Maintenance headline should be conditionally shown.' );
+
 	fwrite( STDOUT, "Customizer contract tests: PASS\n" );
 }

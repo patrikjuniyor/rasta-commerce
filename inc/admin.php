@@ -47,23 +47,46 @@ function rasta_admin_assets( $hook_suffix ) {
 	wp_add_inline_style(
 		'wp-admin',
 		'
-		.rasta-overview { max-width: 1100px; }
-		.rasta-overview__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin: 18px 0 26px; }
-		.rasta-overview__card { background: #fff; border: 1px solid #dcdcde; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 2px rgb(0 0 0 / 4%); }
-		.rasta-overview__card .rasta-overview__label { color: #646970; font-size: 12px; margin: 0 0 6px; }
-		.rasta-overview__card .rasta-overview__value { font-size: 26px; font-weight: 700; line-height: 1.2; color: #1d2327; }
-		.rasta-overview__card .rasta-overview__hint { color: #8c8f94; font-size: 12px; margin-top: 6px; }
-		.rasta-overview__card--warn .rasta-overview__value { color: #996800; }
-		.rasta-overview__card--danger .rasta-overview__value { color: #d63638; }
+		.rasta-overview { max-width: 1140px; }
+		.rasta-overview__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 8px 0 4px; }
+		.rasta-overview__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+		.rasta-overview__actions .button { display: inline-flex; align-items: center; gap: 6px; }
+		.rasta-overview__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 18px 0 24px; }
+		.rasta-overview__card { position: relative; display: flex; flex-direction: column; gap: 4px; background: #fff; border: 1px solid #dcdcde; border-radius: 12px; padding: 18px; box-shadow: 0 1px 2px rgb(0 0 0 / 4%); overflow: hidden; }
+		.rasta-overview__card::before { content: \'\'; position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: 4px; background: var(--rasta-card-accent, #dcdcde); }
+		.rasta-overview__card--accent { --rasta-card-accent: #f25c54; }
+		.rasta-overview__card--blue { --rasta-card-accent: #315bd8; }
+		.rasta-overview__card--green { --rasta-card-accent: #17865d; }
+		.rasta-overview__card--gold { --rasta-card-accent: #f2b84b; }
+		.rasta-overview__card--red { --rasta-card-accent: #d63638; }
+		.rasta-overview__card .rasta-overview__top { display: flex; align-items: center; justify-content: space-between; }
+		.rasta-overview__card .rasta-overview__icon { display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 9px; background: #f6f7f7; color: #50575e; }
+		.rasta-overview__card--accent .rasta-overview__icon { background: #fdf0ef; color: #f25c54; }
+		.rasta-overview__card--blue .rasta-overview__icon { background: #eef2ff; color: #315bd8; }
+		.rasta-overview__card--green .rasta-overview__icon { background: #e9f6ef; color: #17865d; }
+		.rasta-overview__card--gold .rasta-overview__icon { background: #fdf3d8; color: #996800; }
+		.rasta-overview__card--red .rasta-overview__icon { background: #fbeaea; color: #d63638; }
+		.rasta-overview__card .rasta-overview__label { color: #646970; font-size: 12px; margin: 8px 0 0; }
+		.rasta-overview__card .rasta-overview__value { font-size: 26px; font-weight: 700; line-height: 1.15; color: #1d2327; }
+		.rasta-overview__card .rasta-overview__value small { font-size: 13px; font-weight: 600; color: #646970; }
+		.rasta-overview__card .rasta-overview__hint { color: #8c8f94; font-size: 12px; margin: 0; }
+		.rasta-overview__card .rasta-overview__hint a { color: #315bd8; text-decoration: none; }
 		.rasta-overview__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 		@media (max-width: 960px) { .rasta-overview__grid { grid-template-columns: 1fr; } }
-		.rasta-overview__panel { background: #fff; border: 1px solid #dcdcde; border-radius: 10px; padding: 6px 18px 14px; }
-		.rasta-overview__panel h2 { margin: 14px 0 4px; font-size: 15px; }
-		.rasta-overview__panel p { margin: 0 0 10px; color: #646970; }
+		.rasta-overview__panel { background: #fff; border: 1px solid #dcdcde; border-radius: 12px; overflow: hidden; }
+		.rasta-overview__panel-head { display: flex; align-items: center; gap: 9px; padding: 14px 18px; border-bottom: 1px solid #f0f0f1; background: #fbfbfc; }
+		.rasta-overview__panel-head .dashicons { color: #50575e; }
+		.rasta-overview__panel-head h2 { margin: 0; font-size: 14px; }
+		.rasta-overview__panel-body { padding: 6px 18px 16px; }
+		.rasta-overview__panel-body > p:first-of-type { margin: 12px 0 10px; color: #646970; }
 		.rasta-overview__table { width: 100%; border-collapse: collapse; }
-		.rasta-overview__table th, .rasta-overview__table td { text-align: right; padding: 9px 6px; border-bottom: 1px solid #f0f0f1; font-size: 13px; }
-		.rasta-overview__table th { color: #50575e; }
-		.rasta-status { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+		.rasta-overview__table th, .rasta-overview__table td { text-align: right; padding: 10px 6px; border-bottom: 1px solid #f0f0f1; font-size: 13px; }
+		.rasta-overview__table th { color: #50575e; font-weight: 600; }
+		.rasta-overview__table tbody tr:last-child td { border-bottom: 0; }
+		.rasta-overview__table tbody tr:hover td { background: #fafbfc; }
+		.rasta-overview__empty { display: grid; place-items: center; gap: 6px; padding: 30px 16px; color: #8c8f94; text-align: center; }
+		.rasta-overview__empty .dashicons { font-size: 34px; inline-size: 34px; block-size: 34px; color: #c3c4c7; }
+		.rasta-status { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
 		.rasta-status--completed { background: #e9f6ef; color: #17865d; }
 		.rasta-status--processing { background: #eef2ff; color: #315bd8; }
 		.rasta-status--pending { background: #fdf3d8; color: #996800; }
@@ -138,10 +161,27 @@ function rasta_render_store_overview() {
 		'revenue'    => __( 'جمع مبلغ سفارش‌ها', 'rasta-commerce' ),
 		'low_stock'  => __( 'محصولات کم‌موجود', 'rasta-commerce' ),
 	);
+
+	$completion_rate = $order_count > 0 ? (int) round( $completed / $order_count * 100 ) : 0;
 	?>
 	<div class="wrap rasta-overview">
-		<h1><?php esc_html_e( 'نمای کلی فروشگاه', 'rasta-commerce' ); ?></h1>
-		<p class="description"><?php esc_html_e( 'چشم‌اندازی سریع از عملکرد فروشگاه داخلی راستا. این صفحه به‌صورت زنده از سفارش‌ها و موجودی محصولات محاسبه می‌شود.', 'rasta-commerce' ); ?></p>
+		<div class="rasta-overview__header">
+			<div>
+				<h1 style="margin-bottom:4px;"><?php esc_html_e( 'نمای کلی فروشگاه', 'rasta-commerce' ); ?></h1>
+				<p class="description" style="margin-top:0;"><?php esc_html_e( 'چشم‌اندازی زنده از محصولات، سفارش‌ها و موجودی فروشگاه.', 'rasta-commerce' ); ?></p>
+			</div>
+			<div class="rasta-overview__actions">
+				<a class="button button-primary" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=rasta_product' ) ); ?>">
+					<span class="dashicons dashicons-plus-alt2"></span><?php esc_html_e( 'افزودن محصول', 'rasta-commerce' ); ?>
+				</a>
+				<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_order' ) ); ?>">
+					<span class="dashicons dashicons-cart"></span><?php esc_html_e( 'سفارش‌ها', 'rasta-commerce' ); ?>
+				</a>
+				<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=rasta-store-settings' ) ); ?>">
+					<span class="dashicons dashicons-admin-settings"></span><?php esc_html_e( 'تنظیمات فروشگاه', 'rasta-commerce' ); ?>
+				</a>
+			</div>
+		</div>
 
 		<?php if ( function_exists( 'rasta_maintenance_enabled' ) && rasta_maintenance_enabled() ) : ?>
 			<div class="notice notice-warning inline">
@@ -154,88 +194,117 @@ function rasta_render_store_overview() {
 		<?php endif; ?>
 
 		<div class="rasta-overview__cards">
-			<div class="rasta-overview__card">
+			<div class="rasta-overview__card rasta-overview__card--accent">
+				<div class="rasta-overview__top">
+					<span class="rasta-overview__icon"><span class="dashicons dashicons-products"></span></span>
+				</div>
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['products'] ); ?></p>
 				<div class="rasta-overview__value"><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $published ) ) ); ?></div>
-				<p class="rasta-overview__hint"><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_product' ) ); ?>"><?php esc_html_e( 'مدیریت محصولات', 'rasta-commerce' ); ?></a></p>
+				<p class="rasta-overview__hint"><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_product' ) ); ?>"><?php esc_html_e( 'مدیریت محصولات', 'rasta-commerce' ); ?> ←</a></p>
 			</div>
 
-			<div class="rasta-overview__card">
+			<div class="rasta-overview__card rasta-overview__card--blue">
+				<div class="rasta-overview__top">
+					<span class="rasta-overview__icon"><span class="dashicons dashicons-cart"></span></span>
+				</div>
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['orders'] ); ?></p>
 				<div class="rasta-overview__value"><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $order_count ) ) ); ?></div>
-				<p class="rasta-overview__hint"><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_order' ) ); ?>"><?php esc_html_e( 'مدیریت سفارش‌ها', 'rasta-commerce' ); ?></a></p>
+				<p class="rasta-overview__hint"><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_order' ) ); ?>"><?php esc_html_e( 'مدیریت سفارش‌ها', 'rasta-commerce' ); ?> ←</a></p>
 			</div>
 
-			<div class="rasta-overview__card">
+			<div class="rasta-overview__card rasta-overview__card--green">
+				<div class="rasta-overview__top">
+					<span class="rasta-overview__icon"><span class="dashicons dashicons-yes-alt"></span></span>
+				</div>
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['completed'] ); ?></p>
 				<div class="rasta-overview__value"><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $completed ) ) ); ?></div>
-				<p class="rasta-overview__hint"><?php esc_html_e( 'تکمیل‌شده از کل سفارش‌ها', 'rasta-commerce' ); ?></p>
+				<p class="rasta-overview__hint"><?php echo esc_html( sprintf( /* translators: %s: percentage. */ __( 'نرخ تکمیل: %s٪', 'rasta-commerce' ), rasta_to_persian_digits( (string) $completion_rate ) ) ); ?></p>
 			</div>
 
-			<div class="rasta-overview__card">
+			<div class="rasta-overview__card rasta-overview__card--gold">
+				<div class="rasta-overview__top">
+					<span class="rasta-overview__icon"><span class="dashicons dashicons-money-alt"></span></span>
+				</div>
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['revenue'] ); ?></p>
 				<div class="rasta-overview__value"><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $revenue ) ) ); ?> <small><?php echo esc_html( $currency ); ?></small></div>
 				<p class="rasta-overview__hint"><?php esc_html_e( 'جمع کل مبالغ ثبت‌شده', 'rasta-commerce' ); ?></p>
 			</div>
 
-			<div class="rasta-overview__card <?php echo $low_stock_products ? 'rasta-overview__card--warn' : ''; ?>">
+			<div class="rasta-overview__card <?php echo $low_stock_products ? 'rasta-overview__card--red' : 'rasta-overview__card--green'; ?>">
+				<div class="rasta-overview__top">
+					<span class="rasta-overview__icon"><span class="dashicons dashicons-warning"></span></span>
+				</div>
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['low_stock'] ); ?></p>
 				<div class="rasta-overview__value"><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( count( $low_stock_products ) ) ) ); ?></div>
-				<p class="rasta-overview__hint"><?php esc_html_e( 'نیازمند بازبینی موجودی', 'rasta-commerce' ); ?></p>
+				<p class="rasta-overview__hint"><?php echo $low_stock_products ? esc_html__( 'نیازمند بازبینی موجودی', 'rasta-commerce' ) : esc_html__( 'همه موجودی‌ها در وضعیت مطلوب‌اند', 'rasta-commerce' ); ?></p>
 			</div>
 		</div>
 
 		<div class="rasta-overview__grid">
 			<section class="rasta-overview__panel">
-				<h2><?php esc_html_e( 'آخرین سفارش‌ها', 'rasta-commerce' ); ?></h2>
-				<p><?php esc_html_e( 'تازه‌ترین سفارش‌های ثبت‌شده در فروشگاه.', 'rasta-commerce' ); ?></p>
-				<?php if ( empty( $recent_orders ) ) : ?>
-					<p><?php esc_html_e( 'هنوز سفارشی ثبت نشده است.', 'rasta-commerce' ); ?></p>
-				<?php else : ?>
-					<table class="rasta-overview__table">
-						<thead>
-							<tr>
-								<th><?php esc_html_e( 'سفارش', 'rasta-commerce' ); ?></th>
-								<th><?php esc_html_e( 'مبلغ', 'rasta-commerce' ); ?></th>
-								<th><?php esc_html_e( 'وضعیت', 'rasta-commerce' ); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ( $recent_orders as $order ) : ?>
+				<div class="rasta-overview__panel-head">
+					<span class="dashicons dashicons-clock"></span>
+					<h2><?php esc_html_e( 'آخرین سفارش‌ها', 'rasta-commerce' ); ?></h2>
+				</div>
+				<div class="rasta-overview__panel-body">
+					<?php if ( empty( $recent_orders ) ) : ?>
+						<div class="rasta-overview__empty">
+							<span class="dashicons dashicons-cart"></span>
+							<span><?php esc_html_e( 'هنوز سفارشی ثبت نشده است.', 'rasta-commerce' ); ?></span>
+						</div>
+					<?php else : ?>
+						<table class="rasta-overview__table">
+							<thead>
 								<tr>
-									<td><a href="<?php echo esc_url( get_edit_post_link( $order['id'] ) ); ?>"><?php echo esc_html( $order['title'] ); ?></a></td>
-									<td><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $order['total'] ) ) ); ?> <?php echo esc_html( $currency ); ?></td>
-									<td><span class="rasta-status rasta-status--<?php echo esc_attr( str_replace( 'rasta-', '', $order['status'] ) ); ?>"><?php echo esc_html( $order['status_label'] ); ?></span></td>
+									<th><?php esc_html_e( 'سفارش', 'rasta-commerce' ); ?></th>
+									<th><?php esc_html_e( 'مبلغ', 'rasta-commerce' ); ?></th>
+									<th><?php esc_html_e( 'وضعیت', 'rasta-commerce' ); ?></th>
 								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
-				<?php endif; ?>
+							</thead>
+							<tbody>
+								<?php foreach ( $recent_orders as $order ) : ?>
+									<tr>
+										<td><a href="<?php echo esc_url( get_edit_post_link( $order['id'] ) ); ?>"><?php echo esc_html( $order['title'] ); ?></a></td>
+										<td><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $order['total'] ) ) ); ?> <?php echo esc_html( $currency ); ?></td>
+										<td><span class="rasta-status rasta-status--<?php echo esc_attr( str_replace( 'rasta-', '', $order['status'] ) ); ?>"><?php echo esc_html( $order['status_label'] ); ?></span></td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					<?php endif; ?>
+				</div>
 			</section>
 
 			<section class="rasta-overview__panel">
-				<h2><?php esc_html_e( 'هشدار موجودی', 'rasta-commerce' ); ?></h2>
-				<p><?php esc_html_e( 'محصولاتی که موجودی‌شان به آستانه هشدار رسیده یا صفر شده است.', 'rasta-commerce' ); ?></p>
-				<?php if ( empty( $low_stock_products ) ) : ?>
-					<p><?php esc_html_e( 'هیچ محصول کم‌موجودی وجود ندارد. عالی است!', 'rasta-commerce' ); ?></p>
-				<?php else : ?>
-					<table class="rasta-overview__table">
-						<thead>
-							<tr>
-								<th><?php esc_html_e( 'محصول', 'rasta-commerce' ); ?></th>
-								<th><?php esc_html_e( 'موجودی', 'rasta-commerce' ); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ( $low_stock_products as $product ) : ?>
+				<div class="rasta-overview__panel-head">
+					<span class="dashicons dashicons-warning"></span>
+					<h2><?php esc_html_e( 'هشدار موجودی', 'rasta-commerce' ); ?></h2>
+				</div>
+				<div class="rasta-overview__panel-body">
+					<?php if ( empty( $low_stock_products ) ) : ?>
+						<div class="rasta-overview__empty">
+							<span class="dashicons dashicons-smiley"></span>
+							<span><?php esc_html_e( 'هیچ محصول کم‌موجودی وجود ندارد. عالی است!', 'rasta-commerce' ); ?></span>
+						</div>
+					<?php else : ?>
+						<table class="rasta-overview__table">
+							<thead>
 								<tr>
-									<td><a href="<?php echo esc_url( get_edit_post_link( $product['id'] ) ); ?>"><?php echo esc_html( $product['title'] ); ?></a></td>
-									<td><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $product['stock'] ) ) ); ?></td>
+									<th><?php esc_html_e( 'محصول', 'rasta-commerce' ); ?></th>
+									<th><?php esc_html_e( 'موجودی', 'rasta-commerce' ); ?></th>
 								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
-				<?php endif; ?>
+							</thead>
+							<tbody>
+								<?php foreach ( $low_stock_products as $product ) : ?>
+									<tr>
+										<td><a href="<?php echo esc_url( get_edit_post_link( $product['id'] ) ); ?>"><?php echo esc_html( $product['title'] ); ?></a></td>
+										<td><?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $product['stock'] ) ) ); ?></td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					<?php endif; ?>
+				</div>
 			</section>
 		</div>
 	</div>
