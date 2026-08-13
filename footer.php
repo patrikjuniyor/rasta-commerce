@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="rasta-wordmark__mark">ر</span>
 					<span><?php bloginfo( 'name' ); ?></span>
 				</a>
-				<p><?php esc_html_e( 'یک تجربه‌ی تمیز، سریع و قابل اعتماد برای خرید آنلاین؛ از انتخاب تا رسیدن سفارش به دست شما.', 'rasta-commerce' ); ?></p>
+				<p><?php echo esc_html( rasta_get_mod( 'rasta_footer_about', __( 'یک تجربه‌ی تمیز، سریع و قابل اعتماد برای خرید آنلاین؛ از انتخاب تا رسیدن سفارش به دست شما.', 'rasta-commerce' ) ) ); ?></p>
 				<?php rasta_social_links(); ?>
 			</div>
 
@@ -59,7 +59,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="rasta-footer-bottom">
-			<p>© <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> — <?php esc_html_e( 'تمام حقوق محفوظ است.', 'rasta-commerce' ); ?></p>
+			<p>
+				<?php
+				$copyright = rasta_get_mod( 'rasta_footer_copyright', '' );
+				if ( $copyright ) {
+					$copyright = str_replace(
+						array( '{year}', '{site}' ),
+						array( wp_date( 'Y' ), get_bloginfo( 'name' ) ),
+						$copyright
+					);
+					echo esc_html( $copyright );
+				} else {
+					echo '© ' . esc_html( wp_date( 'Y' ) ) . ' ' . esc_html( get_bloginfo( 'name' ) ) . ' — ' . esc_html__( 'تمام حقوق محفوظ است.', 'rasta-commerce' );
+				}
+				?>
+			</p>
 			<button class="rasta-scroll-top" type="button" data-scroll-top>
 				<?php esc_html_e( 'بازگشت به بالا', 'rasta-commerce' ); ?>
 				<?php rasta_icon( 'arrow-left' ); ?>

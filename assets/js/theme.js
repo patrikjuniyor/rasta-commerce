@@ -934,7 +934,7 @@
         /* Update subtotal if displayed. */
         const subtotalEl = document.querySelector('[data-cart-subtotal]');
         if (subtotalEl && data.subtotal) {
-          subtotalEl.innerHTML = data.subtotal;
+          subtotalEl.textContent = data.subtotal;
         }
 
         showToast(data.message || strings.removedFromCart || 'محصول از سبد خرید حذف شد.');
@@ -962,7 +962,7 @@
 
         const subtotalEl = document.querySelector('[data-cart-subtotal]');
         if (subtotalEl && data.subtotal) {
-          subtotalEl.innerHTML = data.subtotal;
+          subtotalEl.textContent = data.subtotal;
         }
 
         showToast(data.message || strings.cartUpdated || 'سبد خرید به‌روزرسانی شد.');
@@ -997,6 +997,76 @@
       return;
     }
   });
+
+  /* ─── Dark mode & dismissible announcement ───────────────────────────── */
+
+  const root = document.documentElement;
+  const themeToggle = document.querySelector('[data-rasta-theme-toggle]');
+  const announcement = document.querySelector('[data-rasta-announcement]');
+  const announcementDismiss = announcement?.querySelector('[data-rasta-dismiss]');
+  const themeStorageKey = 'rasta-theme';
+  const promoStorageKey = 'rasta-promo-dismissed';
+
+  if (features.darkMode) {
+    const applyTheme = (themeName) => {
+      const isDark = themeName === 'dark';
+      root.setAttribute('data-rasta-theme', isDark ? 'dark' : 'light');
+      themeToggle?.setAttribute('aria-pressed', String(isDark));
+      const moon = themeToggle?.querySelector('.rasta-theme-icon--moon');
+      const sun = themeToggle?.querySelector('.rasta-theme-icon--sun');
+      if (moon && sun) {
+        moon.hidden = isDark;
+        sun.hidden = !isDark;
+      }
+    };
+
+    let stored = null;
+    try {
+      stored = window.localStorage.getItem(themeStorageKey);
+    } catch {
+      /* Storage unavailable — fall back to system preference. */
+    }
+
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let initialTheme = 'light';
+
+    if (stored) {
+      initialTheme = stored === 'dark' ? 'dark' : 'light';
+    } else if (features.darkModeDefault || systemPrefersDark) {
+      initialTheme = 'dark';
+    }
+
+    applyTheme(initialTheme);
+
+    themeToggle?.addEventListener('click', () => {
+      const next = root.getAttribute('data-rasta-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try {
+        window.localStorage.setItem(themeStorageKey, next);
+      } catch {
+        /* Ignore storage failures. */
+      }
+    });
+  }
+
+  if (features.dismissiblePromo && announcement) {
+    try {
+      if (window.localStorage.getItem(promoStorageKey) === '1') {
+        announcement.hidden = true;
+      }
+    } catch {
+      /* Ignore storage failures. */
+    }
+
+    announcementDismiss?.addEventListener('click', () => {
+      announcement.hidden = true;
+      try {
+        window.localStorage.setItem(promoStorageKey, '1');
+      } catch {
+        /* Ignore storage failures. */
+      }
+    });
+  }
 
   /* ─── Checkout form ──────────────────────────────────────────────────── */
 

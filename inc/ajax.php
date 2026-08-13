@@ -438,7 +438,7 @@ function rasta_ajax_update_cart() {
 			'message'    => esc_html__( 'سبد خرید به‌روزرسانی شد.', 'rasta-commerce' ),
 			'cartCount'  => rasta_get_cart_count(),
 			'cartItems'  => rasta_get_cart_items(),
-			'subtotal'   => rasta_format_currency( rasta_get_cart_subtotal() ),
+			'subtotal'   => rasta_format_currency_plain( rasta_get_cart_subtotal() ),
 		)
 	);
 }
@@ -460,7 +460,7 @@ function rasta_ajax_remove_cart_item() {
 			'message'    => esc_html__( 'محصول از سبد خرید حذف شد.', 'rasta-commerce' ),
 			'cartCount'  => rasta_get_cart_count(),
 			'cartItems'  => rasta_get_cart_items(),
-			'subtotal'   => rasta_format_currency( rasta_get_cart_subtotal() ),
+			'subtotal'   => rasta_format_currency_plain( rasta_get_cart_subtotal() ),
 			'isEmpty'    => rasta_cart_is_empty(),
 		)
 	);
@@ -478,7 +478,7 @@ function rasta_ajax_get_cart_count() {
 		array(
 			'cartCount' => rasta_get_cart_count(),
 			'cartItems' => rasta_get_cart_items(),
-			'subtotal'  => rasta_format_currency( rasta_get_cart_subtotal() ),
+			'subtotal'  => rasta_format_currency_plain( rasta_get_cart_subtotal() ),
 		)
 	);
 }

@@ -124,12 +124,14 @@ function rasta_enqueue_assets() {
 		wp_enqueue_style( 'rasta-commerce-rtl', RASTA_URI . '/rtl.css', array( 'rasta-commerce' ), rasta_asset_version( '/rtl.css' ) );
 	}
 
-	$accent     = rasta_sanitize_brand_color( get_theme_mod( 'rasta_accent_color', '#f25c54' ) );
-	$accent_alt = rasta_sanitize_brand_color( get_theme_mod( 'rasta_accent_alt_color', '#315bd8' ) );
-	$inline_css = sprintf(
-		':root{--rasta-accent:%1$s;--rasta-accent-strong:%2$s;}',
+	$accent       = rasta_sanitize_brand_color( get_theme_mod( 'rasta_accent_color', '#f25c54' ) );
+	$accent_alt   = rasta_sanitize_brand_color( get_theme_mod( 'rasta_accent_alt_color', '#315bd8' ) );
+	$shop_columns = function_exists( 'rasta_sanitize_shop_columns' ) ? rasta_sanitize_shop_columns( get_theme_mod( 'rasta_shop_columns', 4 ) ) : 4;
+	$inline_css   = sprintf(
+		':root{--rasta-accent:%1$s;--rasta-accent-strong:%2$s;--rasta-products-columns:%3$d;}',
 		esc_html( $accent ? $accent : '#f25c54' ),
-		esc_html( $accent_alt ? $accent_alt : '#315bd8' )
+		esc_html( $accent_alt ? $accent_alt : '#315bd8' ),
+		(int) $shop_columns
 	);
 	wp_add_inline_style( 'rasta-commerce', $inline_css );
 
@@ -150,6 +152,9 @@ function rasta_enqueue_assets() {
 				'recentlyViewed' => rasta_feature_enabled( 'recently_viewed' ),
 				'stickyCart'     => rasta_feature_enabled( 'sticky_cart' ),
 				'saleCountdown'  => rasta_feature_enabled( 'sale_countdown' ),
+				'darkMode'       => rasta_feature_enabled( 'dark_mode', false ),
+				'darkModeDefault'=> rasta_feature_enabled( 'dark_mode_default', false ),
+				'dismissiblePromo' => rasta_feature_enabled( 'dismissible_promo', false ),
 			),
 			'strings'    => array(
 				'close'                => esc_html__( 'بستن', 'rasta-commerce' ),
@@ -177,6 +182,35 @@ function rasta_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'rasta_enqueue_assets' );
+
+/**
+ * Print a tiny boot script that applies dark mode before first paint.
+ *
+ * Prevents a flash of the light theme for returning dark-mode visitors.
+ *
+ * @return void
+ */
+function rasta_theme_boot_script() {
+	if ( ! rasta_feature_enabled( 'dark_mode', false ) ) {
+		return;
+	}
+
+	$default_dark = rasta_feature_enabled( 'dark_mode_default', false ) ? 'true' : 'false';
+	?>
+	<script>
+		( function () {
+			try {
+				var stored = window.localStorage.getItem( 'rasta-theme' );
+				var dark = stored ? stored === 'dark' : ( <?php echo $default_dark; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static boolean literal. ?> || window.matchMedia( '(prefers-color-scheme: dark)' ).matches );
+				if ( dark ) {
+					document.documentElement.setAttribute( 'data-rasta-theme', 'dark' );
+				}
+			} catch ( err ) {}
+		}() );
+	</script>
+	<?php
+}
+add_action( 'wp_head', 'rasta_theme_boot_script', 1 );
 
 /**
  * Add contextual body classes without exposing user data.

@@ -283,5 +283,205 @@ function rasta_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	/* ─── Appearance (dark mode) ────────────────────────────────────────── */
+
+	$wp_customize->add_section(
+		'rasta_appearance',
+		array(
+			'title'       => esc_html__( 'حالت نمایش', 'rasta-commerce' ),
+			'description' => esc_html__( 'کنترل حالت روشن و تاریک فروشگاه.', 'rasta-commerce' ),
+			'priority'    => 32,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_enable_dark_mode',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'rasta_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_enable_dark_mode',
+		array(
+			'label'       => esc_html__( 'فعال‌سازی حالت تاریک', 'rasta-commerce' ),
+			'description' => esc_html__( 'دکمه‌ای برای تغییر حالت روشن/تاریک به هدر اضافه می‌کند و در نخستین بازدید، تنظیم سیستم کاربر را می‌خواند.', 'rasta-commerce' ),
+			'section'     => 'rasta_appearance',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_enable_dark_mode_default',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'rasta_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_enable_dark_mode_default',
+		array(
+			'label'       => esc_html__( 'حالت تاریک پیش‌فرض', 'rasta-commerce' ),
+			'description' => esc_html__( 'اگر فعال باشد، بازدیدکنندگان تازه به‌صورت پیش‌فرض حالت تاریک را می‌بینند.', 'rasta-commerce' ),
+			'section'     => 'rasta_appearance',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_shop_columns',
+		array(
+			'default'           => 4,
+			'sanitize_callback' => 'rasta_sanitize_shop_columns',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_shop_columns',
+		array(
+			'label'       => esc_html__( 'تعداد ستون محصولات', 'rasta-commerce' ),
+			'description' => esc_html__( 'تعداد ستون شبکه محصولات در صفحات فروشگاه (۲ تا ۵).', 'rasta-commerce' ),
+			'section'     => 'rasta_appearance',
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'  => 2,
+				'max'  => 5,
+				'step' => 1,
+			),
+		)
+	);
+
+	/* ─── Footer ────────────────────────────────────────────────────────── */
+
+	$wp_customize->add_section(
+		'rasta_footer',
+		array(
+			'title'       => esc_html__( 'پایین صفحه', 'rasta-commerce' ),
+			'description' => esc_html__( 'متن‌های بخش پایین صفحه را بدون کدنویسی ویرایش کنید.', 'rasta-commerce' ),
+			'priority'    => 33,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_footer_about',
+		array(
+			'default'           => esc_html__( 'یک تجربه‌ی تمیز، سریع و قابل اعتماد برای خرید آنلاین؛ از انتخاب تا رسیدن سفارش به دست شما.', 'rasta-commerce' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_footer_about',
+		array(
+			'label'   => esc_html__( 'متن معرفی فروشگاه', 'rasta-commerce' ),
+			'section' => 'rasta_footer',
+			'type'    => 'textarea',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_footer_copyright',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_footer_copyright',
+		array(
+			'label'       => esc_html__( 'متن کپی‌رایت', 'rasta-commerce' ),
+			'description' => esc_html__( 'می‌توانید از {year} برای سال جاری و {site} برای نام سایت استفاده کنید. خالی بگذارید تا متن پیش‌فرض نمایش داده شود.', 'rasta-commerce' ),
+			'section'     => 'rasta_footer',
+			'type'        => 'text',
+		)
+	);
+
+	/* ─── Announcement bar extras ──────────────────────────────────────── */
+
+	$wp_customize->add_setting(
+		'rasta_promo_link',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_promo_link',
+		array(
+			'label'       => esc_html__( 'نشانی پیوند نوار اطلاع‌رسانی', 'rasta-commerce' ),
+			'description' => esc_html__( 'اختیاری؛ اگر خالی باشد پیوند «پیگیری سفارش» پیش‌فرض نمایش داده می‌شود.', 'rasta-commerce' ),
+			'section'     => 'rasta_storefront',
+			'type'        => 'url',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_promo_link_text',
+		array(
+			'default'           => esc_html__( 'پیگیری سفارش', 'rasta-commerce' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_promo_link_text',
+		array(
+			'label'   => esc_html__( 'متن پیوند نوار اطلاع‌رسانی', 'rasta-commerce' ),
+			'section' => 'rasta_storefront',
+			'type'    => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_enable_dismissible_promo',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'rasta_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_enable_dismissible_promo',
+		array(
+			'label'       => esc_html__( 'نوار اطلاع‌رسانی قابل بستن', 'rasta-commerce' ),
+			'description' => esc_html__( 'دکمه بستن به نوار اضافه می‌کند تا بازدیدکننده بتواند آن را مخفی کند.', 'rasta-commerce' ),
+			'section'     => 'rasta_storefront_features',
+			'type'        => 'checkbox',
+		)
+	);
+
+	/* ─── Extra social networks ────────────────────────────────────────── */
+
+	$extra_social_fields = array(
+		'rasta_whatsapp_url' => esc_html__( 'نشانی واتساپ', 'rasta-commerce' ),
+		'rasta_twitter_url'  => esc_html__( 'نشانی توییتر / ایکس', 'rasta-commerce' ),
+		'rasta_aparat_url'   => esc_html__( 'نشانی آپارات', 'rasta-commerce' ),
+	);
+
+	foreach ( $extra_social_fields as $setting_id => $label ) {
+		$wp_customize->add_setting(
+			$setting_id,
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			$setting_id,
+			array(
+				'label'       => $label,
+				'description' => esc_html__( 'اختیاری؛ فقط لینک‌های واردشده در پایین صفحه نمایش داده می‌شوند.', 'rasta-commerce' ),
+				'section'     => 'rasta_storefront',
+				'type'        => 'url',
+			)
+		);
+	}
 }
 add_action( 'customize_register', 'rasta_customize_register' );
+
+/**
+ * Sanitize the shop column count to a 2–5 range.
+ *
+ * @param mixed $value Candidate value.
+ * @return int
+ */
+function rasta_sanitize_shop_columns( $value ) {
+	return min( 5, max( 2, (int) $value ) );
+}

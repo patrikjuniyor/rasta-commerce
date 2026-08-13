@@ -20,13 +20,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php wp_body_open(); ?>
 <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'پرش به محتوا', 'rasta-commerce' ); ?></a>
 
-<div class="rasta-announcement">
+<div class="rasta-announcement" data-rasta-announcement>
 	<div class="rasta-container rasta-announcement__inner">
 		<span class="rasta-announcement__message">
 			<?php rasta_icon( 'truck' ); ?>
 			<?php echo esc_html( rasta_get_mod( 'rasta_promo_text', __( 'ارسال رایگان برای سفارش‌های بالای ۲ میلیون تومان', 'rasta-commerce' ) ) ); ?>
 		</span>
-		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'پیگیری سفارش', 'rasta-commerce' ); ?></a>
+		<span class="rasta-announcement__aside">
+			<a href="<?php echo esc_url( rasta_get_mod( 'rasta_promo_link', home_url( '/contact/' ) ) ); ?>"><?php echo esc_html( rasta_get_mod( 'rasta_promo_link_text', __( 'پیگیری سفارش', 'rasta-commerce' ) ) ); ?></a>
+			<?php if ( rasta_feature_enabled( 'dismissible_promo', false ) ) : ?>
+				<button class="rasta-announcement__close" type="button" data-rasta-dismiss aria-label="<?php esc_attr_e( 'بستن نوار اطلاع‌رسانی', 'rasta-commerce' ); ?>">
+					<?php rasta_icon( 'close' ); ?>
+				</button>
+			<?php endif; ?>
+		</span>
 	</div>
 </div>
 
@@ -66,6 +73,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php rasta_icon( 'user' ); ?>
 				<span class="screen-reader-text"><?php esc_html_e( 'حساب کاربری', 'rasta-commerce' ); ?></span>
 			</a>
+			<?php if ( rasta_feature_enabled( 'dark_mode', false ) ) : ?>
+				<button class="rasta-header-action rasta-header-action--theme" type="button" data-rasta-theme-toggle aria-pressed="false" aria-label="<?php esc_attr_e( 'تغییر حالت روشن و تاریک', 'rasta-commerce' ); ?>">
+					<span class="rasta-theme-icon rasta-theme-icon--moon"><?php rasta_icon( 'moon' ); ?></span>
+					<span class="rasta-theme-icon rasta-theme-icon--sun" hidden><?php rasta_icon( 'sun' ); ?></span>
+					<span class="screen-reader-text"><?php esc_html_e( 'حالت تاریک', 'rasta-commerce' ); ?></span>
+				</button>
+			<?php endif; ?>
 			<button class="rasta-header-action rasta-header-action--cart" type="button" data-rasta-open="cart" aria-haspopup="dialog" aria-controls="rasta-cart-drawer">
 				<?php rasta_icon( 'cart' ); ?>
 				<?php rasta_cart_count_markup(); ?>

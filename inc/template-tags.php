@@ -49,6 +49,11 @@ function rasta_get_icon( $name, $class = '' ) {
 		'instagram'  => '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r=".75" fill="currentColor" stroke="none"/>',
 		'telegram'   => '<path d="m21 4-3 16-5.5-5-3.1 3 .6-4.3L5 11l16-7Z"/><path d="m9.8 13.7 7.6-7"/>',
 		'linkedin'   => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v6M8 7v.1M12 16v-3.4a2.6 2.6 0 0 1 5.2 0V16M12 10v6"/>',
+		'whatsapp'   => '<path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5Z"/><path d="M9 8.5c-.2 2.4 1.5 4.9 4.2 6.3.7.4 1.5.3 1.6-.3l.3-1.4-2-1.1-1.2 1.1c-1-.5-1.8-1.3-2.3-2.3l1.1-1.2-1.1-2-1.4.3c-.6.1-.9.9-1.2 1.6Z"/>',
+		'twitter'    => '<path d="M4 4l6.7 8.9L4.3 20h2l5.4-5.8L16 20h4l-7-9.3L19.5 4h-2l-4.9 5.3L8 4H4Z"/>',
+		'aparat'     => '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r=".9" fill="currentColor"/>',
+		'moon'       => '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/>',
+		'sun'        => '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
 	);
 
 	$path = isset( $icons[ $name ] ) ? $icons[ $name ] : $icons['sparkles'];
@@ -226,6 +231,18 @@ function rasta_social_links() {
 		'telegram'  => array(
 			'key'   => 'rasta_telegram_url',
 			'label' => 'Telegram',
+		),
+		'whatsapp'  => array(
+			'key'   => 'rasta_whatsapp_url',
+			'label' => 'WhatsApp',
+		),
+		'twitter'   => array(
+			'key'   => 'rasta_twitter_url',
+			'label' => 'X (Twitter)',
+		),
+		'aparat'    => array(
+			'key'   => 'rasta_aparat_url',
+			'label' => 'Aparat',
 		),
 		'linkedin'  => array(
 			'key'   => 'rasta_linkedin_url',

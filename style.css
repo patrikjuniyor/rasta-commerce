@@ -2,7 +2,7 @@
  * Theme Name: Rasta Commerce
  * Author: Rasta Commerce Contributors
  * Description: A fast, accessible, Persian-first RTL e-commerce theme with built-in store — no WooCommerce required.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Requires at least: 6.4
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -58,6 +58,35 @@
   --rasta-radius-lg: 32px;
   --rasta-container: 1240px;
   --rasta-font: 'Vazirmatn', 'IRANSansX', 'Tahoma', 'Arial', system-ui, sans-serif;
+}
+
+/* Dark theme — toggled via the header button and persisted in localStorage. */
+[data-rasta-theme='dark'] {
+  color-scheme: dark;
+
+  --rasta-ink: #eef2fb;
+  --rasta-ink-soft: #d7dff0;
+  --rasta-slate: #b3bdce;
+  --rasta-muted: #8b97ac;
+  --rasta-line: #2a3247;
+  --rasta-surface: #12172a;
+  --rasta-surface-soft: #1a2138;
+  --rasta-surface-tint: #202a44;
+  --rasta-accent-soft: #3a1f22;
+  --rasta-shadow-sm: 0 6px 20px rgb(0 0 0 / 38%);
+  --rasta-shadow: 0 18px 50px rgb(0 0 0 / 48%);
+  --rasta-shadow-lg: 0 28px 80px rgb(0 0 0 / 58%);
+}
+
+[data-rasta-theme='dark'] .site-header,
+[data-rasta-theme='dark'] .rasta-compare-tray,
+[data-rasta-theme='dark'] .rasta-sticky-cart {
+  background: rgb(18 23 42 / 92%);
+  border-color: var(--rasta-line);
+}
+
+[data-rasta-theme='dark'] .rasta-announcement {
+  background: #0b0f1d;
 }
 
 * {
@@ -301,6 +330,36 @@ a:hover {
   color: #fff;
 }
 
+.rasta-announcement__aside {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rasta-announcement__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 22px;
+  block-size: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 12%);
+  color: #fff;
+}
+
+.rasta-announcement__close:hover {
+  background: rgb(255 255 255 / 26%);
+  color: #fff;
+}
+
+.rasta-announcement__close svg {
+  inline-size: 13px;
+  block-size: 13px;
+  color: inherit;
+}
+
 .site-header {
   position: relative;
   z-index: 50;
@@ -405,7 +464,7 @@ a:hover {
   margin: 0;
   border: 1px solid var(--rasta-line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--rasta-surface);
   box-shadow: var(--rasta-shadow);
   list-style: none;
   opacity: 0;
@@ -521,7 +580,7 @@ a:hover {
   padding: 0;
   border: 1px solid var(--rasta-line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--rasta-surface);
   color: var(--rasta-ink);
 }
 
@@ -548,7 +607,7 @@ a:hover {
   padding: 25px;
   overflow-y: auto;
   border-inline-end: 1px solid var(--rasta-line);
-  background: #fff;
+  background: var(--rasta-surface);
   box-shadow: var(--rasta-shadow-lg);
   opacity: 0;
   pointer-events: none;
@@ -593,7 +652,7 @@ a:hover {
 
 .rasta-search-form__field:focus-within {
   border-color: var(--rasta-accent-strong);
-  background: #fff;
+  background: var(--rasta-surface);
   box-shadow: 0 0 0 3px rgb(49 91 216 / 11%);
 }
 
@@ -1230,7 +1289,7 @@ a:hover {
 
 .rasta-trust-strip {
   border-block-end: 1px solid var(--rasta-line);
-  background: #fff;
+  background: var(--rasta-surface);
 }
 
 .rasta-trust-strip__grid {
@@ -1318,7 +1377,7 @@ a:hover {
   padding: 16px 10px 15px;
   border: 1px solid var(--rasta-line);
   border-radius: var(--rasta-radius);
-  background: #fff;
+  background: var(--rasta-surface);
   color: var(--rasta-ink);
   text-align: center;
   transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease;
@@ -1371,7 +1430,7 @@ a:hover {
 .woocommerce ul.products,
 ul.products.rasta-products-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--rasta-products-columns, 4), minmax(0, 1fr));
   gap: clamp(13px, 2vw, 24px);
   padding: 0;
   margin: 0;
@@ -1397,7 +1456,7 @@ ul.products.rasta-products-grid li.product {
   overflow: hidden;
   border: 1px solid var(--rasta-line);
   border-radius: var(--rasta-radius);
-  background: #fff;
+  background: var(--rasta-surface);
   transition: border-color 190ms ease, box-shadow 190ms ease, transform 190ms ease;
 }
 
@@ -1797,7 +1856,7 @@ ul.products.rasta-products-grid li.product {
   overflow: hidden;
   border: 1px solid var(--rasta-line);
   border-radius: var(--rasta-radius);
-  background: #fff;
+  background: var(--rasta-surface);
   transition: box-shadow 190ms ease, transform 190ms ease;
 }
 
@@ -1900,7 +1959,7 @@ ul.products.rasta-products-grid li.product {
   overflow: hidden;
   border: 1px solid var(--rasta-line);
   border-radius: var(--rasta-radius);
-  background: #fff;
+  background: var(--rasta-surface);
 }
 
 .rasta-post-card__image {
@@ -2370,7 +2429,7 @@ ul.products.rasta-products-grid li.product {
   padding: 5px 24px 5px 5px;
   border: 1px solid var(--rasta-line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--rasta-surface);
 }
 
 .rasta-compare-tray__item img,
@@ -2550,7 +2609,7 @@ ul.products.rasta-products-grid li.product {
   margin: 0;
   border: 1px solid var(--rasta-line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--rasta-surface);
   box-shadow: none;
   color: var(--rasta-ink);
 }
@@ -2656,7 +2715,7 @@ ul.products.rasta-products-grid li.product {
   border: 1px solid var(--rasta-line);
   border-radius: 10px;
   outline: 0;
-  background: #fff;
+  background: var(--rasta-surface);
   color: var(--rasta-ink);
   font-size: 0.8rem;
 }
@@ -2932,7 +2991,7 @@ ul.products.rasta-products-grid li.product {
   padding: 9px;
   border: 1px solid var(--rasta-line);
   border-radius: 13px;
-  background: #fff;
+  background: var(--rasta-surface);
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
@@ -3120,7 +3179,7 @@ ul.products.rasta-products-grid li.product {
   border: 1px solid var(--rasta-line);
   border-radius: 10px;
   outline: 0;
-  background: #fff;
+  background: var(--rasta-surface);
   box-shadow: none;
 }
 
@@ -3164,7 +3223,7 @@ ul.products.rasta-products-grid li.product {
 
 .woocommerce-checkout #payment div.payment_box {
   border-radius: 9px;
-  background: #fff;
+  background: var(--rasta-surface);
   color: var(--rasta-slate);
   font-size: 0.8rem;
 }
@@ -3423,7 +3482,7 @@ ul.products.rasta-products-grid li.product {
     display: grid;
     padding: 12px 20px 20px;
     border-block-end: 1px solid var(--rasta-line);
-    background: #fff;
+    background: var(--rasta-surface);
     box-shadow: var(--rasta-shadow);
     opacity: 0;
     pointer-events: none;
@@ -4205,7 +4264,7 @@ ul.products.rasta-products-grid li.product {
   gap: 2rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .rasta-checkout-grid {
     grid-template-columns: 1fr 24rem;
   }
@@ -4250,7 +4309,7 @@ ul.products.rasta-products-grid li.product {
   border-radius: 0.5rem;
   font-size: 0.9375rem;
   font-family: inherit;
-  background: #fff;
+  background: var(--rasta-surface);
   transition: border-color 0.2s;
 }
 
@@ -4258,7 +4317,7 @@ ul.products.rasta-products-grid li.product {
 .rasta-form-field textarea:focus {
   outline: none;
   border-color: var(--rasta-accent, #f25c54);
-  box-shadow: 0 0 0 3px rgba(242, 92, 84, 0.15);
+  box-shadow: 0 0 0 3px rgb(242 92 84 / 15%);
 }
 
 .rasta-checkout-order {
@@ -4348,7 +4407,7 @@ ul.products.rasta-products-grid li.product {
   gap: 2rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .rasta-product-single__grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -4474,13 +4533,13 @@ ul.products.rasta-products-grid li.product {
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  background: #fff;
-  -moz-appearance: textfield;
+  background: var(--rasta-surface);
+  appearance: textfield;
 }
 
 .rasta-qty-input::-webkit-inner-spin-button,
 .rasta-qty-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 .rasta-button--large {

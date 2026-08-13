@@ -412,6 +412,23 @@ function rasta_format_currency( $amount ) {
 }
 
 /**
+ * Return a plain-text formatted currency value (no markup).
+ *
+ * Used in AJAX payloads so the client can render the value safely with
+ * textContent instead of innerHTML.
+ *
+ * @param float|int|string $amount Amount to format.
+ * @return string
+ */
+function rasta_format_currency_plain( $amount ) {
+	$currency  = get_theme_mod( 'rasta_currency', 'IRT' );
+	$symbol    = 'IRR' === $currency ? '﷼' : 'تومان';
+	$formatted = number_format( (float) $amount, 0, '.', '،' );
+
+	return rasta_to_persian_digits( $formatted ) . ' ' . $symbol;
+}
+
+/**
  * Return the stock status label for a built-in product.
  *
  * @param int $product_id Product post ID.
