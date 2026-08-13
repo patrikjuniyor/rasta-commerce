@@ -51,6 +51,15 @@ jobs:
       - name: Run Elementor Core widget contract tests
         run: npm run test:elementor
 
+      - name: Run admin dashboard contract tests
+        run: npm run test:admin
+
+      - name: Run customizer contract tests
+        run: npm run test:customizer
+
+      - name: Run maintenance mode contract tests
+        run: npm run test:maintenance
+
       - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 

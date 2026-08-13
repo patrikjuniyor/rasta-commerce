@@ -473,6 +473,65 @@ function rasta_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	/* ─── Store state (maintenance mode) ───────────────────────────────── */
+
+	$wp_customize->add_section(
+		'rasta_store_state',
+		array(
+			'title'       => esc_html__( 'وضعیت فروشگاه', 'rasta-commerce' ),
+			'description' => esc_html__( 'فروشگاه را موقتاً برای بازدیدکنندگان ببندید؛ مدیران و کاربران واردشده سایت را عادی می‌بینند.', 'rasta-commerce' ),
+			'priority'    => 34,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'rasta_enable_maintenance',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'rasta_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_enable_maintenance',
+		array(
+			'label'       => esc_html__( 'فعال‌سازی حالت تعمیر', 'rasta-commerce' ),
+			'description' => esc_html__( 'تا وقتی این گزینه روشن است، صفحه «به‌زودی بازمی‌گردیم» به بازدیدکنندگان نشان داده می‌شود.', 'rasta-commerce' ),
+			'section'     => 'rasta_store_state',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$maintenance_fields = array(
+		'rasta_maintenance_headline' => array(
+			'label'    => esc_html__( 'تیتر صفحه تعمیر', 'rasta-commerce' ),
+			'default'  => esc_html__( 'فروشگاه به‌زودی بازمی‌گردد', 'rasta-commerce' ),
+			'sanitize' => 'sanitize_text_field',
+		),
+		'rasta_maintenance_message'  => array(
+			'label'    => esc_html__( 'متن صفحه تعمیر', 'rasta-commerce' ),
+			'default'  => esc_html__( 'در حال به‌روزرسانی و آماده‌سازی فروشگاه هستیم. چند لحظه دیگر با تجربه‌ای بهتر بازمی‌گردیم.', 'rasta-commerce' ),
+			'sanitize' => 'sanitize_textarea_field',
+		),
+	);
+
+	foreach ( $maintenance_fields as $setting_id => $field ) {
+		$wp_customize->add_setting(
+			$setting_id,
+			array(
+				'default'           => $field['default'],
+				'sanitize_callback' => $field['sanitize'],
+			)
+		);
+		$wp_customize->add_control(
+			$setting_id,
+			array(
+				'label'   => $field['label'],
+				'section' => 'rasta_store_state',
+				'type'    => 'rasta_maintenance_message' === $setting_id ? 'textarea' : 'text',
+			)
+		);
+	}
 }
 add_action( 'customize_register', 'rasta_customize_register' );
 

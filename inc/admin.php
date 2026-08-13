@@ -143,6 +143,16 @@ function rasta_render_store_overview() {
 		<h1><?php esc_html_e( 'نمای کلی فروشگاه', 'rasta-commerce' ); ?></h1>
 		<p class="description"><?php esc_html_e( 'چشم‌اندازی سریع از عملکرد فروشگاه داخلی راستا. این صفحه به‌صورت زنده از سفارش‌ها و موجودی محصولات محاسبه می‌شود.', 'rasta-commerce' ); ?></p>
 
+		<?php if ( function_exists( 'rasta_maintenance_enabled' ) && rasta_maintenance_enabled() ) : ?>
+			<div class="notice notice-warning inline">
+				<p>
+					<strong><?php esc_html_e( 'حالت تعمیر فعال است.', 'rasta-commerce' ); ?></strong>
+					<?php esc_html_e( 'بازدیدکنندگان واردنشده صفحه «به‌زودی بازمی‌گردیم» را می‌بینند.', 'rasta-commerce' ); ?>
+					<a href="<?php echo esc_url( admin_url( 'customize.php?autofocus[section]=rasta_store_state' ) ); ?>"><?php esc_html_e( 'مدیریت وضعیت فروشگاه', 'rasta-commerce' ); ?></a>
+				</p>
+			</div>
+		<?php endif; ?>
+
 		<div class="rasta-overview__cards">
 			<div class="rasta-overview__card">
 				<p class="rasta-overview__label"><?php echo esc_html( $stat_labels['products'] ); ?></p>

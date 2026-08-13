@@ -1,6 +1,6 @@
 {
   "name": "rasta-commerce",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "description": "Quality tooling for the Rasta Commerce WordPress theme.",
   "type": "module",
@@ -10,7 +10,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "test": "node --test tests/*.test.mjs",
     "test:php": "bash scripts/php-lint.sh",
-    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali && npm run test:elementor",
+    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali && npm run test:elementor && npm run test:admin && npm run test:customizer && npm run test:maintenance",
     "package": "npm run package:theme && npm run package:child && npm run package:core && npm run package:zarinpal",
     "package:theme": "node scripts/package-theme.mjs",
     "package:zarinpal": "node scripts/package-zarinpal-plugin.mjs",
@@ -21,7 +21,10 @@
     "marketplace:validate": "node scripts/package-marketplace.mjs validate",
     "marketplace:build": "npm run marketplace:prepare && node scripts/package-marketplace.mjs build",
     "package:core": "node scripts/package-rasta-core-plugin.mjs",
-    "test:elementor": "php tests/php/elementor-core-test.php"
+    "test:elementor": "php tests/php/elementor-core-test.php",
+    "test:admin": "php tests/php/admin-dashboard-test.php",
+    "test:customizer": "php tests/php/customizer-test.php",
+    "test:maintenance": "php tests/php/maintenance-test.php"
   },
   "devDependencies": {
     "eslint": "^9.39.1",

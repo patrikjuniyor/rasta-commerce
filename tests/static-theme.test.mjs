@@ -38,6 +38,10 @@ const requiredThemeFiles = [
   'plugins/rasta-zarinpal-gateway/includes/class-rasta-zarinpal-gateway.php',
   'tests/php/zarinpal-gateway-test.php',
   'tests/php/elementor-core-test.php',
+  'tests/php/admin-dashboard-test.php',
+  'tests/php/customizer-test.php',
+  'tests/php/maintenance-test.php',
+  'maintenance.php',
 ];
 
 test('includes the required WordPress theme files and visual assets', () => {
@@ -50,7 +54,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.1.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.2.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -130,6 +134,18 @@ test('ships product-discovery enhancements with opt-out controls', () => {
   assert.match(productCard, /data-compare-product/);
   assert.match(woocommerce, /rasta_recently_viewed_placeholder/);
   assert.match(woocommerce, /rasta_render_sticky_add_to_cart/);
+});
+
+test('ships a maintenance mode with customizer control and template redirect', () => {
+  const customizer = read('inc/customizer.php');
+  const maintenance = read('inc/maintenance.php');
+  const functions = read('functions.php');
+  assert.match(customizer, /rasta_enable_maintenance/);
+  assert.match(customizer, /rasta_maintenance_headline/);
+  assert.match(customizer, /rasta_maintenance_message/);
+  assert.match(maintenance, /template_redirect/);
+  assert.match(maintenance, /rasta_maybe_show_maintenance/);
+  assert.match(functions, /inc\/maintenance\.php/);
 });
 
 test('renders client-side search results without raw HTML injection', () => {
