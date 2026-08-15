@@ -246,24 +246,27 @@ function rasta_product_low_stock_quantity( $product ) {
 }
 
 /**
- * Define card grid columns in WooCommerce archives.
+ * Define card grid columns in WooCommerce archives from the customizer.
  *
  * @return int
  */
 function rasta_loop_shop_columns() {
-	return 4;
+	return function_exists( 'rasta_sanitize_shop_columns' )
+		? rasta_sanitize_shop_columns( get_theme_mod( 'rasta_shop_columns', 4 ) )
+		: 4;
 }
 add_filter( 'loop_shop_columns', 'rasta_loop_shop_columns' );
 
 /**
- * Use a compact related-products section.
+ * Use a compact related-products section, honouring the grid column setting.
  *
  * @param array<string, mixed> $args Existing related product query arguments.
  * @return array<string, mixed>
  */
 function rasta_related_products_args( $args ) {
-	$args['posts_per_page'] = 4;
-	$args['columns']        = 4;
+	$columns             = rasta_loop_shop_columns();
+	$args['posts_per_page'] = $columns;
+	$args['columns']        = $columns;
 	return $args;
 }
 add_filter( 'woocommerce_output_related_products_args', 'rasta_related_products_args' );

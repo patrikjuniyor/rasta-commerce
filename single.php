@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Single post template.
  *
@@ -13,7 +16,8 @@ get_header();
 			<?php the_post(); ?>
 			<article id="post-<?php the_ID(); ?>" <?php post_class( 'rasta-single-post' ); ?>>
 				<header class="entry-header">
-					<p class="rasta-kicker"><?php echo esc_html( get_the_category_list( ' / ' ) ? wp_strip_all_tags( get_the_category_list( ' / ' ) ) : __( 'مجله راستا', 'rasta-commerce' ) ); ?></p>
+					<?php $categories = get_the_category_list( ' / ' ); ?>
+					<p class="rasta-kicker"><?php echo esc_html( $categories ? wp_strip_all_tags( $categories ) : __( 'مجله راستا', 'rasta-commerce' ) ); ?></p>
 					<h1 class="entry-title"><?php the_title(); ?></h1>
 					<?php rasta_posted_on(); ?>
 				</header>

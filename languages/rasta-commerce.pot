@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rasta Commerce 2.4.0\n"
+"Project-Id-Version: Rasta Commerce 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rasta-commerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-13T19:07:46+00:00\n"
+"POT-Creation-Date: 2026-08-15T18:51:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce\n"
@@ -29,21 +29,22 @@ msgstr ""
 msgid "Rasta Commerce Contributors"
 msgstr ""
 
-#: 404.php:15
+#: 404.php:18
 msgid "این مسیر به جایی نمی‌رسد."
 msgstr ""
 
-#: 404.php:16
+#: 404.php:19
 msgid "ممکن است آدرس تغییر کرده باشد یا صفحه‌ای که می‌خواستید دیگر وجود نداشته باشد."
 msgstr ""
 
-#: 404.php:17
+#: 404.php:20
+#: archive-rasta_product.php:71
 msgid "بازگشت به خانه"
 msgstr ""
 
 #: archive-rasta_product.php:20
 #: inc/woocommerce.php:66
-#: inc/woocommerce.php:279
+#: inc/woocommerce.php:282
 #: single-rasta_product.php:25
 msgid "مسیر صفحه"
 msgstr ""
@@ -75,17 +76,17 @@ msgstr ""
 msgid "هنوز محصولی برای نمایش وجود ندارد."
 msgstr ""
 
-#: archive-rasta_product.php:68
+#: archive-rasta_product.php:69
 #: inc/admin.php:203
 msgid "مدیریت محصولات"
 msgstr ""
 
-#: archive.php:14
+#: archive.php:17
 msgid "بایگانی"
 msgstr ""
 
 #. translators: %s: number of comments.
-#: comments.php:18
+#: comments.php:21
 #, php-format
 msgctxt "comments title"
 msgid "%1$s دیدگاه"
@@ -93,7 +94,7 @@ msgid_plural "%1$s دیدگاه"
 msgstr[0] ""
 msgstr[1] ""
 
-#: comments.php:30
+#: comments.php:33
 msgid "دیدگاه‌ها بسته شده‌اند."
 msgstr ""
 
@@ -126,7 +127,7 @@ msgid "پشتیبانی در تمام مراحل خرید"
 msgstr ""
 
 #: footer.php:35
-#: inc/customizer.php:372
+#: inc/customizer.php:393
 msgid "یک تجربه‌ی تمیز، سریع و قابل اعتماد برای خرید آنلاین؛ از انتخاب تا رسیدن سفارش به دست شما."
 msgstr ""
 
@@ -185,24 +186,24 @@ msgstr ""
 
 #: front-page.php:25
 #: inc/customizer.php:135
-#: inc/customizer.php:635
+#: inc/customizer.php:656
 msgid "انتخاب هوشمند، خرید آسوده"
 msgstr ""
 
 #: front-page.php:27
 #: inc/customizer.php:140
-#: inc/customizer.php:645
+#: inc/customizer.php:666
 msgid "چیزهای خوب، برای زندگیِ خوب"
 msgstr ""
 
 #: front-page.php:28
 #: inc/customizer.php:145
-#: inc/customizer.php:655
+#: inc/customizer.php:676
 msgid "یک ویترین خوش‌ساخت برای پیدا کردن محصولاتی که هر روزتان را ساده‌تر و زیباتر می‌کنند."
 msgstr ""
 
 #: front-page.php:31
-#: inc/cart.php:495
+#: inc/cart.php:504
 #: inc/customizer.php:150
 msgid "مشاهده فروشگاه"
 msgstr ""
@@ -321,8 +322,8 @@ msgid "تازه‌ترین انتخاب‌ها، آماده برای دیده ش
 msgstr ""
 
 #: front-page.php:139
-#: index.php:14
-#: single.php:16
+#: index.php:17
+#: single.php:20
 msgid "مجله راستا"
 msgstr ""
 
@@ -348,12 +349,12 @@ msgstr ""
 
 #: header.php:27
 #: inc/customizer.php:130
-#: inc/customizer.php:624
+#: inc/customizer.php:645
 msgid "ارسال رایگان برای سفارش‌های بالای ۲ میلیون تومان"
 msgstr ""
 
 #: header.php:30
-#: inc/customizer.php:424
+#: inc/customizer.php:445
 msgid "پیگیری سفارش"
 msgstr ""
 
@@ -366,7 +367,7 @@ msgid "باز و بسته کردن منو"
 msgstr ""
 
 #: header.php:58
-#: inc/setup.php:76
+#: inc/setup.php:87
 msgid "منوی اصلی"
 msgstr ""
 
@@ -380,9 +381,9 @@ msgid "علاقه‌مندی‌ها"
 msgstr ""
 
 #: header.php:74
-#: inc/products.php:763
-#: inc/shortcodes.php:240
-#: inc/shortcodes.php:265
+#: inc/products.php:779
+#: inc/shortcodes.php:239
+#: inc/shortcodes.php:264
 msgid "حساب کاربری"
 msgstr ""
 
@@ -457,35 +458,37 @@ msgid "نمای کلی فروشگاه"
 msgstr ""
 
 #: inc/admin.php:106
-#: inc/cart.php:396
+#: inc/cart.php:404
 msgid "در انتظار پرداخت"
 msgstr ""
 
 #: inc/admin.php:107
-#: inc/cart.php:407
+#: inc/cart.php:415
 msgid "در حال پردازش"
 msgstr ""
 
 #: inc/admin.php:108
-#: inc/cart.php:418
+#: inc/cart.php:426
 msgid "تکمیل شده"
 msgstr ""
 
 #: inc/admin.php:109
-#: inc/cart.php:429
+#: inc/cart.php:437
 msgid "لغو شده"
 msgstr ""
 
 #: inc/admin.php:110
-#: inc/cart.php:440
+#: inc/cart.php:448
 msgid "ناموفق"
 msgstr ""
 
 #: inc/admin.php:155
+#: inc/customizer.php:189
 msgid "ریال"
 msgstr ""
 
 #: inc/admin.php:155
+#: inc/customizer.php:188
 msgid "تومان"
 msgstr ""
 
@@ -519,7 +522,7 @@ msgid "افزودن محصول"
 msgstr ""
 
 #: inc/admin.php:178
-#: inc/cart.php:379
+#: inc/cart.php:387
 msgid "سفارش‌ها"
 msgstr ""
 
@@ -573,18 +576,19 @@ msgid "هنوز سفارشی ثبت نشده است."
 msgstr ""
 
 #: inc/admin.php:259
-#: inc/cart.php:380
+#: inc/cart.php:388
 msgid "سفارش"
 msgstr ""
 
 #: inc/admin.php:260
 #: inc/notifications.php:124
-#: inc/shortcodes.php:278
+#: inc/shortcodes.php:285
 msgid "مبلغ"
 msgstr ""
 
 #: inc/admin.php:261
-#: inc/shortcodes.php:277
+#: inc/shortcodes.php:284
+#: inc/shortcodes.php:356
 msgid "وضعیت"
 msgstr ""
 
@@ -600,7 +604,7 @@ msgstr ""
 #: inc/notifications.php:71
 #: inc/notifications.php:122
 #: inc/products.php:26
-#: inc/shortcodes.php:52
+#: inc/shortcodes.php:53
 msgid "محصول"
 msgstr ""
 
@@ -625,7 +629,7 @@ msgstr ""
 #: inc/products.php:237
 #: inc/products.php:443
 #: inc/template-tags.php:487
-#: inc/template-tags.php:522
+#: inc/template-tags.php:530
 #: inc/woocommerce.php:123
 msgid "ناموجود"
 msgstr ""
@@ -639,7 +643,6 @@ msgid "موجودی کم"
 msgstr ""
 
 #. translators: %s: quantity remaining.
-#. translators: %s: quantity available.
 #: inc/ajax.php:129
 #: inc/products.php:458
 #, php-format
@@ -653,9 +656,9 @@ msgid "موجود"
 msgstr ""
 
 #: inc/ajax.php:179
-#: inc/template-tags.php:519
-#: inc/woocommerce.php:360
-#: single-rasta_product.php:185
+#: inc/template-tags.php:527
+#: inc/woocommerce.php:363
+#: single-rasta_product.php:193
 msgid "افزودن به سبد"
 msgstr ""
 
@@ -678,7 +681,7 @@ msgstr ""
 
 #: inc/ajax.php:396
 #: inc/ajax.php:413
-#: inc/setup.php:164
+#: inc/setup.php:177
 msgid "محصول به سبد خرید اضافه شد."
 msgstr ""
 
@@ -688,73 +691,73 @@ msgid "امکان افزودن به سبد خرید وجود ندارد."
 msgstr ""
 
 #: inc/ajax.php:438
-#: inc/setup.php:166
+#: inc/setup.php:179
 msgid "سبد خرید به‌روزرسانی شد."
 msgstr ""
 
-#: inc/ajax.php:460
-#: inc/setup.php:165
+#: inc/ajax.php:461
+#: inc/setup.php:178
 msgid "محصول از سبد خرید حذف شد."
 msgstr ""
 
-#: inc/cart.php:288
-#: inc/shortcodes.php:312
+#: inc/cart.php:296
+#: inc/shortcodes.php:387
 msgid "سبد خرید خالی است."
 msgstr ""
 
 #. translators: %s: order number placeholder.
-#: inc/cart.php:299
+#: inc/cart.php:307
 #, php-format
 msgid "سفارش #%s"
 msgstr ""
 
-#: inc/cart.php:308
+#: inc/cart.php:316
 msgid "خطا در ایجاد سفارش."
 msgstr ""
 
 #. translators: %s: order number.
-#: inc/cart.php:317
+#: inc/cart.php:325
 #, php-format
 msgid "سفارش شماره %s"
 msgstr ""
 
-#: inc/cart.php:493
-#: inc/shortcodes.php:43
-#: inc/shortcodes.php:121
+#: inc/cart.php:502
+#: inc/shortcodes.php:44
+#: inc/shortcodes.php:122
 msgid "سبد خرید شما خالی است."
 msgstr ""
 
-#: inc/cart.php:514
-#: inc/setup.php:172
-#: inc/shortcodes.php:78
+#: inc/cart.php:523
+#: inc/setup.php:185
+#: inc/shortcodes.php:79
 msgid "حذف"
 msgstr ""
 
-#: inc/cart.php:522
-#: inc/shortcodes.php:89
-#: inc/shortcodes.php:202
+#: inc/cart.php:531
+#: inc/shortcodes.php:90
+#: inc/shortcodes.php:201
 msgid "جمع کل:"
 msgstr ""
 
-#: inc/cart.php:528
-#: inc/setup.php:175
+#: inc/cart.php:537
+#: inc/setup.php:188
 msgid "مشاهده سبد خرید"
 msgstr ""
 
-#: inc/cart.php:531
-#: inc/products.php:758
-#: inc/shortcodes.php:98
-#: inc/shortcodes.php:131
+#: inc/cart.php:540
+#: inc/products.php:774
+#: inc/shortcodes.php:99
+#: inc/shortcodes.php:132
 msgid "تکمیل خرید"
 msgstr ""
 
 #. translators: %s: remaining cart value.
-#: inc/cart.php:560
+#: inc/cart.php:571
 #, php-format
 msgid "فقط %s تا ارسال رایگان مانده است."
 msgstr ""
 
-#: inc/cart.php:566
+#: inc/cart.php:577
 msgid "ارسال رایگان برای این سفارش فعال شد."
 msgstr ""
 
@@ -802,243 +805,251 @@ msgstr ""
 msgid "متن دکمه اصلی"
 msgstr ""
 
+#: inc/customizer.php:183
+msgid "واحد پول فروشگاه"
+msgstr ""
+
 #: inc/customizer.php:184
+msgid "برای فروشگاه داخلی (بدون WooCommerce) اعمال می‌شود."
+msgstr ""
+
+#: inc/customizer.php:205
 msgid "تصویر قهرمان (اختیاری)"
 msgstr ""
 
-#: inc/customizer.php:185
+#: inc/customizer.php:206
 msgid "اگر تصویری انتخاب نکنید، تصویرسازی اختصاصی خود قالب نمایش داده می‌شود."
 msgstr ""
 
-#: inc/customizer.php:192
+#: inc/customizer.php:213
 msgid "نشانی اینستاگرام"
 msgstr ""
 
-#: inc/customizer.php:193
+#: inc/customizer.php:214
 msgid "نشانی تلگرام"
 msgstr ""
 
-#: inc/customizer.php:194
+#: inc/customizer.php:215
 msgid "نشانی لینکدین"
 msgstr ""
 
-#: inc/customizer.php:209
-#: inc/customizer.php:474
+#: inc/customizer.php:230
+#: inc/customizer.php:495
 msgid "اختیاری؛ فقط لینک‌های واردشده در پایین صفحه نمایش داده می‌شوند."
 msgstr ""
 
-#: inc/customizer.php:217
+#: inc/customizer.php:238
 msgid "نمایش سریع محصول"
 msgstr ""
 
-#: inc/customizer.php:218
+#: inc/customizer.php:239
 msgid "مقایسه محصول"
 msgstr ""
 
-#: inc/customizer.php:219
+#: inc/customizer.php:240
 msgid "محصولات اخیراً دیده‌شده"
 msgstr ""
 
-#: inc/customizer.php:220
+#: inc/customizer.php:241
 msgid "نوار چسبان افزودن به سبد"
 msgstr ""
 
-#: inc/customizer.php:221
+#: inc/customizer.php:242
 msgid "شمارش‌گر پایان تخفیف"
 msgstr ""
 
-#: inc/customizer.php:244
+#: inc/customizer.php:265
 msgid "نمایش نشان «تازه» تا چند روز"
 msgstr ""
 
-#: inc/customizer.php:247
+#: inc/customizer.php:268
 msgid "برای غیرفعال شدن این نشان، عدد صفر وارد کنید."
 msgstr ""
 
-#: inc/customizer.php:250
+#: inc/customizer.php:271
 msgid "آستانه هشدار موجودی کم"
 msgstr ""
 
-#: inc/customizer.php:253
+#: inc/customizer.php:274
 msgid "اگر مدیریت موجودی فعال باشد، تعداد کمتر یا مساوی این مقدار هشدار می‌گیرد. صفر یعنی غیرفعال."
 msgstr ""
 
-#: inc/customizer.php:256
+#: inc/customizer.php:277
 msgid "حداقل مبلغ ارسال رایگان"
 msgstr ""
 
-#: inc/customizer.php:259
+#: inc/customizer.php:280
 msgid "به واحد پول فروشگاه وارد کنید. صفر یعنی نوار پیشرفت ارسال رایگان در سبد نمایش داده نشود."
 msgstr ""
 
-#: inc/customizer.php:292
+#: inc/customizer.php:313
 msgid "حالت نمایش"
 msgstr ""
 
-#: inc/customizer.php:293
+#: inc/customizer.php:314
 msgid "کنترل حالت روشن و تاریک فروشگاه."
 msgstr ""
 
-#: inc/customizer.php:308
+#: inc/customizer.php:329
 msgid "فعال‌سازی حالت تاریک"
 msgstr ""
 
-#: inc/customizer.php:309
+#: inc/customizer.php:330
 msgid "دکمه‌ای برای تغییر حالت روشن/تاریک به هدر اضافه می‌کند و در نخستین بازدید، تنظیم سیستم کاربر را می‌خواند."
 msgstr ""
 
-#: inc/customizer.php:325
+#: inc/customizer.php:346
 msgid "حالت تاریک پیش‌فرض"
 msgstr ""
 
-#: inc/customizer.php:326
+#: inc/customizer.php:347
 msgid "اگر فعال باشد، بازدیدکنندگان تازه به‌صورت پیش‌فرض حالت تاریک را می‌بینند."
 msgstr ""
 
-#: inc/customizer.php:345
+#: inc/customizer.php:366
 msgid "چیدمان شبکه محصولات"
 msgstr ""
 
-#: inc/customizer.php:346
+#: inc/customizer.php:367
 msgid "تعداد ستون‌های شبکه محصولات در صفحات فروشگاه."
 msgstr ""
 
-#: inc/customizer.php:350
+#: inc/customizer.php:371
 msgid "۲ ستون — کارت‌های بزرگ"
 msgstr ""
 
-#: inc/customizer.php:351
+#: inc/customizer.php:372
 msgid "۳ ستون — متعادل"
 msgstr ""
 
-#: inc/customizer.php:352
+#: inc/customizer.php:373
 msgid "۴ ستون — پیش‌فرض"
 msgstr ""
 
-#: inc/customizer.php:353
+#: inc/customizer.php:374
 msgid "۵ ستون — فشرده"
 msgstr ""
 
-#: inc/customizer.php:363
+#: inc/customizer.php:384
 msgid "پایین صفحه"
 msgstr ""
 
-#: inc/customizer.php:364
+#: inc/customizer.php:385
 msgid "متن‌های بخش پایین صفحه را بدون کدنویسی ویرایش کنید."
 msgstr ""
 
-#: inc/customizer.php:379
+#: inc/customizer.php:400
 msgid "متن معرفی فروشگاه"
 msgstr ""
 
-#: inc/customizer.php:395
+#: inc/customizer.php:416
 msgid "متن کپی‌رایت"
 msgstr ""
 
-#: inc/customizer.php:396
+#: inc/customizer.php:417
 msgid "می‌توانید از {year} برای سال جاری و {site} برای نام سایت استفاده کنید. خالی بگذارید تا متن پیش‌فرض نمایش داده شود."
 msgstr ""
 
-#: inc/customizer.php:414
+#: inc/customizer.php:435
 msgid "نشانی پیوند نوار اطلاع‌رسانی"
 msgstr ""
 
-#: inc/customizer.php:415
+#: inc/customizer.php:436
 msgid "اختیاری؛ اگر خالی باشد پیوند «پیگیری سفارش» پیش‌فرض نمایش داده می‌شود."
 msgstr ""
 
-#: inc/customizer.php:431
+#: inc/customizer.php:452
 msgid "متن پیوند نوار اطلاع‌رسانی"
 msgstr ""
 
-#: inc/customizer.php:447
+#: inc/customizer.php:468
 msgid "نوار اطلاع‌رسانی قابل بستن"
 msgstr ""
 
-#: inc/customizer.php:448
+#: inc/customizer.php:469
 msgid "دکمه بستن به نوار اضافه می‌کند تا بازدیدکننده بتواند آن را مخفی کند."
 msgstr ""
 
-#: inc/customizer.php:457
+#: inc/customizer.php:478
 msgid "نشانی واتساپ"
 msgstr ""
 
-#: inc/customizer.php:458
+#: inc/customizer.php:479
 msgid "نشانی توییتر / ایکس"
 msgstr ""
 
-#: inc/customizer.php:459
+#: inc/customizer.php:480
 msgid "نشانی آپارات"
 msgstr ""
 
-#: inc/customizer.php:486
+#: inc/customizer.php:507
 msgid "وضعیت فروشگاه"
 msgstr ""
 
-#: inc/customizer.php:487
+#: inc/customizer.php:508
 msgid "فروشگاه را موقتاً برای بازدیدکنندگان ببندید؛ مدیران و کاربران واردشده سایت را عادی می‌بینند."
 msgstr ""
 
-#: inc/customizer.php:502
+#: inc/customizer.php:523
 msgid "فعال‌سازی حالت تعمیر"
 msgstr ""
 
-#: inc/customizer.php:503
+#: inc/customizer.php:524
 msgid "تا وقتی این گزینه روشن است، صفحه «به‌زودی بازمی‌گردیم» به بازدیدکنندگان نشان داده می‌شود."
 msgstr ""
 
-#: inc/customizer.php:511
+#: inc/customizer.php:532
 msgid "تیتر صفحه تعمیر"
 msgstr ""
 
-#: inc/customizer.php:512
+#: inc/customizer.php:533
 #: maintenance.php:14
 msgid "فروشگاه به‌زودی بازمی‌گردد"
 msgstr ""
 
-#: inc/customizer.php:516
+#: inc/customizer.php:537
 msgid "متن صفحه تعمیر"
 msgstr ""
 
-#: inc/customizer.php:517
+#: inc/customizer.php:538
 #: maintenance.php:15
 msgid "در حال به‌روزرسانی و آماده‌سازی فروشگاه هستیم. چند لحظه دیگر با تجربه‌ای بهتر بازمی‌گردیم."
 msgstr ""
 
-#: inc/customizer.php:548
+#: inc/customizer.php:569
 msgid "پشتیبانی واتساپ"
 msgstr ""
 
-#: inc/customizer.php:549
+#: inc/customizer.php:570
 msgid "یک دکمه شناور چت واتساپ برای ارتباط سریع مشتریان با شما."
 msgstr ""
 
-#: inc/customizer.php:564
+#: inc/customizer.php:585
 msgid "نمایش دکمه واتساپ"
 msgstr ""
 
-#: inc/customizer.php:565
+#: inc/customizer.php:586
 msgid "دکمه شناور واتساپ را در تمام صفحات سایت نمایش دهد."
 msgstr ""
 
-#: inc/customizer.php:581
+#: inc/customizer.php:602
 msgid "شماره واتساپ"
 msgstr ""
 
-#: inc/customizer.php:582
+#: inc/customizer.php:603
 msgid "به‌صورت بین‌المللی و بدون + (مثلاً 989121234567)."
 msgstr ""
 
-#: inc/customizer.php:598
+#: inc/customizer.php:619
 #: inc/template-tags.php:290
 msgid "سلام، درباره محصولات فروشگاه سوال داشتم."
 msgstr ""
 
-#: inc/customizer.php:605
+#: inc/customizer.php:626
 msgid "پیام پیش‌فرض"
 msgstr ""
 
-#: inc/customizer.php:606
+#: inc/customizer.php:627
 msgid "متنی که به‌صورت خودکار در چت واتساپ برای مشتری نوشته می‌شود."
 msgstr ""
 
@@ -1066,7 +1077,7 @@ msgid "مشخصات مشتری"
 msgstr ""
 
 #: inc/notifications.php:97
-#: inc/shortcodes.php:142
+#: inc/shortcodes.php:141
 msgid "نام"
 msgstr ""
 
@@ -1075,7 +1086,7 @@ msgid "تلفن"
 msgstr ""
 
 #: inc/notifications.php:103
-#: inc/shortcodes.php:153
+#: inc/shortcodes.php:152
 msgid "ایمیل"
 msgstr ""
 
@@ -1088,7 +1099,7 @@ msgid "نشانی"
 msgstr ""
 
 #: inc/notifications.php:112
-#: inc/shortcodes.php:179
+#: inc/shortcodes.php:178
 msgid "کد پستی"
 msgstr ""
 
@@ -1101,8 +1112,8 @@ msgid "اقلام سفارش"
 msgstr ""
 
 #: inc/notifications.php:123
-#: inc/shortcodes.php:54
-#: single-rasta_product.php:90
+#: inc/shortcodes.php:55
+#: single-rasta_product.php:98
 msgid "تعداد"
 msgstr ""
 
@@ -1131,12 +1142,12 @@ msgid "محصول جدید"
 msgstr ""
 
 #: inc/products.php:31
-#: inc/setup.php:173
+#: inc/setup.php:186
 msgid "مشاهده محصول"
 msgstr ""
 
 #: inc/products.php:33
-#: inc/setup.php:163
+#: inc/setup.php:176
 msgid "محصولی پیدا نشد."
 msgstr ""
 
@@ -1252,164 +1263,197 @@ msgstr ""
 msgid "فقط %s عدد باقی مانده"
 msgstr ""
 
-#: inc/products.php:753
-#: inc/shortcodes.php:38
+#: inc/products.php:769
+#: inc/shortcodes.php:39
 msgid "سبد خرید"
 msgstr ""
 
-#: inc/setup.php:77
+#: inc/products.php:784
+msgid "تشکر از خرید"
+msgstr ""
+
+#: inc/setup.php:88
 msgid "منوی پایین صفحه"
 msgstr ""
 
-#: inc/setup.php:91
+#: inc/setup.php:102
 msgid "ستون کناری وبلاگ"
 msgstr ""
 
-#: inc/setup.php:93
+#: inc/setup.php:104
 msgid "ابزارک‌های این ناحیه در صفحات وبلاگ نمایش داده می‌شوند."
 msgstr ""
 
-#: inc/setup.php:160
+#: inc/setup.php:173
 msgid "بستن"
 msgstr ""
 
-#: inc/setup.php:161
+#: inc/setup.php:174
 msgid "در حال جست‌وجو…"
 msgstr ""
 
-#: inc/setup.php:162
+#: inc/setup.php:175
 msgid "در حال آماده‌سازی محصول…"
 msgstr ""
 
-#: inc/setup.php:167
+#: inc/setup.php:180
 msgid "اتصال برقرار نشد؛ دوباره تلاش کنید."
 msgstr ""
 
-#: inc/setup.php:168
+#: inc/setup.php:181
 msgid "هنوز محصولی را ذخیره نکرده‌اید."
 msgstr ""
 
-#: inc/setup.php:169
+#: inc/setup.php:182
 msgid "برای مقایسه، حداقل دو محصول انتخاب کنید."
 msgstr ""
 
-#: inc/setup.php:170
+#: inc/setup.php:183
 msgid "برای مقایسه حداکثر چهار محصول انتخاب کنید."
 msgstr ""
 
-#: inc/setup.php:171
+#: inc/setup.php:184
 msgid "فهرست مقایسه به‌روزرسانی شد."
 msgstr ""
 
-#: inc/setup.php:174
+#: inc/setup.php:187
 msgid "محصول برای مقایسه"
 msgstr ""
 
-#: inc/shortcodes.php:45
-#: inc/shortcodes.php:122
+#: inc/shortcodes.php:46
+#: inc/shortcodes.php:123
+#: inc/shortcodes.php:326
+#: inc/shortcodes.php:335
 msgid "بازگشت به فروشگاه"
 msgstr ""
 
-#: inc/shortcodes.php:53
+#: inc/shortcodes.php:54
 msgid "قیمت واحد"
 msgstr ""
 
-#: inc/shortcodes.php:55
+#: inc/shortcodes.php:56
 msgid "جمع"
 msgstr ""
 
-#: inc/shortcodes.php:95
+#: inc/shortcodes.php:96
+#: inc/shortcodes.php:366
 msgid "ادامه خرید"
 msgstr ""
 
-#: inc/shortcodes.php:138
+#: inc/shortcodes.php:137
 msgid "اطلاعات خریدار"
 msgstr ""
 
-#: inc/shortcodes.php:146
+#: inc/shortcodes.php:145
 msgid "نام خانوادگی"
 msgstr ""
 
-#: inc/shortcodes.php:157
+#: inc/shortcodes.php:156
 msgid "شماره موبایل"
 msgstr ""
 
-#: inc/shortcodes.php:163
+#: inc/shortcodes.php:162
 msgid "نشانی کامل"
 msgstr ""
 
-#: inc/shortcodes.php:169
+#: inc/shortcodes.php:168
 msgid "شهر"
 msgstr ""
 
-#: inc/shortcodes.php:173
+#: inc/shortcodes.php:172
 msgid "استان"
 msgstr ""
 
-#: inc/shortcodes.php:184
+#: inc/shortcodes.php:183
 msgid "توضیحات سفارش (اختیاری)"
 msgstr ""
 
-#: inc/shortcodes.php:190
+#: inc/shortcodes.php:189
 msgid "خلاصه سفارش"
 msgstr ""
 
-#: inc/shortcodes.php:207
+#: inc/shortcodes.php:206
 msgid "روش پرداخت"
 msgstr ""
 
-#: inc/shortcodes.php:210
+#: inc/shortcodes.php:209
 msgid "پرداخت در محل"
 msgstr ""
 
-#: inc/shortcodes.php:214
+#: inc/shortcodes.php:213
 msgid "پرداخت آنلاین"
 msgstr ""
 
-#: inc/shortcodes.php:220
+#: inc/shortcodes.php:219
 msgid "ثبت و پرداخت سفارش"
 msgstr ""
 
-#: inc/shortcodes.php:241
+#: inc/shortcodes.php:240
 msgid "برای مشاهده سفارش‌ها و حساب کاربری، وارد شوید."
 msgstr ""
 
-#: inc/shortcodes.php:243
+#: inc/shortcodes.php:242
 msgid "ورود"
 msgstr ""
 
-#: inc/shortcodes.php:266
+#. translators: %s: user display name.
+#: inc/shortcodes.php:269
 #, php-format
 msgid "سلام %s!"
 msgstr ""
 
-#: inc/shortcodes.php:268
+#: inc/shortcodes.php:275
 msgid "سفارش‌های شما"
 msgstr ""
 
-#: inc/shortcodes.php:270
+#: inc/shortcodes.php:277
 msgid "هنوز سفارشی ثبت نکرده‌اید."
 msgstr ""
 
-#: inc/shortcodes.php:275
+#: inc/shortcodes.php:282
+#: inc/shortcodes.php:352
 msgid "شماره سفارش"
 msgstr ""
 
-#: inc/shortcodes.php:276
+#: inc/shortcodes.php:283
 msgid "تاریخ"
 msgstr ""
 
-#: inc/shortcodes.php:295
+#: inc/shortcodes.php:302
 msgid "خروج از حساب"
 msgstr ""
 
+#: inc/shortcodes.php:325
+msgid "شماره سفارش نامعتبر است."
+msgstr ""
+
+#: inc/shortcodes.php:334
+msgid "سفارشی با این شماره یافت نشد."
+msgstr ""
+
+#: inc/shortcodes.php:347
+msgid "سفارش شما ثبت شد!"
+msgstr ""
+
+#: inc/shortcodes.php:348
+msgid "از خرید شما سپاسگزاریم. جزئیات سفارش در ادامه آمده است؛ تیم ما به‌زودی برای هماهنگی ارسال با شما تماس می‌گیرد."
+msgstr ""
+
+#: inc/shortcodes.php:360
+msgid "مبلغ قابل پرداخت"
+msgstr ""
+
+#: inc/shortcodes.php:368
+msgid "مشاهده سفارش‌های من"
+msgstr ""
+
 #. translators: %s: field name.
-#: inc/shortcodes.php:335
+#: inc/shortcodes.php:410
 #, php-format
 msgid "لطفاً فیلد «%s» را پر کنید."
 msgstr ""
 
-#: inc/shortcodes.php:361
+#: inc/shortcodes.php:436
 msgid "سفارش شما با موفقیت ثبت شد."
 msgstr ""
 
@@ -1521,7 +1565,7 @@ msgid "افزودن %s به مقایسه"
 msgstr ""
 
 #: inc/woocommerce.php:119
-#: single-rasta_product.php:78
+#: single-rasta_product.php:86
 msgid "در حال محاسبه…"
 msgstr ""
 
@@ -1531,44 +1575,56 @@ msgstr ""
 msgid "افزودن «%s» به سبد خرید"
 msgstr ""
 
-#: inc/woocommerce.php:314
-#: single-rasta_product.php:155
+#: inc/woocommerce.php:317
+#: single-rasta_product.php:163
 msgid "برای ادامه‌ی انتخاب"
 msgstr ""
 
-#: inc/woocommerce.php:315
-#: single-rasta_product.php:156
+#: inc/woocommerce.php:318
+#: single-rasta_product.php:164
 msgid "اخیراً دیده‌اید"
 msgstr ""
 
-#: inc/woocommerce.php:348
-#: single-rasta_product.php:171
+#: inc/woocommerce.php:351
+#: single-rasta_product.php:179
 msgid "افزودن سریع به سبد خرید"
 msgstr ""
 
-#: inc/woocommerce.php:364
+#: inc/woocommerce.php:367
 msgid "انتخاب گزینه‌ها"
 msgstr ""
 
-#: index.php:12
+#: index.php:15
 msgid "نوشته‌ها"
 msgstr ""
 
-#: index.php:15
+#: index.php:18
 msgid "تازه‌ها"
 msgstr ""
 
-#: search.php:13
+#: search.php:16
 msgid "نتایج جست‌وجو"
 msgstr ""
 
 #. translators: %s: search query.
-#: search.php:18
+#: search.php:21
 #, php-format
 msgid "نتایج برای «%s»"
 msgstr ""
 
-#: sidebar.php:12
+#: searchform.php:15
+msgid "جست‌وجو برای:"
+msgstr ""
+
+#: searchform.php:16
+msgid "جست‌وجو…"
+msgstr ""
+
+#: searchform.php:17
+msgid "جست‌وجو"
+msgstr ""
+
+#: sidebar.php:15
 msgid "ستون کناری"
 msgstr ""
 
@@ -1576,55 +1632,55 @@ msgstr ""
 msgid "کد محصول:"
 msgstr ""
 
-#: single-rasta_product.php:89
+#: single-rasta_product.php:97
 msgid "کاهش تعداد"
 msgstr ""
 
-#: single-rasta_product.php:91
+#: single-rasta_product.php:99
 msgid "افزایش تعداد"
 msgstr ""
 
-#: single-rasta_product.php:95
+#: single-rasta_product.php:103
 msgid "افزودن به سبد خرید"
 msgstr ""
 
-#: single-rasta_product.php:99
+#: single-rasta_product.php:107
 msgid "این محصول در حال حاضر ناموجود است."
 msgstr ""
 
-#: single-rasta_product.php:111
+#: single-rasta_product.php:119
 msgid "افزودن به علاقه‌مندی‌ها"
 msgstr ""
 
-#: single-rasta_product.php:116
+#: single-rasta_product.php:124
 msgid "مقایسه"
 msgstr ""
 
-#: single-rasta_product.php:123
+#: single-rasta_product.php:131
 msgid "مشخصات"
 msgstr ""
 
-#: single-rasta_product.php:135
+#: single-rasta_product.php:143
 msgid "دسته‌بندی:"
 msgstr ""
 
-#: single-rasta_product.php:146
+#: single-rasta_product.php:154
 msgid "توضیحات محصول"
 msgstr ""
 
-#: template-parts/content/content-none.php:10
+#: template-parts/content/content-none.php:13
 msgid "چیزی پیدا نشد."
 msgstr ""
 
-#: template-parts/content/content-none.php:11
+#: template-parts/content/content-none.php:14
 msgid "عبارت دیگری را امتحان کنید یا از منوی فروشگاه کمک بگیرید."
 msgstr ""
 
-#: template-parts/content/content-page.php:10
+#: template-parts/content/content-page.php:13
 msgid "راستا"
 msgstr ""
 
-#: template-parts/content/content.php:18
+#: template-parts/content/content.php:21
 msgid "خواندن مطلب"
 msgstr ""
 

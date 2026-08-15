@@ -14,6 +14,7 @@ const requiredThemeFiles = [
   'header.php',
   'footer.php',
   'front-page.php',
+  'searchform.php',
   'theme.json',
   'screenshot.png',
   'inc/ajax.php',
@@ -56,7 +57,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.4.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.5.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -182,6 +183,31 @@ test('renders client-side search results without raw HTML injection', () => {
   assert.match(script, /textContent\s*=/);
   assert.match(script, /new URL\(value, window\.location\.origin\)/);
   assert.match(script, /AbortController/);
+});
+
+test('starts the cart session correctly and wires the checkout nonce', () => {
+  const cart = read('inc/cart.php');
+  const setup = read('inc/setup.php');
+  const script = read('assets/js/theme.js');
+  // Regression: the session guard must not short-circuit before session_start().
+  assert.doesNotMatch(cart, /'none' === function_exists\( 'session_status' \)/);
+  assert.match(cart, /PHP_SESSION_ACTIVE === session_status\(\)/);
+  assert.match(cart, /@session_start\(\)/);
+  // Checkout must use a dedicated nonce that matches the server check.
+  assert.match(setup, /checkoutNonce/);
+  assert.match(script, /theme\.checkoutNonce/);
+});
+
+test('ships a thank-you page and defines a content width and search form', () => {
+  const shortcodes = read('inc/shortcodes.php');
+  const products = read('inc/products.php');
+  const setup = read('inc/setup.php');
+  assert.match(shortcodes, /function rasta_order_received_shortcode/);
+  assert.match(shortcodes, /rasta_get_order_received_url/);
+  assert.match(products, /function rasta_get_order_received_url/);
+  assert.match(products, /rasta_order_received_page_id/);
+  assert.match(setup, /content_width/);
+  assert.match(read('searchform.php'), /rasta-searchform/);
 });
 
 test('ships marketplace preparation assets without claiming a missing demo is complete', () => {

@@ -65,7 +65,11 @@ $is_category  = $current_term instanceof \WP_Term && 'rasta_product_cat' === $cu
 			<div class="rasta-empty-state">
 				<?php rasta_icon( 'box' ); ?>
 				<p><?php esc_html_e( 'هنوز محصولی برای نمایش وجود ندارد.', 'rasta-commerce' ); ?></p>
-				<a class="rasta-button" href="<?php echo esc_url( home_url( '/wp-admin/' ) ); ?>"><?php esc_html_e( 'مدیریت محصولات', 'rasta-commerce' ); ?></a>
+				<?php if ( current_user_can( 'edit_posts' ) ) : ?>
+					<a class="rasta-button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=rasta_product' ) ); ?>"><?php esc_html_e( 'مدیریت محصولات', 'rasta-commerce' ); ?></a>
+				<?php else : ?>
+					<a class="rasta-button" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'بازگشت به خانه', 'rasta-commerce' ); ?></a>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 

@@ -171,6 +171,27 @@ function rasta_customize_register( $wp_customize ) {
 	}
 
 	$wp_customize->add_setting(
+		'rasta_currency',
+		array(
+			'default'           => 'IRT',
+			'sanitize_callback' => 'rasta_sanitize_currency',
+		)
+	);
+	$wp_customize->add_control(
+		'rasta_currency',
+		array(
+			'label'       => esc_html__( 'واحد پول فروشگاه', 'rasta-commerce' ),
+			'description' => esc_html__( 'برای فروشگاه داخلی (بدون WooCommerce) اعمال می‌شود.', 'rasta-commerce' ),
+			'section'     => 'rasta_storefront',
+			'type'        => 'select',
+			'choices'     => array(
+				'IRT' => esc_html__( 'تومان', 'rasta-commerce' ),
+				'IRR' => esc_html__( 'ریال', 'rasta-commerce' ),
+			),
+		)
+	);
+
+	$wp_customize->add_setting(
 		'rasta_hero_image',
 		array(
 			'sanitize_callback' => 'esc_url_raw',
@@ -678,4 +699,14 @@ function rasta_sanitize_shop_columns( $value ) {
  */
 function rasta_sanitize_phone( $value ) {
 	return preg_replace( '/[^0-9]/', '', (string) $value );
+}
+
+/**
+ * Sanitize the currency setting to a supported code.
+ *
+ * @param mixed $value Candidate value.
+ * @return string
+ */
+function rasta_sanitize_currency( $value ) {
+	return in_array( $value, array( 'IRT', 'IRR' ), true ) ? $value : 'IRT';
 }

@@ -96,7 +96,7 @@ function rasta_to_persian_digits( $value ) {
  * @return string
  */
 function rasta_jalali_date( $format = 'j F Y', $timestamp = null, $digits = true ) {
-	$timestamp = null === $timestamp ? current_time( 'timestamp' ) : (int) $timestamp;
+	$timestamp = null === $timestamp ? time() : (int) $timestamp;
 	$datetime  = ( new DateTimeImmutable( '@' . $timestamp ) )->setTimezone( wp_timezone() );
 	$date      = $datetime->format( 'Y-n-j' );
 	$parts     = array_map( 'absint', explode( '-', $date ) );
@@ -139,5 +139,5 @@ function rasta_jalali_date( $format = 'j F Y', $timestamp = null, $digits = true
 function rasta_get_the_jalali_date( $format = 'j F Y' ) {
 	$timestamp = get_post_timestamp( get_the_ID() );
 
-	return rasta_jalali_date( $format, $timestamp );
+	return rasta_jalali_date( $format, $timestamp ? $timestamp : null );
 }

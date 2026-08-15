@@ -511,7 +511,15 @@ function rasta_render_product_card_from_payload( $payload ) {
 					<a href="<?php echo esc_url( $payload['url'] ); ?>"><?php echo esc_html( $payload['name'] ); ?></a>
 				</h3>
 				<div class="rasta-product-card__price">
-					<?php echo wp_kses_post( $payload['price'] ); ?>
+					<?php
+					if ( ! empty( $payload['isOnSale'] ) && isset( $payload['salePrice'] ) && $payload['salePrice'] > 0 ) {
+						echo wp_kses_post(
+							'<del aria-hidden="true">' . rasta_format_currency( $payload['regularPrice'] ) . '</del> <ins>' . rasta_format_currency( $payload['salePrice'] ) . '</ins>'
+						);
+					} else {
+						echo wp_kses_post( rasta_format_currency( $payload['priceValue'] ) );
+					}
+					?>
 				</div>
 				<div class="rasta-product-card__actions">
 					<?php if ( ! empty( $payload['inStock'] ) ) : ?>

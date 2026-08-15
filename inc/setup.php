@@ -10,6 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Set a sensible default content width for embeds and oEmbed sizing.
+ *
+ * @global int $content_width
+ * @return void
+ */
+function rasta_content_width() {
+	$GLOBALS['content_width'] = 760;
+}
+add_action( 'after_setup_theme', 'rasta_content_width', 0 );
+
+/**
  * Register WordPress features used by the theme.
  *
  * @return void
@@ -143,6 +154,8 @@ function rasta_enqueue_assets() {
 			'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
 			'nonce'      => wp_create_nonce( 'rasta_product_search' ),
 			'toolsNonce' => wp_create_nonce( 'rasta_product_tools' ),
+			'checkoutNonce' => wp_create_nonce( 'rasta_checkout' ),
+			'freeShippingThreshold' => (float) get_theme_mod( 'rasta_free_shipping_threshold', 0 ),
 			'cartUrl'    => rasta_get_cart_url(),
 			'checkoutUrl'=> rasta_get_checkout_url(),
 			'shopUrl'    => rasta_get_shop_url(),

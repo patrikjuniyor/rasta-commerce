@@ -101,6 +101,13 @@ namespace {
 	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_number'] ), true, 'WhatsApp number setting should be registered.' );
 	rasta_customizer_assert( isset( $manager->settings['rasta_whatsapp_message'] ), true, 'WhatsApp message setting should be registered.' );
 
+	/* Currency control + sanitizer. */
+	rasta_customizer_assert( rasta_sanitize_currency( 'IRT' ), 'IRT', 'Valid currency IRT should pass through.' );
+	rasta_customizer_assert( rasta_sanitize_currency( 'IRR' ), 'IRR', 'Valid currency IRR should pass through.' );
+	rasta_customizer_assert( rasta_sanitize_currency( 'USD' ), 'IRT', 'Unsupported currency should fall back to IRT.' );
+	rasta_customizer_assert( isset( $manager->settings['rasta_currency'] ), true, 'Currency setting should be registered.' );
+	rasta_customizer_assert( $manager->controls['rasta_currency']['type'], 'select', 'Currency should be a select control.' );
+
 	/* UX: shop columns uses a labeled select control. */
 	rasta_customizer_assert( $manager->controls['rasta_shop_columns']['type'], 'select', 'Shop columns should be a select control.' );
 	rasta_customizer_assert( count( $manager->controls['rasta_shop_columns']['choices'] ), 4, 'Shop columns select should offer four choices.' );

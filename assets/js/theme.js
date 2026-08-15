@@ -869,16 +869,116 @@
     });
   };
 
+  const createMiniCartItem = (item) => {
+    const product = item.product || {};
+    const li = document.createElement('li');
+    li.className = 'rasta-mini-cart__item';
+    li.dataset.cartItem = String(product.id || '');
+
+    const imageLink = document.createElement('a');
+    imageLink.className = 'rasta-mini-cart__image';
+    imageLink.href = safeUrl(product.url) || '#';
+    imageLink.append(productImage(product));
+
+    const details = document.createElement('div');
+    details.className = 'rasta-mini-cart__details';
+    const title = document.createElement('a');
+    title.href = safeUrl(product.url) || '#';
+    title.textContent = product.name || '';
+    const qty = document.createElement('span');
+    qty.className = 'rasta-mini-cart__qty';
+    qty.textContent = `${item.quantity || 0} × ${product.price || ''}`;
+    details.append(title, qty);
+
+    const remove = document.createElement('button');
+    remove.className = 'rasta-mini-cart__remove';
+    remove.type = 'button';
+    remove.dataset.removeCartItem = String(product.id || '');
+    remove.setAttribute('aria-label', strings.remove || 'حذف');
+    remove.textContent = strings.remove || 'حذف';
+    li.append(imageLink, details, remove);
+
+    return li;
+  };
+
+  const createMiniCartAction = (href, label, extraClass = '') => {
+    const anchor = document.createElement('a');
+    anchor.className = `rasta-button ${extraClass}`.trim();
+    anchor.href = safeUrl(href) || '#';
+    anchor.textContent = label;
+    return anchor;
+  };
+
   const refreshMiniCart = async () => {
     const container = document.querySelector('[data-mini-cart]');
     if (!container) return;
-    // The mini-cart is server-rendered; for AJAX we'd need a dedicated endpoint.
-    // For now, reload the page fragment by re-fetching via AJAX.
+
+    const body = container.querySelector('[data-mini-cart-body]');
+    const bodyTarget = body || container;
+
     try {
       const data = await postAjax('rasta_get_cart_count', {});
       updateCartCount(data.cartCount || 0);
+      const items = Array.isArray(data.cartItems) ? data.cartItems : [];
+
+      /* Empty state. */
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'rasta-mini-cart__empty';
+        const note = document.createElement('p');
+        note.textContent = 'سبد خرید شما خالی است.';
+        const cta = createMiniCartAction(theme.shopUrl, 'مشاهده فروشگاه');
+        empty.append(note, cta);
+        bodyTarget.replaceChildren(empty);
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      const list = document.createElement('ul');
+      list.className = 'rasta-mini-cart__list';
+      items.forEach((item) => list.append(createMiniCartItem(item)));
+      fragment.append(list);
+
+      const footer = document.createElement('div');
+      footer.className = 'rasta-mini-cart__footer';
+
+      const subtotalRow = document.createElement('div');
+      subtotalRow.className = 'rasta-mini-cart__subtotal';
+      const subtotalLabel = document.createElement('span');
+      subtotalLabel.textContent = 'جمع کل:';
+      const subtotalValue = document.createElement('span');
+      subtotalValue.dataset.miniCartSubtotal = '';
+      subtotalValue.textContent = data.subtotal || '';
+      subtotalRow.append(subtotalLabel, subtotalValue);
+      footer.append(subtotalRow);
+
+      /* Free-shipping note (kept simple after AJAX refresh). */
+      const threshold = Number(theme.freeShippingThreshold) || 0;
+      if (threshold > 0) {
+        const current = Number(data.subtotalValue) || 0;
+        const note = document.createElement('div');
+        note.className = 'rasta-shipping-progress';
+        const noteText = document.createElement('p');
+        noteText.textContent = current >= threshold
+          ? 'ارسال رایگان برای این سفارش فعال شد.'
+          : `فقط ${Math.max(0, threshold - current).toLocaleString('en-US')} تومان تا ارسال رایگان مانده است.`;
+        note.append(noteText);
+        footer.append(note);
+      }
+
+      const actions = document.createElement('div');
+      actions.className = 'rasta-mini-cart__actions';
+      actions.append(
+        createMiniCartAction(theme.cartUrl, 'مشاهده سبد خرید', 'rasta-button--outline'),
+        createMiniCartAction(theme.checkoutUrl, 'تکمیل خرید'),
+      );
+      footer.append(actions);
+
+      fragment.append(footer);
+      bodyTarget.replaceChildren(fragment);
     } catch {
-      // Silent fail; count will refresh on next page load.
+      /* Silent fail; contents will refresh on next page load. */
     }
   };
 
@@ -938,6 +1038,7 @@
         }
 
         showToast(data.message || strings.removedFromCart || 'محصول از سبد خرید حذف شد.');
+        refreshMiniCart();
 
         if (data.isEmpty) {
           setTimeout(() => window.location.reload(), 600);
@@ -966,6 +1067,7 @@
         }
 
         showToast(data.message || strings.cartUpdated || 'سبد خرید به‌روزرسانی شد.');
+        refreshMiniCart();
         setTimeout(() => window.location.reload(), 400);
       } catch (err) {
         showToast(err.message || strings.networkError);
@@ -1096,11 +1198,9 @@
     const formData = new FormData(form);
     const data = {};
     formData.forEach((value, key) => { data[key] = value; });
-    data.action = 'rasta_checkout';
-    data.nonce = theme.nonce;
 
     try {
-      const result = await postAjax('rasta_checkout', data, theme.nonce);
+      const result = await postAjax('rasta_checkout', data, theme.checkoutNonce);
       showToast(result.message || 'سفارش شما با موفقیت ثبت شد.');
       if (result.redirect) {
         window.location.href = result.redirect;

@@ -2,7 +2,7 @@
  * Theme Name: Rasta Commerce
  * Author: Rasta Commerce Contributors
  * Description: A fast, accessible, Persian-first RTL e-commerce theme with built-in store — no WooCommerce required.
- * Version: 2.4.0
+ * Version: 2.5.0
  * Requires at least: 6.4
  * Tested up to: 7.0
  * Requires PHP: 8.0
@@ -726,6 +726,124 @@ a:hover {
   margin: 16px 0 0;
   color: var(--rasta-slate);
   font-size: 0.84rem;
+}
+
+/* Inline search form (searchform.php) */
+.rasta-searchform {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  max-inline-size: 420px;
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  overflow: hidden;
+  background: var(--rasta-surface);
+}
+
+.rasta-searchform__field {
+  flex: 1;
+  min-inline-size: 0;
+  padding: 11px 16px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--rasta-ink);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.rasta-searchform__submit {
+  display: grid;
+  place-items: center;
+  inline-size: 48px;
+  align-self: stretch;
+  border: 0;
+  background: var(--rasta-accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.rasta-searchform__submit:hover {
+  background: var(--rasta-accent-strong);
+}
+
+.rasta-searchform__submit svg {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+/* Order received (thank you) page */
+.rasta-order-received {
+  max-inline-size: 560px;
+  margin-inline: auto;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.rasta-order-received__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 68px;
+  block-size: 68px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--rasta-accent-soft);
+  color: var(--rasta-accent);
+}
+
+.rasta-order-received__icon svg {
+  inline-size: 32px;
+  block-size: 32px;
+}
+
+.rasta-order-received h1 {
+  margin: 0 0 12px;
+  font-size: 1.7rem;
+}
+
+.rasta-order-received > p {
+  margin: 0 0 26px;
+  color: var(--rasta-slate);
+}
+
+.rasta-order-received__summary {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  overflow: hidden;
+}
+
+.rasta-order-received__summary li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-block-end: 1px solid var(--rasta-line);
+}
+
+.rasta-order-received__summary li:last-child {
+  border-block-end: 0;
+}
+
+.rasta-order-received__summary span {
+  color: var(--rasta-slate);
+  font-size: 0.86rem;
+}
+
+.rasta-order-received__summary strong {
+  color: var(--rasta-ink);
+}
+
+.rasta-order-received__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .rasta-mini-cart {
@@ -1658,6 +1776,19 @@ ul.products.rasta-products-grid li.product {
 .rasta-product-card__price {
   min-block-size: 31px;
   margin-block: 7px 12px;
+  color: var(--rasta-accent);
+  font-weight: 700;
+  font-size: 0.94rem;
+}
+
+.rasta-product-card__price del {
+  color: var(--rasta-muted);
+  font-weight: 400;
+  font-size: 0.82rem;
+}
+
+.rasta-product-card__price ins {
+  text-decoration: none;
 }
 
 .woocommerce ul.products li.product .price,

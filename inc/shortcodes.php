@@ -18,6 +18,7 @@ function rasta_register_shortcodes() {
 	add_shortcode( 'rasta_cart', 'rasta_cart_shortcode' );
 	add_shortcode( 'rasta_checkout', 'rasta_checkout_shortcode' );
 	add_shortcode( 'rasta_account', 'rasta_account_shortcode' );
+	add_shortcode( 'rasta_order_received', 'rasta_order_received_shortcode' );
 }
 add_action( 'init', 'rasta_register_shortcodes' );
 
@@ -131,8 +132,6 @@ function rasta_checkout_shortcode() {
 		<h1><?php esc_html_e( 'تکمیل خرید', 'rasta-commerce' ); ?></h1>
 
 		<form class="rasta-checkout-form" data-checkout-form>
-			<?php wp_nonce_field( 'rasta_checkout', 'rasta_checkout_nonce' ); ?>
-
 			<div class="rasta-checkout-grid">
 				<div class="rasta-checkout-form__fields">
 					<h2><?php esc_html_e( 'اطلاعات خریدار', 'rasta-commerce' ); ?></h2>
@@ -263,7 +262,15 @@ function rasta_account_shortcode() {
 	?>
 	<div class="rasta-account-page">
 		<h1><?php esc_html_e( 'حساب کاربری', 'rasta-commerce' ); ?></h1>
-		<p><?php printf( esc_html__( 'سلام %s!', 'rasta-commerce' ), esc_html( wp_get_current_user()->display_name ) ); ?></p>
+		<p>
+			<?php
+			printf(
+				/* translators: %s: user display name. */
+				esc_html__( 'سلام %s!', 'rasta-commerce' ),
+				esc_html( wp_get_current_user()->display_name )
+			);
+			?>
+		</p>
 
 		<h2><?php esc_html_e( 'سفارش‌های شما', 'rasta-commerce' ); ?></h2>
 		<?php if ( empty( $orders ) ) : ?>
@@ -293,6 +300,74 @@ function rasta_account_shortcode() {
 		<?php endif; ?>
 
 		<p><a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>"><?php esc_html_e( 'خروج از حساب', 'rasta-commerce' ); ?></a></p>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+/**
+ * Render the order-received (thank you) page.
+ *
+ * Shows a confirmation summary for the order referenced by the `order` query
+ * argument. Customer details are intentionally omitted for guest orders.
+ *
+ * @return string
+ */
+function rasta_order_received_shortcode() {
+	if ( rasta_using_woocommerce() && function_exists( 'is_order_received_page' ) ) {
+		return ''; /* Let WooCommerce handle its own thank-you page. */
+	}
+
+	$order_id = isset( $_GET['order'] ) ? absint( $_GET['order'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+	if ( ! $order_id ) {
+		return '<div class="rasta-empty-state">'
+			. '<p>' . esc_html__( 'شماره سفارش نامعتبر است.', 'rasta-commerce' ) . '</p>'
+			. '<a class="rasta-button" href="' . esc_url( rasta_get_shop_url() ) . '">' . esc_html__( 'بازگشت به فروشگاه', 'rasta-commerce' ) . '</a>'
+			. '</div>';
+	}
+
+	$order = get_post( $order_id );
+
+	if ( ! $order || 'rasta_order' !== $order->post_type ) {
+		return '<div class="rasta-empty-state">'
+			. '<p>' . esc_html__( 'سفارشی با این شماره یافت نشد.', 'rasta-commerce' ) . '</p>'
+			. '<a class="rasta-button" href="' . esc_url( rasta_get_shop_url() ) . '">' . esc_html__( 'بازگشت به فروشگاه', 'rasta-commerce' ) . '</a>'
+			. '</div>';
+	}
+
+	$total      = (float) get_post_meta( $order_id, '_rasta_order_total', true );
+	$status_obj = get_post_status_object( $order->post_status );
+	$status     = $status_obj && isset( $status_obj->label ) ? $status_obj->label : $order->post_status;
+
+	ob_start();
+	?>
+	<div class="rasta-order-received">
+		<div class="rasta-order-received__icon"><?php rasta_icon( 'check' ); ?></div>
+		<h1><?php esc_html_e( 'سفارش شما ثبت شد!', 'rasta-commerce' ); ?></h1>
+		<p><?php esc_html_e( 'از خرید شما سپاسگزاریم. جزئیات سفارش در ادامه آمده است؛ تیم ما به‌زودی برای هماهنگی ارسال با شما تماس می‌گیرد.', 'rasta-commerce' ); ?></p>
+
+		<ul class="rasta-order-received__summary">
+			<li>
+				<span><?php esc_html_e( 'شماره سفارش', 'rasta-commerce' ); ?></span>
+				<strong>#<?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $order_id ) ) ); ?></strong>
+			</li>
+			<li>
+				<span><?php esc_html_e( 'وضعیت', 'rasta-commerce' ); ?></span>
+				<strong><?php echo esc_html( $status ); ?></strong>
+			</li>
+			<li>
+				<span><?php esc_html_e( 'مبلغ قابل پرداخت', 'rasta-commerce' ); ?></span>
+				<strong><?php echo wp_kses_post( rasta_format_currency( $total ) ); ?></strong>
+			</li>
+		</ul>
+
+		<div class="rasta-order-received__actions">
+			<a class="rasta-button" href="<?php echo esc_url( rasta_get_shop_url() ); ?>"><?php esc_html_e( 'ادامه خرید', 'rasta-commerce' ); ?></a>
+			<?php if ( is_user_logged_in() ) : ?>
+				<a class="rasta-button rasta-button--outline" href="<?php echo esc_url( rasta_get_account_url() ); ?>"><?php esc_html_e( 'مشاهده سفارش‌های من', 'rasta-commerce' ); ?></a>
+			<?php endif; ?>
+		</div>
 	</div>
 	<?php
 	return ob_get_clean();
@@ -360,7 +435,7 @@ function rasta_ajax_process_checkout() {
 		array(
 			'message'  => esc_html__( 'سفارش شما با موفقیت ثبت شد.', 'rasta-commerce' ),
 			'order_id' => $order_id,
-			'redirect' => add_query_arg( 'order', $order_id, home_url( '/order-received/' ) ),
+			'redirect' => add_query_arg( 'order', $order_id, rasta_get_order_received_url() ),
 		)
 	);
 }

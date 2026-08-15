@@ -18,19 +18,27 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function rasta_start_session() {
-	if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	/* No sessions for CLI, cron, or REST API requests. */
+	if ( ( defined( 'WP_CLI' ) && WP_CLI ) || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
 		return;
 	}
 
-	if ( 'none' === function_exists( 'session_status' ) ? php_sapi_name() : ( session_status() === PHP_SESSION_ACTIVE ? 'active' : 'none' ) ) {
+	/* Session already running. */
+	if ( function_exists( 'session_status' ) && PHP_SESSION_ACTIVE === session_status() ) {
 		return;
 	}
 
-	if ( function_exists( 'session_status' ) && session_status() === PHP_SESSION_ACTIVE ) {
+	/* Sessions disabled on this server. */
+	if ( function_exists( 'session_status' ) && PHP_SESSION_DISABLED === session_status() ) {
 		return;
 	}
 
-	if ( ! headers_sent() && ! is_admin() ) {
+	/*
+	 * Start on both frontend and admin-ajax requests. The cart AJAX handlers
+	 * run through admin-ajax.php, so skipping `is_admin()` entirely would
+	 * leave $_SESSION unhydrated and lose the cart on every AJAX round-trip.
+	 */
+	if ( ! headers_sent() ) {
 		@session_start();
 	}
 }
@@ -486,53 +494,56 @@ function rasta_render_mini_cart_content() {
 
 	/* Built-in mini-cart. */
 	$items = rasta_get_cart_items();
-
-	if ( empty( $items ) ) : ?>
-		<div class="rasta-mini-cart__empty">
-			<?php rasta_icon( 'cart' ); ?>
-			<p><?php esc_html_e( 'سبد خرید شما خالی است.', 'rasta-commerce' ); ?></p>
-			<a class="rasta-button" href="<?php echo esc_url( rasta_get_shop_url() ); ?>">
-				<?php esc_html_e( 'مشاهده فروشگاه', 'rasta-commerce' ); ?>
-			</a>
-		</div>
-	<?php else : ?>
-		<ul class="rasta-mini-cart__list">
-			<?php foreach ( $items as $item ) : ?>
-				<li class="rasta-mini-cart__item" data-cart-item="<?php echo esc_attr( $item['product']['id'] ); ?>">
-					<a class="rasta-mini-cart__image" href="<?php echo esc_url( $item['product']['url'] ); ?>">
-						<?php if ( ! empty( $item['product']['image'] ) ) : ?>
-							<img src="<?php echo esc_url( $item['product']['image'] ); ?>" alt="<?php echo esc_attr( $item['product']['name'] ); ?>" />
-						<?php endif; ?>
+	?>
+	<div data-mini-cart-body>
+		<?php if ( empty( $items ) ) : ?>
+			<div class="rasta-mini-cart__empty">
+				<?php rasta_icon( 'cart' ); ?>
+				<p><?php esc_html_e( 'سبد خرید شما خالی است.', 'rasta-commerce' ); ?></p>
+				<a class="rasta-button" href="<?php echo esc_url( rasta_get_shop_url() ); ?>">
+					<?php esc_html_e( 'مشاهده فروشگاه', 'rasta-commerce' ); ?>
+				</a>
+			</div>
+		<?php else : ?>
+			<ul class="rasta-mini-cart__list">
+				<?php foreach ( $items as $item ) : ?>
+					<li class="rasta-mini-cart__item" data-cart-item="<?php echo esc_attr( $item['product']['id'] ); ?>">
+						<a class="rasta-mini-cart__image" href="<?php echo esc_url( $item['product']['url'] ); ?>">
+							<?php if ( ! empty( $item['product']['image'] ) ) : ?>
+								<img src="<?php echo esc_url( $item['product']['image'] ); ?>" alt="<?php echo esc_attr( $item['product']['name'] ); ?>" />
+							<?php endif; ?>
+						</a>
+						<div class="rasta-mini-cart__details">
+							<a href="<?php echo esc_url( $item['product']['url'] ); ?>"><?php echo esc_html( $item['product']['name'] ); ?></a>
+							<span class="rasta-mini-cart__qty">
+								<?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $item['quantity'] ) ) ); ?> ×
+								<?php echo wp_kses_post( $item['product']['price'] ); ?>
+							</span>
+						</div>
+						<button class="rasta-mini-cart__remove" type="button" data-remove-cart-item="<?php echo esc_attr( $item['product']['id'] ); ?>" aria-label="<?php esc_attr_e( 'حذف', 'rasta-commerce' ); ?>">
+							<?php rasta_icon( 'trash' ); ?>
+						</button>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<div class="rasta-mini-cart__footer">
+				<div class="rasta-mini-cart__subtotal">
+					<span><?php esc_html_e( 'جمع کل:', 'rasta-commerce' ); ?></span>
+					<span data-mini-cart-subtotal><?php echo wp_kses_post( rasta_format_currency( rasta_get_cart_subtotal() ) ); ?></span>
+				</div>
+				<?php rasta_render_free_shipping_progress(); ?>
+				<div class="rasta-mini-cart__actions">
+					<a class="rasta-button rasta-button--outline" href="<?php echo esc_url( rasta_get_cart_url() ); ?>">
+						<?php esc_html_e( 'مشاهده سبد خرید', 'rasta-commerce' ); ?>
 					</a>
-					<div class="rasta-mini-cart__details">
-						<a href="<?php echo esc_url( $item['product']['url'] ); ?>"><?php echo esc_html( $item['product']['name'] ); ?></a>
-						<span class="rasta-mini-cart__qty">
-							<?php echo esc_html( rasta_to_persian_digits( number_format_i18n( $item['quantity'] ) ) ); ?> ×
-							<?php echo wp_kses_post( $item['product']['price'] ); ?>
-						</span>
-					</div>
-					<button class="rasta-mini-cart__remove" type="button" data-remove-cart-item="<?php echo esc_attr( $item['product']['id'] ); ?>" aria-label="<?php esc_attr_e( 'حذف', 'rasta-commerce' ); ?>">
-						<?php rasta_icon( 'trash' ); ?>
-					</button>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-		<div class="rasta-mini-cart__footer">
-			<div class="rasta-mini-cart__subtotal">
-				<span><?php esc_html_e( 'جمع کل:', 'rasta-commerce' ); ?></span>
-				<span><?php echo wp_kses_post( rasta_format_currency( rasta_get_cart_subtotal() ) ); ?></span>
+					<a class="rasta-button" href="<?php echo esc_url( rasta_get_checkout_url() ); ?>">
+						<?php esc_html_e( 'تکمیل خرید', 'rasta-commerce' ); ?>
+					</a>
+				</div>
 			</div>
-			<?php rasta_render_free_shipping_progress(); ?>
-			<div class="rasta-mini-cart__actions">
-				<a class="rasta-button rasta-button--outline" href="<?php echo esc_url( rasta_get_cart_url() ); ?>">
-					<?php esc_html_e( 'مشاهده سبد خرید', 'rasta-commerce' ); ?>
-				</a>
-				<a class="rasta-button" href="<?php echo esc_url( rasta_get_checkout_url() ); ?>">
-					<?php esc_html_e( 'تکمیل خرید', 'rasta-commerce' ); ?>
-				</a>
-			</div>
-		</div>
-	<?php endif;
+		<?php endif; ?>
+	</div>
+	<?php
 }
 
 /**

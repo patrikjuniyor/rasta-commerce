@@ -69,7 +69,15 @@ while ( have_posts() ) : the_post();
 					<?php endif; ?>
 
 					<div class="rasta-product-single__price">
-						<?php echo wp_kses_post( $payload['price'] ); ?>
+						<?php
+						if ( ! empty( $payload['isOnSale'] ) && isset( $payload['salePrice'] ) && $payload['salePrice'] > 0 ) {
+							echo wp_kses_post(
+								'<del aria-hidden="true">' . rasta_format_currency( $payload['regularPrice'] ) . '</del> <ins>' . rasta_format_currency( $payload['salePrice'] ) . '</ins>'
+							);
+						} else {
+							echo wp_kses_post( rasta_format_currency( $payload['priceValue'] ) );
+						}
+						?>
 					</div>
 
 					<?php if ( ! empty( $payload['isOnSale'] ) && rasta_feature_enabled( 'sale_countdown' ) && $payload['saleEnd'] > time() ) : ?>

@@ -454,7 +454,7 @@ function rasta_get_product_stock_label( $product_id ) {
 		}
 
 		return sprintf(
-			/* translators: %s: quantity available. */
+			/* translators: %s: quantity remaining. */
 			esc_html__( '%s عدد موجود', 'rasta-commerce' ),
 			rasta_to_persian_digits( number_format_i18n( $qty ) )
 		);
@@ -644,7 +644,7 @@ function rasta_get_product_payload( $product ) {
 		'url'          => get_permalink( $id ),
 		'image'        => esc_url_raw( $image_url ),
 		'imageAlt'     => wp_strip_all_tags( $post->post_title ),
-		'price'        => wp_strip_all_tags( rasta_get_product_price_html( $id ) ),
+		'price'        => rasta_format_currency_plain( rasta_get_product_active_price( $id ) ),
 		'priceValue'   => rasta_get_product_active_price( $id ),
 		'regularPrice' => rasta_get_product_price( $id ),
 		'salePrice'    => rasta_get_product_sale_price( $id ),
@@ -725,6 +725,22 @@ function rasta_get_checkout_url() {
 }
 
 /**
+ * Return the order-received (thank you) page URL.
+ *
+ * @return string
+ */
+function rasta_get_order_received_url() {
+	$page = get_option( 'rasta_order_received_page_id' );
+	if ( $page ) {
+		$url = get_permalink( $page );
+		if ( $url ) {
+			return $url;
+		}
+	}
+	return home_url( '/' );
+}
+
+/**
  * Return the My Account URL.
  *
  * @return string
@@ -764,6 +780,11 @@ function rasta_create_store_pages() {
 			'slug'    => 'my-account',
 			'content' => '[rasta_account]',
 		),
+		'rasta_order_received_page_id' => array(
+			'title'   => __( 'تشکر از خرید', 'rasta-commerce' ),
+			'slug'    => 'order-received',
+			'content' => '[rasta_order_received]',
+		),
 	);
 
 	foreach ( $pages as $option_key => $page_data ) {
@@ -786,5 +807,22 @@ function rasta_create_store_pages() {
 			update_option( $option_key, $page_id );
 		}
 	}
+
+	update_option( 'rasta_store_pages_version', RASTA_VERSION );
 }
 add_action( 'after_switch_theme', 'rasta_create_store_pages' );
+
+/**
+ * Re-run store page creation when the theme version changes.
+ *
+ * Ensures existing installs receive newly added pages (e.g. order-received)
+ * after a theme update, without recreating pages that already exist.
+ *
+ * @return void
+ */
+function rasta_maybe_update_store_pages() {
+	if ( is_admin() && get_option( 'rasta_store_pages_version' ) !== RASTA_VERSION ) {
+		rasta_create_store_pages();
+	}
+}
+add_action( 'init', 'rasta_maybe_update_store_pages' );
