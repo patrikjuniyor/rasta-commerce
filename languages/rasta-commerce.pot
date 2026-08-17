@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rasta Commerce 2.5.0\n"
+"Project-Id-Version: Rasta Commerce 2.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rasta-commerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-15T18:51:46+00:00\n"
+"POT-Creation-Date: 2026-08-17T10:16:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce\n"
@@ -205,6 +205,7 @@ msgstr ""
 #: front-page.php:31
 #: inc/cart.php:504
 #: inc/customizer.php:150
+#: inc/welcome.php:188
 msgid "مشاهده فروشگاه"
 msgstr ""
 
@@ -518,6 +519,8 @@ msgstr ""
 
 #: inc/admin.php:175
 #: inc/products.php:27
+#: inc/welcome.php:159
+#: inc/welcome.php:161
 msgid "افزودن محصول"
 msgstr ""
 
@@ -530,6 +533,7 @@ msgstr ""
 #: inc/store-settings.php:81
 #: inc/store-settings.php:82
 #: inc/store-settings.php:112
+#: inc/welcome.php:166
 msgid "تنظیمات فروشگاه"
 msgstr ""
 
@@ -1562,6 +1566,108 @@ msgstr ""
 #: woocommerce/content-product.php:32
 #, php-format
 msgid "افزودن %s به مقایسه"
+msgstr ""
+
+#: inc/welcome.php:23
+msgid "خوش آمدید راستا"
+msgstr ""
+
+#: inc/welcome.php:24
+msgid "خوش آمدید"
+msgstr ""
+
+#: inc/welcome.php:117
+msgid "پوسته را فعال کنید"
+msgstr ""
+
+#: inc/welcome.php:118
+msgid "از بخش نمایش ← پوسته‌ها، «راستا کامرس» را فعال کنید. با فعال‌سازی، صفحات سبد خرید، تکمیل خرید و حساب کاربری به‌صورت خودکار ساخته می‌شوند."
+msgstr ""
+
+#: inc/welcome.php:121
+msgid "WooCommerce را نصب کنید (اختیاری)"
+msgstr ""
+
+#: inc/welcome.php:122
+msgid "بدون WooCommerce هم فروشگاه داخلی قالب کار می‌کند؛ اما برای درگاه پرداخت و امکانات پیشرفته‌تر، افزونه WooCommerce را نصب و فعال کنید."
+msgstr ""
+
+#: inc/welcome.php:125
+msgid "منوها را بچینید"
+msgstr ""
+
+#: inc/welcome.php:126
+msgid "از نمایش ← فهرست‌ها، منوی «منوی اصلی» و «منوی پایین صفحه» را با صفحات فروشگاه پر کنید."
+msgstr ""
+
+#: inc/welcome.php:129
+msgid "فروشگاه را شخصی‌سازی کنید"
+msgstr ""
+
+#: inc/welcome.php:130
+msgid "رنگ‌ها، متن هیرو، حالت تاریک و ابزارهای خرید را از نمایش ← سفارشی‌سازی تنظیم کنید."
+msgstr ""
+
+#: inc/welcome.php:137
+msgid "خوش آمدید! فروشگاه شما آماده است"
+msgstr ""
+
+#: inc/welcome.php:138
+msgid "یک قالب فروشگاهی سریع، راست‌چین و فارسی که بدون نیاز به کدنویسی، فروشگاهتان را راه می‌اندازد. چند قدم کوتاه تا اولین فروش فاصله دارید."
+msgstr ""
+
+#. translators: %s: version.
+#: inc/welcome.php:139
+#, php-format
+msgid "نسخه %s"
+msgstr ""
+
+#: inc/welcome.php:145
+msgid "سفارشی‌سازی قالب"
+msgstr ""
+
+#: inc/welcome.php:146
+msgid "رنگ‌های تأکیدی، محتوای هیرو، حالت تاریک، شبکه‌های اجتماعی و چیدمان محصولات."
+msgstr ""
+
+#: inc/welcome.php:147
+msgid "شروع سفارشی‌سازی"
+msgstr ""
+
+#: inc/welcome.php:152
+msgid "داشبورد فروشگاه"
+msgstr ""
+
+#: inc/welcome.php:153
+msgid "نمای زنده از محصولات، سفارش‌ها، درآمد و هشدار موجودی کم."
+msgstr ""
+
+#: inc/welcome.php:154
+msgid "مشاهده داشبورد"
+msgstr ""
+
+#: inc/welcome.php:160
+msgid "قیمت، موجودی، تصویر گالری و دسته‌بندی هر محصول را از پیشخوان مدیریت کنید."
+msgstr ""
+
+#: inc/welcome.php:167
+msgid "ایمیل مدیریت و اطلاع‌رسانی ایمیلی سفارش‌های جدید را پیکربندی کنید."
+msgstr ""
+
+#: inc/welcome.php:168
+msgid "تنظیمات"
+msgstr ""
+
+#: inc/welcome.php:173
+msgid "راهنمای شروع سریع"
+msgstr ""
+
+#: inc/welcome.php:174
+msgid "برای راه‌اندازی کامل فروشگاه، این چهار قدم را دنبال کنید."
+msgstr ""
+
+#: inc/welcome.php:187
+msgid "برای راهنمای کامل نصب و مستندات، فایل README قالب را ببینید."
 msgstr ""
 
 #: inc/woocommerce.php:119

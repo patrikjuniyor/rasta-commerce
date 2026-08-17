@@ -66,6 +66,9 @@ jobs:
       - name: Run order notification contract tests
         run: npm run test:notifications
 
+      - name: Run welcome page contract tests
+        run: npm run test:welcome
+
       - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 

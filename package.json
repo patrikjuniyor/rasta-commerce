@@ -1,6 +1,6 @@
 {
   "name": "rasta-commerce",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": true,
   "description": "Quality tooling for the Rasta Commerce WordPress theme.",
   "type": "module",
@@ -10,7 +10,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "test": "node --test tests/*.test.mjs",
     "test:php": "bash scripts/php-lint.sh",
-    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali && npm run test:elementor && npm run test:admin && npm run test:customizer && npm run test:maintenance && npm run test:store && npm run test:notifications",
+    "check": "npm run lint && npm run test && npm run test:php && npm run test:gateway && npm run test:jalali && npm run test:elementor && npm run test:admin && npm run test:customizer && npm run test:maintenance && npm run test:store && npm run test:notifications && npm run test:welcome",
     "package": "npm run package:theme && npm run package:child && npm run package:core && npm run package:zarinpal",
     "package:theme": "node scripts/package-theme.mjs",
     "package:zarinpal": "node scripts/package-zarinpal-plugin.mjs",
@@ -26,7 +26,8 @@
     "test:customizer": "php tests/php/customizer-test.php",
     "test:maintenance": "php tests/php/maintenance-test.php",
     "test:store": "php tests/php/store-settings-test.php",
-    "test:notifications": "php tests/php/notifications-test.php"
+    "test:notifications": "php tests/php/notifications-test.php",
+    "test:welcome": "php tests/php/welcome-page-test.php"
   },
   "devDependencies": {
     "eslint": "^9.39.1",

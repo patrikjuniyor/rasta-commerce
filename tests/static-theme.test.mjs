@@ -44,6 +44,7 @@ const requiredThemeFiles = [
   'tests/php/maintenance-test.php',
   'tests/php/store-settings-test.php',
   'tests/php/notifications-test.php',
+  'tests/php/welcome-page-test.php',
   'maintenance.php',
 ];
 
@@ -57,7 +58,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.5.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.6.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -149,6 +150,17 @@ test('ships a maintenance mode with customizer control and template redirect', (
   assert.match(maintenance, /template_redirect/);
   assert.match(maintenance, /rasta_maybe_show_maintenance/);
   assert.match(functions, /inc\/maintenance\.php/);
+});
+
+test('ships an installation welcome page', () => {
+  const welcome = read('inc/welcome.php');
+  const functions = read('functions.php');
+  assert.match(welcome, /function rasta_welcome_page/);
+  assert.match(welcome, /function rasta_welcome_redirect/);
+  assert.match(welcome, /add_theme_page/);
+  assert.match(welcome, /rasta-welcome/);
+  assert.match(welcome, /after_switch_theme/);
+  assert.match(functions, /inc\/welcome\.php/);
 });
 
 test('ships a WhatsApp support button with customizer controls', () => {
