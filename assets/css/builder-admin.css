@@ -1,0 +1,218 @@
+/* Rasta Builder — admin editor styles */
+
+.rb-admin {
+  --rb-accent: #315bd8;
+  --rb-line: #e0e0e0;
+}
+
+.rb-admin__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  background: #f6f7fb;
+  border: 1px solid var(--rb-line);
+  border-radius: 8px;
+}
+
+.rb-admin__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.rb-admin__hint {
+  color: #757575;
+  font-size: 12px;
+}
+
+.rb-admin__cols {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.rb-admin__cat-title {
+  margin: 14px 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.rb-admin__palette-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.rb-pitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border: 1px dashed #cfcfcf;
+  border-radius: 8px;
+  background: #fff;
+  cursor: grab;
+  user-select: none;
+  text-align: center;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.rb-pitem:hover {
+  border-color: var(--rb-accent);
+  border-style: solid;
+}
+
+.rb-pitem:active {
+  cursor: grabbing;
+}
+
+.rb-pitem .dashicons {
+  color: var(--rb-accent);
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.rb-pitem span:last-child {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.rb-admin__canvas {
+  min-height: 300px;
+  padding: 12px;
+  background: #fbfbfd;
+  border: 1px solid var(--rb-line);
+  border-radius: 8px;
+}
+
+.rb-admin__canvas-empty {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  color: #9a9a9a;
+  font-size: 13px;
+  border: 1px dashed #d5d5d5;
+  border-radius: 8px;
+}
+
+.rb-admin__canvas.dragover {
+  border-color: var(--rb-accent);
+  background: #f0f4ff;
+}
+
+.rb-block-item {
+  margin-bottom: 10px;
+  border: 1px solid var(--rb-line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.rb-block-item.dragover-top {
+  border-top: 3px solid var(--rb-accent);
+}
+
+.rb-block-item.dragover-bottom {
+  border-bottom: 3px solid var(--rb-accent);
+}
+
+.rb-block-item__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: grab;
+}
+
+.rb-block-item__head .dashicons {
+  color: var(--rb-accent);
+}
+
+.rb-block-item__head strong {
+  flex: 1;
+  font-size: 13px;
+}
+
+.rb-block-item__tools {
+  display: flex;
+  gap: 4px;
+}
+
+.rb-tool {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.rb-tool:hover {
+  border-color: var(--rb-accent);
+  color: var(--rb-accent);
+}
+
+.rb-tool--danger:hover {
+  border-color: #d63638;
+  color: #d63638;
+}
+
+.rb-block-item__fields {
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.rb-field {
+  display: grid;
+  gap: 4px;
+}
+
+.rb-field > span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.rb-field input,
+.rb-field textarea,
+.rb-field select {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid #d5d5d5;
+  border-radius: 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.rb-field input:focus,
+.rb-field textarea:focus,
+.rb-field select:focus {
+  border-color: var(--rb-accent);
+  box-shadow: 0 0 0 2px rgb(49 91 216 / 15%);
+  outline: none;
+}
+
+.rb-field textarea {
+  resize: vertical;
+}
+
+@media (width <= 960px) {
+  .rb-admin__cols {
+    grid-template-columns: 1fr;
+  }
+}

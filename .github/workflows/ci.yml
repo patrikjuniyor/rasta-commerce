@@ -69,6 +69,9 @@ jobs:
       - name: Run welcome page contract tests
         run: npm run test:welcome
 
+      - name: Run builder contract tests
+        run: npm run test:builder
+
       - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 

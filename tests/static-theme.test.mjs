@@ -45,6 +45,10 @@ const requiredThemeFiles = [
   'tests/php/store-settings-test.php',
   'tests/php/notifications-test.php',
   'tests/php/welcome-page-test.php',
+  'tests/php/builder-test.php',
+  'assets/css/builder.css',
+  'assets/css/builder-admin.css',
+  'assets/js/builder-admin.js',
   'maintenance.php',
 ];
 
@@ -58,7 +62,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.6.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.7.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -150,6 +154,22 @@ test('ships a maintenance mode with customizer control and template redirect', (
   assert.match(maintenance, /template_redirect/);
   assert.match(maintenance, /rasta_maybe_show_maintenance/);
   assert.match(functions, /inc\/maintenance\.php/);
+});
+
+test('ships a drag-and-drop page builder', () => {
+  const builder = read('inc/builder.php');
+  const adminJs = read('assets/js/builder-admin.js');
+  const functions = read('functions.php');
+  assert.match(builder, /function rasta_builder_elements/);
+  assert.match(builder, /function rasta_builder_render_layout/);
+  assert.match(builder, /function rasta_builder_sanitize_layout/);
+  assert.match(builder, /rasta_builder_render_content/);
+  assert.match(builder, /add_meta_box/);
+  assert.match(builder, /add_shortcode\( 'rasta_builder'/);
+  assert.match(builder, /RASTA_BUILDER_META/);
+  assert.match(adminJs, /data-rb-canvas/);
+  assert.match(adminJs, /dataTransfer/);
+  assert.match(functions, /inc\/builder\.php/);
 });
 
 test('ships an installation welcome page', () => {

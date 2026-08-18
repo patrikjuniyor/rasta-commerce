@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rasta Commerce 2.6.0\n"
+"Project-Id-Version: Rasta Commerce 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rasta-commerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T10:16:53+00:00\n"
+"POT-Creation-Date: 2026-08-18T13:23:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce\n"
@@ -57,6 +57,8 @@ msgstr ""
 
 #: archive-rasta_product.php:24
 #: archive-rasta_product.php:38
+#: inc/builder.php:159
+#: inc/builder.php:191
 #: inc/products.php:36
 #: inc/template-tags.php:124
 #: inc/template-tags.php:213
@@ -704,6 +706,228 @@ msgstr ""
 msgid "محصول از سبد خرید حذف شد."
 msgstr ""
 
+#: inc/builder.php:37
+#: inc/builder.php:123
+msgid "تیتر"
+msgstr ""
+
+#: inc/builder.php:39
+#: inc/builder.php:55
+#: inc/builder.php:67
+#: inc/builder.php:82
+msgid "محتوا"
+msgstr ""
+
+#: inc/builder.php:41
+msgid "متن تیتر"
+msgstr ""
+
+#: inc/builder.php:42
+msgid "سطح"
+msgstr ""
+
+#: inc/builder.php:43
+#: inc/builder.php:71
+msgid "تراز"
+msgstr ""
+
+#: inc/builder.php:43
+#: inc/builder.php:71
+msgid "راست"
+msgstr ""
+
+#: inc/builder.php:43
+#: inc/builder.php:71
+msgid "وسط"
+msgstr ""
+
+#: inc/builder.php:43
+#: inc/builder.php:71
+msgid "چپ"
+msgstr ""
+
+#: inc/builder.php:45
+msgid "یک تیتر جدید"
+msgstr ""
+
+#: inc/builder.php:53
+#: inc/builder.php:57
+msgid "متن"
+msgstr ""
+
+#: inc/builder.php:59
+msgid "متن خود را اینجا بنویسید…"
+msgstr ""
+
+#: inc/builder.php:65
+msgid "دکمه"
+msgstr ""
+
+#: inc/builder.php:69
+#: inc/builder.php:125
+msgid "متن دکمه"
+msgstr ""
+
+#: inc/builder.php:70
+msgid "پیوند"
+msgstr ""
+
+#: inc/builder.php:73
+msgid "بیشتر بدانید"
+msgstr ""
+
+#: inc/builder.php:80
+msgid "تصویر"
+msgstr ""
+
+#: inc/builder.php:84
+msgid "نشانی تصویر"
+msgstr ""
+
+#: inc/builder.php:85
+msgid "متن جایگزین"
+msgstr ""
+
+#: inc/builder.php:96
+msgid "جداکننده"
+msgstr ""
+
+#: inc/builder.php:98
+#: inc/builder.php:108
+msgid "چیدمان"
+msgstr ""
+
+#: inc/builder.php:106
+msgid "فاصله"
+msgstr ""
+
+#: inc/builder.php:110
+msgid "ارتفاع (پیکسل)"
+msgstr ""
+
+#: inc/builder.php:119
+msgid "فراخوان اقدام"
+msgstr ""
+
+#: inc/builder.php:121
+#: inc/builder.php:136
+#: inc/builder.php:216
+msgid "بخش‌ها"
+msgstr ""
+
+#: inc/builder.php:124
+msgid "توضیح"
+msgstr ""
+
+#: inc/builder.php:126
+msgid "پیوند دکمه"
+msgstr ""
+
+#: inc/builder.php:128
+msgid "همین امروز شروع کنید"
+msgstr ""
+
+#: inc/builder.php:128
+msgid "توضیح کوتاهی دربارهٔ فراخوان اقدام."
+msgstr ""
+
+#: inc/builder.php:128
+msgid "شروع"
+msgstr ""
+
+#: inc/builder.php:134
+msgid "لیست ویژگی"
+msgstr ""
+
+#: inc/builder.php:138
+#: inc/builder.php:161
+#: inc/builder.php:193
+#: inc/builder.php:218
+msgid "عنوان بخش"
+msgstr ""
+
+#: inc/builder.php:139
+msgid "ویژگی‌ها (هر خط: عنوان | توضیح)"
+msgstr ""
+
+#: inc/builder.php:141
+msgid "چرا ما؟"
+msgstr ""
+
+#: inc/builder.php:157
+msgid "شبکه محصول"
+msgstr ""
+
+#: inc/builder.php:162
+msgid "تعداد محصول"
+msgstr ""
+
+#: inc/builder.php:164
+#: inc/template-tags.php:404
+msgid "منتخب فروشگاه"
+msgstr ""
+
+#: inc/builder.php:170
+msgid "هنوز محصولی منتشر نشده است."
+msgstr ""
+
+#: inc/builder.php:189
+#: inc/products.php:59
+msgid "دسته‌بندی"
+msgstr ""
+
+#: inc/builder.php:195
+#: inc/products.php:66
+msgid "دسته‌بندی‌ها"
+msgstr ""
+
+#: inc/builder.php:200
+msgid "دسته‌بندی‌ای یافت نشد."
+msgstr ""
+
+#: inc/builder.php:214
+msgid "نظرات مشتریان"
+msgstr ""
+
+#: inc/builder.php:219
+msgid "نظرات (هر خط: نام | نظر)"
+msgstr ""
+
+#: inc/builder.php:221
+msgid "مشتریان چه می‌گویند؟"
+msgstr ""
+
+#: inc/builder.php:352
+msgid "راستا ساز — صفحه‌ساز"
+msgstr ""
+
+#: inc/builder.php:379
+msgid "فعال‌سازی صفحه‌ساز برای این صفحه"
+msgstr ""
+
+#: inc/builder.php:381
+msgid "المنت‌ها را از فهرست زیر بکشید و در چیدمان رها کنید."
+msgstr ""
+
+#: inc/builder.php:407
+msgid "المنت‌ها را اینجا رها کنید"
+msgstr ""
+
+#: inc/builder.php:463
+msgid "بالا"
+msgstr ""
+
+#: inc/builder.php:464
+msgid "پایین"
+msgstr ""
+
+#: inc/builder.php:465
+#: inc/cart.php:523
+#: inc/setup.php:185
+#: inc/shortcodes.php:79
+msgid "حذف"
+msgstr ""
+
 #: inc/cart.php:296
 #: inc/shortcodes.php:387
 msgid "سبد خرید خالی است."
@@ -729,12 +953,6 @@ msgstr ""
 #: inc/shortcodes.php:44
 #: inc/shortcodes.php:122
 msgid "سبد خرید شما خالی است."
-msgstr ""
-
-#: inc/cart.php:523
-#: inc/setup.php:185
-#: inc/shortcodes.php:79
-msgid "حذف"
 msgstr ""
 
 #: inc/cart.php:531
@@ -1168,10 +1386,6 @@ msgstr ""
 msgid "دسته‌بندی محصولات"
 msgstr ""
 
-#: inc/products.php:59
-msgid "دسته‌بندی"
-msgstr ""
-
 #: inc/products.php:60
 msgid "افزودن دسته‌بندی جدید"
 msgstr ""
@@ -1194,10 +1408,6 @@ msgstr ""
 
 #: inc/products.php:65
 msgid "دسته‌بندی مادر:"
-msgstr ""
-
-#: inc/products.php:66
-msgid "دسته‌بندی‌ها"
 msgstr ""
 
 #: inc/products.php:82
@@ -1528,10 +1738,6 @@ msgid "%s محصول"
 msgid_plural "%s محصول"
 msgstr[0] ""
 msgstr[1] ""
-
-#: inc/template-tags.php:404
-msgid "منتخب فروشگاه"
-msgstr ""
 
 #: inc/template-tags.php:425
 msgid "هنوز محصولی برای نمایش ندارید. با افزودن محصول از بخش فروشگاه، این بخش خودکار تکمیل می‌شود."

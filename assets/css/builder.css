@@ -1,0 +1,244 @@
+/* Rasta Builder — front-end styles */
+
+.rb-block {
+  margin-block-end: 24px;
+}
+
+/* heading */
+.rb-heading {
+  margin: 0 0 16px;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+/* text */
+.rb-text {
+  color: var(--rasta-slate);
+  font-size: 0.95rem;
+  line-height: 2;
+}
+
+/* button */
+.rb-button {
+  margin-block: 8px;
+}
+
+.rb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  background: var(--rasta-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.rb-btn:hover {
+  background: var(--rasta-accent-strong);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.rb-btn--light {
+  background: #fff;
+  color: var(--rasta-accent);
+}
+
+.rb-btn--light:hover {
+  background: var(--rasta-accent-soft);
+  color: var(--rasta-accent);
+}
+
+/* image */
+.rb-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--rasta-radius-sm);
+}
+
+/* divider */
+.rb-divider {
+  margin-block: 20px;
+  border: 0;
+  border-top: 1px solid var(--rasta-line);
+}
+
+/* spacer */
+.rb-spacer {
+  display: block;
+}
+
+/* CTA */
+.rb-cta {
+  padding: 34px;
+  border-radius: var(--rasta-radius);
+  background: linear-gradient(120deg, var(--rasta-accent), var(--rasta-accent-strong));
+  color: #fff;
+  text-align: center;
+}
+
+.rb-cta h3 {
+  margin: 0 0 10px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.rb-cta p {
+  margin: 0 0 20px;
+  opacity: 0.92;
+}
+
+/* features */
+.rb-features h3,
+.rb-categories h3,
+.rb-products h3,
+.rb-testimonials h3 {
+  margin: 0 0 18px;
+  font-size: 1.25rem;
+}
+
+.rb-features ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.rb-features li {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  background: var(--rasta-surface);
+}
+
+.rb-features li span {
+  color: var(--rasta-slate);
+  font-size: 0.85rem;
+}
+
+/* products */
+.rb-products__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rb-products__grid li {
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  overflow: hidden;
+  background: var(--rasta-surface);
+  display: grid;
+}
+
+.rb-products__img {
+  display: block;
+  aspect-ratio: 1/1;
+  background: var(--rasta-surface-soft);
+}
+
+.rb-products__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rb-products__name {
+  padding: 10px 12px 2px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.rb-products__price {
+  padding: 0 12px 12px;
+  color: var(--rasta-accent);
+  font-weight: 700;
+}
+
+/* categories */
+.rb-categories__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rb-categories__grid li {
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  background: var(--rasta-surface);
+  text-align: center;
+  transition: border-color 160ms ease;
+}
+
+.rb-categories__grid li:hover {
+  border-color: var(--rasta-accent);
+}
+
+.rb-categories__grid a {
+  display: block;
+  padding: 18px 10px;
+  font-weight: 600;
+}
+
+/* testimonials */
+.rb-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rb-testimonials blockquote {
+  margin: 0;
+  padding: 20px;
+  border: 1px solid var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  background: var(--rasta-surface);
+}
+
+.rb-testimonials blockquote p {
+  margin: 0 0 12px;
+  color: var(--rasta-ink-soft);
+  font-size: 0.9rem;
+  line-height: 2;
+}
+
+.rb-testimonials cite {
+  color: var(--rasta-slate);
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.rb-empty {
+  padding: 20px;
+  color: var(--rasta-slate);
+  border: 1px dashed var(--rasta-line);
+  border-radius: var(--rasta-radius-sm);
+  text-align: center;
+}
+
+@media (width <= 760px) {
+  .rb-features ul,
+  .rb-products__grid,
+  .rb-testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rb-categories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
