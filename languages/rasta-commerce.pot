@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rasta Commerce 2.7.1\n"
+"Project-Id-Version: Rasta Commerce 2.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rasta-commerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-18T13:46:42+00:00\n"
+"POT-Creation-Date: 2026-08-18T16:52:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce\n"
@@ -1874,6 +1874,26 @@ msgstr ""
 
 #: inc/welcome.php:187
 msgid "برای راهنمای کامل نصب و مستندات، فایل README قالب را ببینید."
+msgstr ""
+
+#: inc/woocommerce-installer.php:208
+msgid "راستا کامرس: برای استفاده از امکانات کامل فروشگاه (درگاه پرداخت و ارسال)، افزونه WooCommerce را نصب کنید."
+msgstr ""
+
+#: inc/woocommerce-installer.php:216
+msgid "نصب خودکار WooCommerce ناموفق بود. می‌توانید دوباره تلاش کنید یا آن را دستی نصب کنید."
+msgstr ""
+
+#: inc/woocommerce-installer.php:218
+msgid "راستا کامرس می‌تواند افزونه WooCommerce را به‌صورت خودکار نصب و فعال کند."
+msgstr ""
+
+#: inc/woocommerce-installer.php:227
+msgid "نصب و فعال‌سازی WooCommerce"
+msgstr ""
+
+#: inc/woocommerce-installer.php:229
+msgid "نصب دستی"
 msgstr ""
 
 #: inc/woocommerce.php:119

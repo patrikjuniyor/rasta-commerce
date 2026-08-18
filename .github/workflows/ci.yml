@@ -72,6 +72,9 @@ jobs:
       - name: Run builder contract tests
         run: npm run test:builder
 
+      - name: Run WooCommerce installer contract tests
+        run: npm run test:wci
+
       - name: Build installable theme, child, core, and gateway archives
         run: npm run package
 

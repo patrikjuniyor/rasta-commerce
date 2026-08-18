@@ -46,6 +46,7 @@ const requiredThemeFiles = [
   'tests/php/notifications-test.php',
   'tests/php/welcome-page-test.php',
   'tests/php/builder-test.php',
+  'tests/php/woocommerce-installer-test.php',
   'assets/css/builder.css',
   'assets/css/builder-admin.css',
   'assets/js/builder-admin.js',
@@ -62,7 +63,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.7.1', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.8.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -170,6 +171,18 @@ test('ships a drag-and-drop page builder', () => {
   assert.match(adminJs, /data-rb-canvas/);
   assert.match(adminJs, /dataTransfer/);
   assert.match(functions, /inc\/builder\.php/);
+});
+
+test('auto-installs WooCommerce when it is missing', () => {
+  const installer = read('inc/woocommerce-installer.php');
+  const functions = read('functions.php');
+  assert.match(installer, /function rasta_install_woocommerce/);
+  assert.match(installer, /function rasta_activate_woocommerce/);
+  assert.match(installer, /woocommerce\/woocommerce\.php/);
+  assert.match(installer, /RASTA_AUTO_INSTALL_WOOCOMMERCE/);
+  assert.match(installer, /plugins_api/);
+  assert.match(installer, /admin_notices/);
+  assert.match(functions, /inc\/woocommerce-installer\.php/);
 });
 
 test('ships an installation welcome page', () => {
