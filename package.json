@@ -1,6 +1,6 @@
 {
   "name": "rasta-commerce",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "private": true,
   "description": "Quality tooling for the Rasta Commerce WordPress theme.",
   "type": "module",

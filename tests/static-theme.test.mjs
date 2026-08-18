@@ -63,7 +63,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.8.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.8.1', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -220,6 +220,14 @@ test('ships store settings and order notification emails', () => {
   assert.match(notifications, /Content-Type: text\/html/);
   assert.match(functions, /inc\/store-settings\.php/);
   assert.match(functions, /inc\/notifications\.php/);
+});
+
+test('does not register the built-in product CPT while WooCommerce is active', () => {
+  const products = read('inc/products.php');
+  // The built-in rasta_product CPT shares the `product` rewrite slug with
+  // WooCommerce; registering both breaks WC product archives/singles (404).
+  // The registration must bail out when WooCommerce is active.
+  assert.match(products, /if \( rasta_using_woocommerce\(\) \) \{\s*\n\s*return;/);
 });
 
 test('guards WooCommerce-only helpers so the theme runs without WooCommerce', () => {

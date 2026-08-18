@@ -18,6 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function rasta_register_product_cpt() {
+	/*
+	 * The built-in store must not register its own `product` post type
+	 * while WooCommerce is active — both would claim the same `product`
+	 * rewrite slug, which breaks WooCommerce product archives and single
+	 * product pages with 404s. WooCommerce takes priority.
+	 */
+	if ( rasta_using_woocommerce() ) {
+		return;
+	}
+
 	register_post_type(
 		'rasta_product',
 		array(

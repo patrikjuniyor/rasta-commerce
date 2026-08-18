@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rasta Commerce 2.8.0\n"
+"Project-Id-Version: Rasta Commerce 2.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rasta-commerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-18T16:52:44+00:00\n"
+"POT-Creation-Date: 2026-08-18T17:55:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rasta-commerce\n"
@@ -59,7 +59,7 @@ msgstr ""
 #: archive-rasta_product.php:38
 #: inc/builder.php:159
 #: inc/builder.php:191
-#: inc/products.php:36
+#: inc/products.php:46
 #: inc/template-tags.php:124
 #: inc/template-tags.php:213
 #: single-rasta_product.php:29
@@ -375,7 +375,7 @@ msgid "منوی اصلی"
 msgstr ""
 
 #: header.php:65
-#: inc/products.php:32
+#: inc/products.php:42
 msgid "جست‌وجوی محصول"
 msgstr ""
 
@@ -384,7 +384,7 @@ msgid "علاقه‌مندی‌ها"
 msgstr ""
 
 #: header.php:74
-#: inc/products.php:779
+#: inc/products.php:789
 #: inc/shortcodes.php:239
 #: inc/shortcodes.php:264
 msgid "حساب کاربری"
@@ -520,7 +520,7 @@ msgid "چشم‌اندازی زنده از محصولات، سفارش‌ها و
 msgstr ""
 
 #: inc/admin.php:175
-#: inc/products.php:27
+#: inc/products.php:37
 #: inc/welcome.php:159
 #: inc/welcome.php:161
 msgid "افزودن محصول"
@@ -609,7 +609,7 @@ msgstr ""
 #: inc/admin.php:293
 #: inc/notifications.php:71
 #: inc/notifications.php:122
-#: inc/products.php:26
+#: inc/products.php:36
 #: inc/shortcodes.php:53
 msgid "محصول"
 msgstr ""
@@ -632,8 +632,8 @@ msgstr ""
 #: inc/admin.php:464
 #: inc/admin.php:492
 #: inc/ajax.php:125
-#: inc/products.php:237
-#: inc/products.php:443
+#: inc/products.php:247
+#: inc/products.php:453
 #: inc/template-tags.php:487
 #: inc/template-tags.php:530
 #: inc/woocommerce.php:123
@@ -650,14 +650,14 @@ msgstr ""
 
 #. translators: %s: quantity remaining.
 #: inc/ajax.php:129
-#: inc/products.php:458
+#: inc/products.php:468
 #, php-format
 msgid "%s عدد موجود"
 msgstr ""
 
 #: inc/ajax.php:133
-#: inc/products.php:236
-#: inc/products.php:463
+#: inc/products.php:246
+#: inc/products.php:473
 msgid "موجود"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgid "محصول موردنظر در دسترس نیست."
 msgstr ""
 
 #: inc/ajax.php:324
-#: inc/products.php:234
+#: inc/products.php:244
 msgid "وضعیت موجودی"
 msgstr ""
 
@@ -872,12 +872,12 @@ msgid "هنوز محصولی منتشر نشده است."
 msgstr ""
 
 #: inc/builder.php:189
-#: inc/products.php:59
+#: inc/products.php:69
 msgid "دسته‌بندی"
 msgstr ""
 
 #: inc/builder.php:195
-#: inc/products.php:66
+#: inc/products.php:76
 msgid "دسته‌بندی‌ها"
 msgstr ""
 
@@ -967,7 +967,7 @@ msgid "مشاهده سبد خرید"
 msgstr ""
 
 #: inc/cart.php:540
-#: inc/products.php:774
+#: inc/products.php:784
 #: inc/shortcodes.php:99
 #: inc/shortcodes.php:132
 msgid "تکمیل خرید"
@@ -1347,142 +1347,142 @@ msgstr ""
 msgid "این ایمیل به‌صورت خودکار از فروشگاه شما ارسال شده است."
 msgstr ""
 
-#: inc/products.php:25
+#: inc/products.php:35
 msgid "محصولات"
 msgstr ""
 
-#: inc/products.php:28
+#: inc/products.php:38
 msgid "افزودن محصول جدید"
 msgstr ""
 
-#: inc/products.php:29
+#: inc/products.php:39
 msgid "ویرایش محصول"
 msgstr ""
 
-#: inc/products.php:30
+#: inc/products.php:40
 msgid "محصول جدید"
 msgstr ""
 
-#: inc/products.php:31
+#: inc/products.php:41
 #: inc/setup.php:186
 msgid "مشاهده محصول"
 msgstr ""
 
-#: inc/products.php:33
+#: inc/products.php:43
 #: inc/setup.php:176
 msgid "محصولی پیدا نشد."
 msgstr ""
 
-#: inc/products.php:34
+#: inc/products.php:44
 msgid "محصولی در زباله‌دان نیست."
 msgstr ""
 
-#: inc/products.php:35
+#: inc/products.php:45
 #: inc/template-tags.php:411
 msgid "همه محصولات"
 msgstr ""
 
-#: inc/products.php:58
+#: inc/products.php:68
 msgid "دسته‌بندی محصولات"
 msgstr ""
 
-#: inc/products.php:60
+#: inc/products.php:70
 msgid "افزودن دسته‌بندی جدید"
 msgstr ""
 
-#: inc/products.php:61
+#: inc/products.php:71
 msgid "ویرایش دسته‌بندی"
 msgstr ""
 
-#: inc/products.php:62
+#: inc/products.php:72
 msgid "جست‌وجوی دسته‌بندی"
 msgstr ""
 
-#: inc/products.php:63
+#: inc/products.php:73
 msgid "همه دسته‌بندی‌ها"
 msgstr ""
 
-#: inc/products.php:64
+#: inc/products.php:74
 msgid "دسته‌بندی مادر"
 msgstr ""
 
-#: inc/products.php:65
+#: inc/products.php:75
 msgid "دسته‌بندی مادر:"
 msgstr ""
 
-#: inc/products.php:82
+#: inc/products.php:92
 msgid "برچسب‌های محصول"
 msgstr ""
 
-#: inc/products.php:83
+#: inc/products.php:93
 msgid "برچسب"
 msgstr ""
 
-#: inc/products.php:84
+#: inc/products.php:94
 msgid "افزودن برچسب جدید"
 msgstr ""
 
-#: inc/products.php:85
+#: inc/products.php:95
 msgid "ویرایش برچسب"
 msgstr ""
 
-#: inc/products.php:171
+#: inc/products.php:181
 msgid "اطلاعات محصول"
 msgstr ""
 
-#: inc/products.php:208
+#: inc/products.php:218
 msgid "قیمت (تومان)"
 msgstr ""
 
-#: inc/products.php:212
+#: inc/products.php:222
 msgid "قیمت فروش ویژه"
 msgstr ""
 
-#: inc/products.php:216
+#: inc/products.php:226
 msgid "کد محصول (SKU)"
 msgstr ""
 
-#: inc/products.php:220
+#: inc/products.php:230
 msgid "وزن (گرم)"
 msgstr ""
 
-#: inc/products.php:226
+#: inc/products.php:236
 msgid "مدیریت موجودی"
 msgstr ""
 
-#: inc/products.php:230
+#: inc/products.php:240
 msgid "تعداد موجودی"
 msgstr ""
 
-#: inc/products.php:241
+#: inc/products.php:251
 msgid "پایان تخفیف (YYYY-MM-DD)"
 msgstr ""
 
-#: inc/products.php:247
+#: inc/products.php:257
 msgid "محصول ویژه"
 msgstr ""
 
-#: inc/products.php:251
+#: inc/products.php:261
 msgid "شناسه تصاویر گالری (comma-separated IDs)"
 msgstr ""
 
-#: inc/products.php:381
+#: inc/products.php:391
 msgid "رایگان"
 msgstr ""
 
 #. translators: %s: quantity remaining.
-#: inc/products.php:451
+#: inc/products.php:461
 #: inc/woocommerce.php:129
 #, php-format
 msgid "فقط %s عدد باقی مانده"
 msgstr ""
 
-#: inc/products.php:769
+#: inc/products.php:779
 #: inc/shortcodes.php:39
 msgid "سبد خرید"
 msgstr ""
 
-#: inc/products.php:784
+#: inc/products.php:794
 msgid "تشکر از خرید"
 msgstr ""
 
