@@ -62,7 +62,7 @@ test('includes the required WordPress theme files and visual assets', () => {
 
 test('has valid, installable theme metadata', () => {
   const style = read('style.css');
-  ['Theme Name: Rasta Commerce', 'Version: 2.7.0', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
+  ['Theme Name: Rasta Commerce', 'Version: 2.7.1', 'Text Domain: rasta-commerce', 'License: GNU General Public License v2 or later'].forEach((metadata) => {
     assert.match(style, new RegExp(metadata.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   });
   assert.match(style, /rtl-language-support/);
@@ -207,6 +207,20 @@ test('ships store settings and order notification emails', () => {
   assert.match(notifications, /Content-Type: text\/html/);
   assert.match(functions, /inc\/store-settings\.php/);
   assert.match(functions, /inc\/notifications\.php/);
+});
+
+test('guards WooCommerce-only helpers so the theme runs without WooCommerce', () => {
+  const footer = read('footer.php');
+  const woocommerce = read('inc/woocommerce.php');
+  const products = read('inc/products.php');
+  // rasta_render_sticky_add_to_cart lives in woocommerce.php (conditionally
+  // loaded), so footer.php must not call it without a function_exists guard.
+  assert.match(footer, /function_exists\(\s*'rasta_render_sticky_add_to_cart'\s*\)/);
+  // No redeclare: the WC-specific "new" helper must not collide with the
+  // built-in rasta_product_is_new() in products.php.
+  assert.doesNotMatch(woocommerce, /function rasta_product_is_new\s*\(/);
+  assert.match(woocommerce, /function rasta_wc_product_is_new\s*\(/);
+  assert.match(products, /function rasta_product_is_new\s*\(/);
 });
 
 test('renders client-side search results without raw HTML injection', () => {

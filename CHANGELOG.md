@@ -2,6 +2,13 @@
 
 همه تغییرات مهم این پروژه در این فایل ثبت می‌شوند. قالب از [Semantic Versioning](https://semver.org/lang/fa/) پیروی می‌کند.
 
+## [2.7.1] — ۲۰۲۶-۰۸-۱۸
+
+### رفع باگ‌های بحرانی
+
+- **رفع خطای fatal بدون WooCommerce:** فراخوانی `rasta_render_sticky_add_to_cart()` در `footer.php` بدون guard بود؛ چون این تابع فقط در لایهٔ سازگاری WooCommerce (که شرطی بارگذاری می‌شود) تعریف شده، در سایت‌های فاقد WooCommerce با خطای «undefined function» صفحه را از کار می‌انداخت. اکنون با `function_exists` محافظت شده است.
+- **رفع تداخل نام تابع:** `rasta_product_is_new()` هم در `products.php` (فروشگاه داخلی) و هم در `woocommerce.php` تعریف شده بود؛ با فعال‌شدن WooCommerce خطای «cannot redeclare» رخ می‌داد. نسخهٔ WooCommerce به `rasta_wc_product_is_new()` تغییر نام یافت.
+
 ## [2.7.0] — ۲۰۲۶-۰۸-۱۵
 
 ### افزوده شد

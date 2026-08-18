@@ -108,7 +108,7 @@ function rasta_loop_product_visual() {
 		<?php if ( $product->is_on_sale() ) : ?>
 			<span class="rasta-product-card__badge"><?php esc_html_e( 'پیشنهاد ویژه', 'rasta-commerce' ); ?></span>
 		<?php endif; ?>
-		<?php if ( rasta_product_is_new( $product ) ) : ?>
+		<?php if ( rasta_wc_product_is_new( $product ) ) : ?>
 			<span class="rasta-product-card__badge rasta-product-card__badge--new"><?php esc_html_e( 'تازه', 'rasta-commerce' ); ?></span>
 		<?php endif; ?>
 	</div>
@@ -210,7 +210,7 @@ function rasta_loop_product_add_to_cart() {
  * @param \WC_Product $product Product instance.
  * @return bool
  */
-function rasta_product_is_new( $product ) {
+function rasta_wc_product_is_new( $product ) {
 	$days    = (int) get_theme_mod( 'rasta_newness_days', 30 );
 	$created = $product->get_date_created();
 
